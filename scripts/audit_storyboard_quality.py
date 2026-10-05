@@ -149,7 +149,8 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
     chunks = [shot["visual"], c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
-    names = {item['id']: item['name'] for item in (production or {}).get('character_registry', [])}
+    bindings = (production or {}).get('prompt_bindings', {})
+    names = {item['id']: bindings.get(item['id'], item['name']) for item in (production or {}).get('character_registry', [])}
     for character in shot.get('characters', []):
         x, y = character['position']
         chunks.append(f"At shot entry, {names.get(character['id'], character['id'])} has normalized screen anchor x={x}, y={y} (left-to-right and top-to-bottom); facing {character['facing']}; gaze {character['gaze']}; hand or weapon state: {character['weapon_hand']}; weapon direction or absence: {character['weapon_direction']}.")
