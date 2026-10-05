@@ -63,6 +63,8 @@ def check_assets(payload, base, allow_missing=False):
             if layout["type"] == "four_view_character_turnaround":
                 require(layout.get("views") == ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"], "character four-view order incomplete")
                 require(layout.get("order") == "grid_2x2", "character layout must use grid_2x2")
+                require(layout.get("row_height_ratio") == [1, 2], "character row heights must be 1:2")
+                require("top and bottom row heights must be in a 1:2 ratio" in card.get("prompt", "").lower(), "character prompt missing row height contract")
                 require("four-view character turnaround" in card.get("prompt", "").lower(), "character prompt missing four-view directive")
                 require(all(t in card.get("prompt", "").lower() for t in ("top left:", "top right:", "bottom left:", "bottom right:", "completely crop out head and face")), "character prompt missing fixed panel contract")
         if card.get("asset_kind") == "style":

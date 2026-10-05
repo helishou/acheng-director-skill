@@ -44,7 +44,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b
+[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：d63bce120d7c3e8d66d524f5fd0c929c132db2b0a369fe9a1974d42ece87ab7b
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -65,7 +65,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a
+[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：a54193b9e46531c7d1600a384eaaf5bf97e1a7db286e6256d6131ac20fb6249f
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

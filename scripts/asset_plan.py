@@ -10,6 +10,7 @@ DEFAULT_CHARACTER_VIEW_LAYOUT = {
     "type": "four_view_character_turnaround",
     "views": ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"],
     "order": "grid_2x2",
+    "row_height_ratio": [1, 2],
     "same_subject": True,
     "purpose": "identity, proportions, costume, hairstyle and face reference"
 }
@@ -39,6 +40,12 @@ def prepare_asset_card(card, payload):
         need(views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
         need(layout.get("order", "grid_2x2") == "grid_2x2", "character layout must use grid_2x2")
         layout["order"] = "grid_2x2"
+        need(layout.get("row_height_ratio", [1, 2]) == [1, 2], "character top/bottom row height ratio must be 1:2")
+        layout["row_height_ratio"] = [1, 2]
+        geometry = "Top and bottom row heights must be in a 1:2 ratio: top row occupies one third of the board height, bottom row occupies two thirds. The two columns have equal widths. Do not use four equal-height panels."
+        need(not any(t in result.get("prompt", "").lower() for t in ("use four equal panels", "use equal row heights", "上下排高度比1:1")), "conflicting equal-row character layout")
+        if geometry not in result.get("prompt", ""):
+            result["prompt"] = geometry + " " + result.get("prompt", "")
         need(not any(t in result.get("prompt", "").lower() for t in ("arranged left to right", "full-body side profile", "横排四栏", "正面全身、背面全身、左侧全身")), "conflicting legacy character layout in prompt")
         if views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"]:
             name = result["character_name"]

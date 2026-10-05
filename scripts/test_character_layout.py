@@ -9,6 +9,8 @@ class CharacterLayoutTests(unittest.TestCase):
         for text in ('Top left:', 'Top right:', 'Bottom left:', 'Bottom right:', 'completely crop out head and face', 'orthographic'):
             self.assertIn(text, card['prompt'])
         self.assertNotIn('arranged left to right', card['prompt'])
+        self.assertEqual(card['view_layout']['row_height_ratio'], [1, 2])
+        self.assertIn('top row occupies one third', card['prompt'])
         self.assertNotIn('nine tails', card['prompt'])
         self.assertEqual(prepare_asset_card(card, {})['prompt'], card['prompt'])
 
@@ -23,6 +25,12 @@ class CharacterLayoutTests(unittest.TestCase):
     def test_noncharacter_unchanged(self):
         card = {'id': 'snake', 'asset_kind': 'effect', 'prompt': 'Three snake views.'}
         self.assertEqual(prepare_asset_card(card, {}), card)
+
+    def test_reject_equal_rows(self):
+        layout = copy.deepcopy(DEFAULT_CHARACTER_VIEW_LAYOUT)
+        layout['row_height_ratio'] = [1, 1]
+        with self.assertRaises(ValueError):
+            prepare_asset_card({'id': 'x', 'asset_kind': 'character', 'view_layout': layout}, {})
 
 
 if __name__ == '__main__':

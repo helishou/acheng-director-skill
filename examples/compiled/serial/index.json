@@ -25,18 +25,18 @@
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
       "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
-      "resolved_card_sha256": "bfa4c6d60c919fdad8e0daaf18ed4c431cc6e0b970370b4f5497c4b4c42b6632",
+      "resolved_card_sha256": "37c194f10460918bd351091fed7f379f9a1f6e2cfd9a36028a39ded6dd1b4730",
       "reference_policy": "none",
       "mode": "GENERATE",
       "asset_kind": "character",
       "state_label": "neutral_identity",
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b",
+      "prompt_sha256": "d63bce120d7c3e8d66d524f5fd0c929c132db2b0a369fe9a1974d42ece87ab7b",
       "upload_card": "ART_MEI.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "170df9277ff628fe085aa2952d2cc569efe76dcf4eae51703e161eb399a19bee"
+      "upload_card_sha256": "9f9e49f8e1cedaf2a700bb63b11174b678883c46f4ee97255da9f099803c4988"
     },
     {
       "asset_id": "ART_BO",
@@ -50,18 +50,18 @@
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
       "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
-      "resolved_card_sha256": "3c4484c848167baf4286849a574f95749c70d976af7b40c3f6261740d49a4528",
+      "resolved_card_sha256": "be414f9a688f211d96d0904757390fd268061c28d0ebfb9c664c5582c6740dad",
       "reference_policy": "none",
       "mode": "GENERATE",
       "asset_kind": "character",
       "state_label": "neutral_identity",
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a",
+      "prompt_sha256": "a54193b9e46531c7d1600a384eaaf5bf97e1a7db286e6256d6131ac20fb6249f",
       "upload_card": "ART_BO.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "aacbdeb7b148aa27d227a88eae8913ec7c2cad4696e423739e52f7fbc715d0cb"
+      "upload_card_sha256": "37e68bab8e5b95171ce798e48cff5b17819ecfb16ed2a616a5f0fcf09e8c0194"
     },
     {
       "asset_id": "ART_ARCHIVE",
