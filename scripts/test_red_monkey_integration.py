@@ -68,7 +68,7 @@ class RedMonkeyIntegrationContract(unittest.TestCase):
         self.assertEqual(card["asset_kind"], "character")
         self.assertEqual(card["character_name"], "Meilin")
         self.assertEqual(card["state_label"], "neutral_identity")
-        self.assertEqual(card["view_layout"]["views"], ["front_full_body", "back_full_body", "side_profile_full_body", "front_face_close_up"])
+        self.assertEqual(card["view_layout"]["views"], ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"])
         self.assertIn("four-view character turnaround", card["prompt"].lower())
         self.assertIn("Meilin", asset_display_name(card))
         self.assertIn("neutral_identity", asset_display_name(card))
