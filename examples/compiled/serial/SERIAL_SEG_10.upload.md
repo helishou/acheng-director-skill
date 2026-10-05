@@ -4,7 +4,7 @@
 
 [完整正文/草案](SERIAL_SEG_10.h3.txt) · [独立上传卡](SERIAL_SEG_10.upload.md)
 
-绑定版本：`8203f1a97ee141df2e3e9c9737fdb92f644a3daad172de7da475401dd14906a9` · 正文 SHA-256：`2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596`
+绑定版本：`d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb` · 正文 SHA-256：`2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

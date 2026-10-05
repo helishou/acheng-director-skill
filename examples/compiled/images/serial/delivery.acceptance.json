@@ -4,13 +4,13 @@
     {
       "asset_id": "ART_MEI",
       "status": "PASS",
-      "prompt_sha256": "7f57dec6a5e408d915b75169571a82c57c496491108ba61e0562feb88ba25b3d",
+      "prompt_sha256": "b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b",
       "reference_count": 0
     },
     {
       "asset_id": "ART_BO",
       "status": "PASS",
-      "prompt_sha256": "1a6a86e6cae6a8a9855379177725836eaf509eada63782fb632a9234a7c2d4aa",
+      "prompt_sha256": "8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a",
       "reference_count": 0
     },
     {

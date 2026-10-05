@@ -9,7 +9,7 @@
   "speaker_map": {
     "Meilin": "S1"
   },
-  "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "reference_labels": [],
   "format_pass": "PASSED",
   "sha256": "60c445d475dfa9cd4249e10c21199457795f70356b0835f5ed901f29dd32e959",
@@ -21,13 +21,13 @@
     "schema_version": "4.3.6",
     "segment_id": "SERIAL_SEG_05",
     "mode": "T2VA",
-    "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+    "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
     "references": [],
     "subjects": [],
     "requirements": [],
     "issues": [],
     "legacy_fixture": true,
-    "binding_sha256": "efb2302a1537d3d7f73437ceb069d89f3c766f7e5bbc874706c2b42807d75035"
+    "binding_sha256": "16bdfd3c894f6c64b99086888bf74a01e5aa7ff8acb1d6e500aa320ea53c067a"
   },
   "h3_detail_policy": {
     "profile": "legacy_fixture",
@@ -42,5 +42,5 @@
   "delivery_manifest": "SERIAL_SEG_05.h3.txt.delivery.json",
   "format_contract": "SERIAL_SEG_05.h3.txt.check.json",
   "format_receipt": "SERIAL_SEG_05.h3.txt.acceptance.json",
-  "upload_card_sha256": "cb61bf49ca28ec44554d22ff16407f2b7f2a07a47dcd361c9e6d864d3a554323"
+  "upload_card_sha256": "d3512c83e40afa1d62ef434336f893d3ea384932a1ed01f908dc8ad9adefc481"
 }

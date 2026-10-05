@@ -44,7 +44,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：7f57dec6a5e408d915b75169571a82c57c496491108ba61e0562feb88ba25b3d
+[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -65,7 +65,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：1a6a86e6cae6a8a9855379177725836eaf509eada63782fb632a9234a7c2d4aa
+[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -335,7 +335,7 @@
 
 [完整正文/草案](SERIAL_SEG_01.h3.txt) · [独立上传卡](SERIAL_SEG_01.upload.md)
 
-绑定版本：`5896d29895008d30e6445de5777a356b5b918878980393fab21b15061dc35ac5` · 正文 SHA-256：`4622a7b68ad48d63bc5c3329306f59a8053ae0789e588b86df4a921d94f9821f`
+绑定版本：`50c0e130d5fa1ba0147592d9785c5222b33d5aafe7a45af819e45245f73a032d` · 正文 SHA-256：`4622a7b68ad48d63bc5c3329306f59a8053ae0789e588b86df4a921d94f9821f`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -349,7 +349,7 @@
 
 [完整正文/草案](SERIAL_SEG_02.h3.txt) · [独立上传卡](SERIAL_SEG_02.upload.md)
 
-绑定版本：`d6a7086c89360edf99cc8715dce0b949b9d4a1604ec7ed1bbd059d6dbdfe9636` · 正文 SHA-256：`596e8c22bb73f697d674680c5a87f17a116ef8325f78e09009f88672970c1362`
+绑定版本：`5e0bb2b50b7221ca413323bb282ed79b6e6af1f51268175c45a8a909fa97b0c7` · 正文 SHA-256：`596e8c22bb73f697d674680c5a87f17a116ef8325f78e09009f88672970c1362`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -363,7 +363,7 @@
 
 [完整正文/草案](SERIAL_SEG_03.h3.txt) · [独立上传卡](SERIAL_SEG_03.upload.md)
 
-绑定版本：`547d9270705666df8c75bc221c19bd78b529f17bb477030409da04ead79fb345` · 正文 SHA-256：`f0446e8a48ed05bc151a89dd7cf64d89f864a493b6569c745c5f832712db905d`
+绑定版本：`6c88bfe8dbaa5e0a5f6d01899ee3ba3ee766266ae940afae17b7d82e7e175149` · 正文 SHA-256：`f0446e8a48ed05bc151a89dd7cf64d89f864a493b6569c745c5f832712db905d`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -377,7 +377,7 @@
 
 [完整正文/草案](SERIAL_SEG_04.h3.txt) · [独立上传卡](SERIAL_SEG_04.upload.md)
 
-绑定版本：`646f4f14fc5e09b9067fb84482ca5a7572512a16d52db7dfe4d762e3115002a1` · 正文 SHA-256：`d9a11aa752c186a1fc4bfc887e9353db60a540e7c26f0f043e32360800b83d0b`
+绑定版本：`2268020a4036b7def023a77908153f2e0f41b01d192dbd62f220c58b8020878d` · 正文 SHA-256：`d9a11aa752c186a1fc4bfc887e9353db60a540e7c26f0f043e32360800b83d0b`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -391,7 +391,7 @@
 
 [完整正文/草案](SERIAL_SEG_05.h3.txt) · [独立上传卡](SERIAL_SEG_05.upload.md)
 
-绑定版本：`efb2302a1537d3d7f73437ceb069d89f3c766f7e5bbc874706c2b42807d75035` · 正文 SHA-256：`60c445d475dfa9cd4249e10c21199457795f70356b0835f5ed901f29dd32e959`
+绑定版本：`16bdfd3c894f6c64b99086888bf74a01e5aa7ff8acb1d6e500aa320ea53c067a` · 正文 SHA-256：`60c445d475dfa9cd4249e10c21199457795f70356b0835f5ed901f29dd32e959`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -405,7 +405,7 @@
 
 [完整正文/草案](SERIAL_SEG_06.h3.txt) · [独立上传卡](SERIAL_SEG_06.upload.md)
 
-绑定版本：`cb28106b1ff99a1e3a2215abeeae9bbb744c9cb9f67bc72c55e0fe287b8e75e3` · 正文 SHA-256：`83cbf49465b924671ce575c7e74eb52396e478fd3c7201989a97220597ba8f3c`
+绑定版本：`990d3144997b9857d6eaebbf6564ac2ec40a3911c4789079f7b181c0f15769be` · 正文 SHA-256：`83cbf49465b924671ce575c7e74eb52396e478fd3c7201989a97220597ba8f3c`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -419,7 +419,7 @@
 
 [完整正文/草案](SERIAL_SEG_07.h3.txt) · [独立上传卡](SERIAL_SEG_07.upload.md)
 
-绑定版本：`8e19b594b1c48c6b9259ab70d4ccd2ce4b9894a70fbf6248660cc6bd62d310c1` · 正文 SHA-256：`8660ae5fe599aa11e4dd2d73fea63d4cdab314f5e1838ec3b0c74055d778267d`
+绑定版本：`b31583e392bd0bf3ddf2c0f8ef7b1acd3b8cfcbe7f5534e064f69ecf13f2cd5c` · 正文 SHA-256：`8660ae5fe599aa11e4dd2d73fea63d4cdab314f5e1838ec3b0c74055d778267d`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -433,7 +433,7 @@
 
 [完整正文/草案](SERIAL_SEG_08.h3.txt) · [独立上传卡](SERIAL_SEG_08.upload.md)
 
-绑定版本：`e5c52a0d36caa48b70f5ea3b28c38f850e5467627ce6f3b84556b246e95c4e0c` · 正文 SHA-256：`76afdbd83227e8e74385986cc8163ef8725c8ba6b031e8d23691da0d784a3981`
+绑定版本：`519dd7fabbf6a6c9a75f304cbbdb64294397a88e4932188b37bb951fc433398b` · 正文 SHA-256：`76afdbd83227e8e74385986cc8163ef8725c8ba6b031e8d23691da0d784a3981`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -447,7 +447,7 @@
 
 [完整正文/草案](SERIAL_SEG_09.h3.txt) · [独立上传卡](SERIAL_SEG_09.upload.md)
 
-绑定版本：`e5266e226d8baf50650ab5a150d8de1a0ebfdffa81a0da012597375bd632c8be` · 正文 SHA-256：`3e9538c68bad0b6d907e651754f725b230700a1f94d5d770577b33965e0f16aa`
+绑定版本：`efe110d50e0d6ceec36af9b2ae71b22fa770fd8944fd55d1680796cdacb15f9a` · 正文 SHA-256：`3e9538c68bad0b6d907e651754f725b230700a1f94d5d770577b33965e0f16aa`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -461,7 +461,7 @@
 
 [完整正文/草案](SERIAL_SEG_10.h3.txt) · [独立上传卡](SERIAL_SEG_10.upload.md)
 
-绑定版本：`8203f1a97ee141df2e3e9c9737fdb92f644a3daad172de7da475401dd14906a9` · 正文 SHA-256：`2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596`
+绑定版本：`d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb` · 正文 SHA-256：`2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -475,7 +475,7 @@
 
 [完整正文/草案](SERIAL_SEG_11.h3.txt) · [独立上传卡](SERIAL_SEG_11.upload.md)
 
-绑定版本：`0313df9b4ce959ab0780264521bd06a42c7b954344b6d6775aee87d24905d7b4` · 正文 SHA-256：`cece2f392fbfdd2bf4537d92fe122c7d0a952348e3b54293209db041811312c6`
+绑定版本：`f0b77abc539e6e10e406b909eb8f42a57cebf89be4a4f55b7eb1df000d98fc90` · 正文 SHA-256：`cece2f392fbfdd2bf4537d92fe122c7d0a952348e3b54293209db041811312c6`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -489,7 +489,7 @@
 
 [完整正文/草案](SERIAL_SEG_12.h3.txt) · [独立上传卡](SERIAL_SEG_12.upload.md)
 
-绑定版本：`1aa76d2af7718706563fe9358405731e1d4918237b8aaef73783d757521543e3` · 正文 SHA-256：`ea9b6fffe75aa0f4851e41bda4096ab876776c2f8b307840899c663ffa7f8c43`
+绑定版本：`bb358354f04125b73389e3c17243e5dfd123def5cb66f8e984a3f5dc72f1c19f` · 正文 SHA-256：`ea9b6fffe75aa0f4851e41bda4096ab876776c2f8b307840899c663ffa7f8c43`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

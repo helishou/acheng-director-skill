@@ -1,7 +1,7 @@
 {
   "asset_reference_contract": "1.0",
   "status": "draft-dependencies-pending",
-  "input_sha256": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_sha256": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "assets": [
     {
       "asset_id": "ART_MEI",
@@ -14,12 +14,12 @@
       "view_layout": {
         "type": "four_view_character_turnaround",
         "views": [
-          "front_full_body",
-          "back_full_body",
-          "side_profile_full_body",
-          "front_face_close_up"
+          "front_face_above_clavicle",
+          "right_profile_above_clavicle",
+          "headless_front_costume_full_body",
+          "back_full_body"
         ],
-        "order": "left_to_right",
+        "order": "grid_2x2",
         "same_subject": true,
         "purpose": "identity, proportions, costume, hairstyle and face reference"
       },
@@ -29,16 +29,16 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
-      "resolved_card_sha256": "ef931051e280394839375b2e753a8c131e3608a711e53ac89ad1ed721835edde",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
+      "resolved_card_sha256": "bfa4c6d60c919fdad8e0daaf18ed4c431cc6e0b970370b4f5497c4b4c42b6632",
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "7f57dec6a5e408d915b75169571a82c57c496491108ba61e0562feb88ba25b3d",
+      "prompt_sha256": "b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b",
       "upload_card": "ART_MEI.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "69c930fc449a33fce2dd596e1cea69709ffa7c2489f99a96d9b39db1559fce39"
+      "upload_card_sha256": "23a302236ae3c52c7196ea17a3ffef617a2875f3f8d7e4a2674059741b0b41cb"
     },
     {
       "asset_id": "ART_BO",
@@ -51,12 +51,12 @@
       "view_layout": {
         "type": "four_view_character_turnaround",
         "views": [
-          "front_full_body",
-          "back_full_body",
-          "side_profile_full_body",
-          "front_face_close_up"
+          "front_face_above_clavicle",
+          "right_profile_above_clavicle",
+          "headless_front_costume_full_body",
+          "back_full_body"
         ],
-        "order": "left_to_right",
+        "order": "grid_2x2",
         "same_subject": true,
         "purpose": "identity, proportions, costume, hairstyle and face reference"
       },
@@ -66,16 +66,16 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
-      "resolved_card_sha256": "dee64adfc4c0595fd24b870883cbf116b943a6e9ce1cec07a7f206c6c426b860",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
+      "resolved_card_sha256": "3c4484c848167baf4286849a574f95749c70d976af7b40c3f6261740d49a4528",
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "1a6a86e6cae6a8a9855379177725836eaf509eada63782fb632a9234a7c2d4aa",
+      "prompt_sha256": "8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a",
       "upload_card": "ART_BO.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "3d9d6ea35b468d22053595b634a70af937c1ee0c86eb8cee425c2e37ab22b950"
+      "upload_card_sha256": "8319fec20072498afcd4b6ed3808d2fff02d43dce86f61dcc6d048a5aa20fc89"
     },
     {
       "asset_id": "ART_ARCHIVE",
@@ -92,7 +92,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "808dbbed927332ce84e7132aa271e8a92a2a4352b722661efab53eb74b5c5095",
       "reference_count": 0,
       "state_version": null,
@@ -118,7 +118,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "e9b31ba7e0af755ab1f56fb9ec4a971821dfbc0c0464e48c36f033c0f9a83e58",
       "reference_count": 0,
       "state_version": null,
@@ -144,7 +144,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "c582c3abb913735f672a0d21f376c93060e82564096277dcfaa2f576733ea7ce",
       "reference_count": 0,
       "state_version": null,
@@ -170,7 +170,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "54ded0ae390a5a8e752e8b0f645a696586d26a93b20fd905883ad724038ded51",
       "reference_count": 0,
       "state_version": null,
@@ -196,7 +196,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "588cf5106f0080282cad2f746b605250727603dca60b4367d08e09ce4d7e53bc",
       "reference_count": 0,
       "state_version": null,
@@ -222,7 +222,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "49a3fac18d66a9fa9429a617f4737fb4bff64192422908e28ca5c412ba0fc7dc",
       "reference_count": 0,
       "state_version": null,
@@ -248,7 +248,7 @@
       "references": [],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "1b78a7ed3dda2c6661e8586bdfc824cd569ed8926b2d1d33e8d8d7be0fa4cf23",
       "reference_count": 0,
       "state_version": null,
@@ -361,7 +361,7 @@
         }
       ],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "bb75c1840981d9d278ddbb434b1938f9bca7f61243cceb6690807d1ac174f192",
       "reference_count": 5,
       "state_version": null,
@@ -474,7 +474,7 @@
         }
       ],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "06cfe035575871fe1af81eea8900182a2ccc1a6234368922a9147050973b40fb",
       "reference_count": 5,
       "state_version": null,
@@ -587,7 +587,7 @@
         }
       ],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "118aacde1be231dffb9d8a6095debf2254e965c967935149c7dca4d14009ba0b",
       "reference_count": 5,
       "state_version": null,

@@ -1,7 +1,7 @@
 {
   "version": "4.3.6",
   "status": "compiled-not-generated",
-  "production_sha256": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "production_sha256": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "execution_mode": "autonomous_file_batch",
   "asset_reference_contract": "1.0",
   "display_context": {
@@ -24,19 +24,19 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
-      "resolved_card_sha256": "ef931051e280394839375b2e753a8c131e3608a711e53ac89ad1ed721835edde",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
+      "resolved_card_sha256": "bfa4c6d60c919fdad8e0daaf18ed4c431cc6e0b970370b4f5497c4b4c42b6632",
       "reference_policy": "none",
       "mode": "GENERATE",
       "asset_kind": "character",
       "state_label": "neutral_identity",
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "7f57dec6a5e408d915b75169571a82c57c496491108ba61e0562feb88ba25b3d",
+      "prompt_sha256": "b0aee4a7e362dec5e6414dc9caf100b8d05d13f0a803f8f38a91d75fffb1153b",
       "upload_card": "ART_MEI.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "df45033ec579d62c16c25f9e47cce5b8603cd4c899ab3a7f618c6d68f1414566"
+      "upload_card_sha256": "170df9277ff628fe085aa2952d2cc569efe76dcf4eae51703e161eb399a19bee"
     },
     {
       "asset_id": "ART_BO",
@@ -49,19 +49,19 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
-      "resolved_card_sha256": "dee64adfc4c0595fd24b870883cbf116b943a6e9ce1cec07a7f206c6c426b860",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
+      "resolved_card_sha256": "3c4484c848167baf4286849a574f95749c70d976af7b40c3f6261740d49a4528",
       "reference_policy": "none",
       "mode": "GENERATE",
       "asset_kind": "character",
       "state_label": "neutral_identity",
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "1a6a86e6cae6a8a9855379177725836eaf509eada63782fb632a9234a7c2d4aa",
+      "prompt_sha256": "8aa6a4d6cc15b46c2d44656907710762b7115d5284d3c8ebe21ae4f5872d8b4a",
       "upload_card": "ART_BO.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "47fe38e64960d072060e3e415d8e2103d82bd7db530441c0e93939979d10efc1"
+      "upload_card_sha256": "aacbdeb7b148aa27d227a88eae8913ec7c2cad4696e423739e52f7fbc715d0cb"
     },
     {
       "asset_id": "ART_ARCHIVE",
@@ -74,7 +74,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "808dbbed927332ce84e7132aa271e8a92a2a4352b722661efab53eb74b5c5095",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -99,7 +99,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "e9b31ba7e0af755ab1f56fb9ec4a971821dfbc0c0464e48c36f033c0f9a83e58",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -124,7 +124,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "c582c3abb913735f672a0d21f376c93060e82564096277dcfaa2f576733ea7ce",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -149,7 +149,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "54ded0ae390a5a8e752e8b0f645a696586d26a93b20fd905883ad724038ded51",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -174,7 +174,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "588cf5106f0080282cad2f746b605250727603dca60b4367d08e09ce4d7e53bc",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -199,7 +199,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "49a3fac18d66a9fa9429a617f4737fb4bff64192422908e28ca5c412ba0fc7dc",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -224,7 +224,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "1b78a7ed3dda2c6661e8586bdfc824cd569ed8926b2d1d33e8d8d7be0fa4cf23",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -311,7 +311,7 @@
       ],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "bb75c1840981d9d278ddbb434b1938f9bca7f61243cceb6690807d1ac174f192",
       "reference_policy": "required",
       "mode": "GENERATE",
@@ -398,7 +398,7 @@
       ],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "06cfe035575871fe1af81eea8900182a2ccc1a6234368922a9147050973b40fb",
       "reference_policy": "required",
       "mode": "GENERATE",
@@ -485,7 +485,7 @@
       ],
       "render_error": null,
       "purpose": "Create the single still specified in the complete prompt.",
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "resolved_card_sha256": "118aacde1be231dffb9d8a6095debf2254e965c967935149c7dca4d14009ba0b",
       "reference_policy": "required",
       "mode": "GENERATE",
@@ -512,7 +512,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "4622a7b68ad48d63bc5c3329306f59a8053ae0789e588b86df4a921d94f9821f",
@@ -524,13 +524,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_01",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "5896d29895008d30e6445de5777a356b5b918878980393fab21b15061dc35ac5"
+        "binding_sha256": "50c0e130d5fa1ba0147592d9785c5222b33d5aafe7a45af819e45245f73a032d"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -545,7 +545,7 @@
       "delivery_manifest": "SERIAL_SEG_01.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_01.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_01.h3.txt.acceptance.json",
-      "upload_card_sha256": "e5e1e24e068e09e2242ceaf58e724f8fc6ed21c9302f5c408873c9cdd9ab4cbc"
+      "upload_card_sha256": "3270461fc2439e9035be5e4824bd85afc1b0c8751807b477c62d12d4db75ed9e"
     },
     {
       "segment_id": "SERIAL_SEG_02",
@@ -558,7 +558,7 @@
       "speaker_map": {
         "Bo": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "596e8c22bb73f697d674680c5a87f17a116ef8325f78e09009f88672970c1362",
@@ -570,13 +570,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_02",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "d6a7086c89360edf99cc8715dce0b949b9d4a1604ec7ed1bbd059d6dbdfe9636"
+        "binding_sha256": "5e0bb2b50b7221ca413323bb282ed79b6e6af1f51268175c45a8a909fa97b0c7"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -591,7 +591,7 @@
       "delivery_manifest": "SERIAL_SEG_02.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_02.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_02.h3.txt.acceptance.json",
-      "upload_card_sha256": "7c858d7b2f28f7ca962d6f016e206a86b6404d4fff26bd73fa81e51aff7c1a01"
+      "upload_card_sha256": "5c12acde8ed429ec71bb1d31f8b8022bc671ff28436180f74d56142dbbd8a0d7"
     },
     {
       "segment_id": "SERIAL_SEG_03",
@@ -604,7 +604,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "f0446e8a48ed05bc151a89dd7cf64d89f864a493b6569c745c5f832712db905d",
@@ -616,13 +616,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_03",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "547d9270705666df8c75bc221c19bd78b529f17bb477030409da04ead79fb345"
+        "binding_sha256": "6c88bfe8dbaa5e0a5f6d01899ee3ba3ee766266ae940afae17b7d82e7e175149"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -637,7 +637,7 @@
       "delivery_manifest": "SERIAL_SEG_03.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_03.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_03.h3.txt.acceptance.json",
-      "upload_card_sha256": "1b658cda7fce1e61e2cad50e11884b098b5cb52722db1d51af9e6ef1a5b5b789"
+      "upload_card_sha256": "b265d826094650453dc72a4332946442cf3df66d96d81216f07a570e6e5a89b0"
     },
     {
       "segment_id": "SERIAL_SEG_04",
@@ -650,7 +650,7 @@
       "speaker_map": {
         "Bo": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "d9a11aa752c186a1fc4bfc887e9353db60a540e7c26f0f043e32360800b83d0b",
@@ -662,13 +662,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_04",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "646f4f14fc5e09b9067fb84482ca5a7572512a16d52db7dfe4d762e3115002a1"
+        "binding_sha256": "2268020a4036b7def023a77908153f2e0f41b01d192dbd62f220c58b8020878d"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -683,7 +683,7 @@
       "delivery_manifest": "SERIAL_SEG_04.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_04.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_04.h3.txt.acceptance.json",
-      "upload_card_sha256": "b8efb3ae4da012cf88f9f268a85dc764df94141a7b662d9387527a11ee58d9db"
+      "upload_card_sha256": "aab6a7edaf23f50731720dfa99e06a10f5b005fd078e7574c74e09fe42c91c30"
     },
     {
       "segment_id": "SERIAL_SEG_05",
@@ -696,7 +696,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "60c445d475dfa9cd4249e10c21199457795f70356b0835f5ed901f29dd32e959",
@@ -708,13 +708,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_05",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "efb2302a1537d3d7f73437ceb069d89f3c766f7e5bbc874706c2b42807d75035"
+        "binding_sha256": "16bdfd3c894f6c64b99086888bf74a01e5aa7ff8acb1d6e500aa320ea53c067a"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -729,7 +729,7 @@
       "delivery_manifest": "SERIAL_SEG_05.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_05.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_05.h3.txt.acceptance.json",
-      "upload_card_sha256": "cb61bf49ca28ec44554d22ff16407f2b7f2a07a47dcd361c9e6d864d3a554323"
+      "upload_card_sha256": "d3512c83e40afa1d62ef434336f893d3ea384932a1ed01f908dc8ad9adefc481"
     },
     {
       "segment_id": "SERIAL_SEG_06",
@@ -742,7 +742,7 @@
       "speaker_map": {
         "Bo": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "83cbf49465b924671ce575c7e74eb52396e478fd3c7201989a97220597ba8f3c",
@@ -754,13 +754,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_06",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "cb28106b1ff99a1e3a2215abeeae9bbb744c9cb9f67bc72c55e0fe287b8e75e3"
+        "binding_sha256": "990d3144997b9857d6eaebbf6564ac2ec40a3911c4789079f7b181c0f15769be"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -775,7 +775,7 @@
       "delivery_manifest": "SERIAL_SEG_06.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_06.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_06.h3.txt.acceptance.json",
-      "upload_card_sha256": "b3e114baf2ff8f48742fb8ca2fcad95271f90a06cb7a9eb0b45b0e4dcba9162a"
+      "upload_card_sha256": "c62079b22b6d7695a86824e6e5d589ea5edbfaf1bb420d009073fcbbfb6cbe21"
     },
     {
       "segment_id": "SERIAL_SEG_07",
@@ -788,7 +788,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "8660ae5fe599aa11e4dd2d73fea63d4cdab314f5e1838ec3b0c74055d778267d",
@@ -800,13 +800,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_07",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "8e19b594b1c48c6b9259ab70d4ccd2ce4b9894a70fbf6248660cc6bd62d310c1"
+        "binding_sha256": "b31583e392bd0bf3ddf2c0f8ef7b1acd3b8cfcbe7f5534e064f69ecf13f2cd5c"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -821,7 +821,7 @@
       "delivery_manifest": "SERIAL_SEG_07.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_07.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_07.h3.txt.acceptance.json",
-      "upload_card_sha256": "61eb71e34fe01472537172794bd1bc49c439bafa2d215b1548d68bac65448607"
+      "upload_card_sha256": "7c89f6c41ac22e0d172f93aa08f2007349b95fe5bcbbf556e66a0b35dda80f68"
     },
     {
       "segment_id": "SERIAL_SEG_08",
@@ -834,7 +834,7 @@
       "speaker_map": {
         "Bo": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "76afdbd83227e8e74385986cc8163ef8725c8ba6b031e8d23691da0d784a3981",
@@ -846,13 +846,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_08",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "e5c52a0d36caa48b70f5ea3b28c38f850e5467627ce6f3b84556b246e95c4e0c"
+        "binding_sha256": "519dd7fabbf6a6c9a75f304cbbdb64294397a88e4932188b37bb951fc433398b"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -867,7 +867,7 @@
       "delivery_manifest": "SERIAL_SEG_08.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_08.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_08.h3.txt.acceptance.json",
-      "upload_card_sha256": "716c4333d7a958902a0df2f490fee276533b77c4fa23171f676c07417aebdea0"
+      "upload_card_sha256": "eaf6e1e1e043070ac19978a1636653130b58f285739847ff667594a2b03a97bd"
     },
     {
       "segment_id": "SERIAL_SEG_09",
@@ -880,7 +880,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "3e9538c68bad0b6d907e651754f725b230700a1f94d5d770577b33965e0f16aa",
@@ -892,13 +892,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_09",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "e5266e226d8baf50650ab5a150d8de1a0ebfdffa81a0da012597375bd632c8be"
+        "binding_sha256": "efe110d50e0d6ceec36af9b2ae71b22fa770fd8944fd55d1680796cdacb15f9a"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -913,7 +913,7 @@
       "delivery_manifest": "SERIAL_SEG_09.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_09.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_09.h3.txt.acceptance.json",
-      "upload_card_sha256": "3855e907859e245cb7617e7a0309926e2a6fda73732c06165c726da1084bfa00"
+      "upload_card_sha256": "73a4a9a860b5a255efa74ad77a3213f77034e927a695f0f68f5e06d5b099f33a"
     },
     {
       "segment_id": "SERIAL_SEG_10",
@@ -926,7 +926,7 @@
       "speaker_map": {
         "Bo": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596",
@@ -938,13 +938,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_10",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "8203f1a97ee141df2e3e9c9737fdb92f644a3daad172de7da475401dd14906a9"
+        "binding_sha256": "d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -959,7 +959,7 @@
       "delivery_manifest": "SERIAL_SEG_10.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_10.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_10.h3.txt.acceptance.json",
-      "upload_card_sha256": "6e7ef45776245c8acfb6e6a05b5338b0e78c8f6d59acadf2448428f3f30db04c"
+      "upload_card_sha256": "47f60653dc0d2e36dce20eb18dc68e5091cb02c419894aecdf573aa9cd3f2127"
     },
     {
       "segment_id": "SERIAL_SEG_11",
@@ -972,7 +972,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "cece2f392fbfdd2bf4537d92fe122c7d0a952348e3b54293209db041811312c6",
@@ -984,13 +984,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_11",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "0313df9b4ce959ab0780264521bd06a42c7b954344b6d6775aee87d24905d7b4"
+        "binding_sha256": "f0b77abc539e6e10e406b909eb8f42a57cebf89be4a4f55b7eb1df000d98fc90"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -1005,7 +1005,7 @@
       "delivery_manifest": "SERIAL_SEG_11.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_11.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_11.h3.txt.acceptance.json",
-      "upload_card_sha256": "739f85a2ebf5b8d0a059d2aab72f0b16283b4e8a6f95bbf637543320f2560cf7"
+      "upload_card_sha256": "97b7321e838cffc4c7cfbf136dbb2afeb90deaef22befb519e06a623b50f20ec"
     },
     {
       "segment_id": "SERIAL_SEG_12",
@@ -1018,7 +1018,7 @@
       "speaker_map": {
         "Meilin": "S1"
       },
-      "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+      "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
       "reference_labels": [],
       "format_pass": "PASSED",
       "sha256": "ea9b6fffe75aa0f4851e41bda4096ab876776c2f8b307840899c663ffa7f8c43",
@@ -1030,13 +1030,13 @@
         "schema_version": "4.3.6",
         "segment_id": "SERIAL_SEG_12",
         "mode": "T2VA",
-        "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+        "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "1aa76d2af7718706563fe9358405731e1d4918237b8aaef73783d757521543e3"
+        "binding_sha256": "bb358354f04125b73389e3c17243e5dfd123def5cb66f8e984a3f5dc72f1c19f"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -1051,7 +1051,7 @@
       "delivery_manifest": "SERIAL_SEG_12.h3.txt.delivery.json",
       "format_contract": "SERIAL_SEG_12.h3.txt.check.json",
       "format_receipt": "SERIAL_SEG_12.h3.txt.acceptance.json",
-      "upload_card_sha256": "6aeb18cc711a20af0d9aad96f499ed3f03b13278b7ae138ddb19c6299c63a4ce"
+      "upload_card_sha256": "69197b2ba314888989a737d271575d93f990f8879b26a49c287463bfb313e4b0"
     }
   ]
 }

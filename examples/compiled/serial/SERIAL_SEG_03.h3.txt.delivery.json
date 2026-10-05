@@ -9,7 +9,7 @@
   "speaker_map": {
     "Meilin": "S1"
   },
-  "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "reference_labels": [],
   "format_pass": "PASSED",
   "sha256": "f0446e8a48ed05bc151a89dd7cf64d89f864a493b6569c745c5f832712db905d",
@@ -21,13 +21,13 @@
     "schema_version": "4.3.6",
     "segment_id": "SERIAL_SEG_03",
     "mode": "T2VA",
-    "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+    "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
     "references": [],
     "subjects": [],
     "requirements": [],
     "issues": [],
     "legacy_fixture": true,
-    "binding_sha256": "547d9270705666df8c75bc221c19bd78b529f17bb477030409da04ead79fb345"
+    "binding_sha256": "6c88bfe8dbaa5e0a5f6d01899ee3ba3ee766266ae940afae17b7d82e7e175149"
   },
   "h3_detail_policy": {
     "profile": "legacy_fixture",
@@ -42,5 +42,5 @@
   "delivery_manifest": "SERIAL_SEG_03.h3.txt.delivery.json",
   "format_contract": "SERIAL_SEG_03.h3.txt.check.json",
   "format_receipt": "SERIAL_SEG_03.h3.txt.acceptance.json",
-  "upload_card_sha256": "1b658cda7fce1e61e2cad50e11884b098b5cb52722db1d51af9e6ef1a5b5b789"
+  "upload_card_sha256": "b265d826094650453dc72a4332946442cf3df66d96d81216f07a570e6e5a89b0"
 }

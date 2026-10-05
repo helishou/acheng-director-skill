@@ -3,7 +3,7 @@
   "validator": "h3_final_format/4.3.6",
   "file": "SERIAL_SEG_08.h3.txt",
   "sha256": "76afdbd83227e8e74385986cc8163ef8725c8ba6b031e8d23691da0d784a3981",
-  "contract_sha256": "9558e1b97d5c2db4647329ae38bc7fba66492423a59091fdc7ef23443eb15b5a",
+  "contract_sha256": "a387e274c187d4df3162405817c09cd176d015b52a9f877b0408e917302f4351",
   "mode": "T2VA",
   "duration_seconds": 15.0,
   "shot_count": 1,
@@ -11,7 +11,7 @@
   "minimum_words": 0,
   "dialogue_count": 1,
   "references": [],
-  "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "visual_status": "UNVERIFIED",
   "scope": "final-file structural validation; not creative, visual or audio acceptance"
 }

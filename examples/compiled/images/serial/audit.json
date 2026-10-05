@@ -2,7 +2,7 @@
   "status": "DRAFT",
   "stage": "assets",
   "assets": 12,
-  "input_sha256": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_sha256": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "missing_references": [
     {
       "asset_id": "ART_MEI",

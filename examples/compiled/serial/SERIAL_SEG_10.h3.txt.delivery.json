@@ -9,7 +9,7 @@
   "speaker_map": {
     "Bo": "S1"
   },
-  "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+  "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "reference_labels": [],
   "format_pass": "PASSED",
   "sha256": "2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596",
@@ -21,13 +21,13 @@
     "schema_version": "4.3.6",
     "segment_id": "SERIAL_SEG_10",
     "mode": "T2VA",
-    "input_revision": "461c7e9c9ddf932b0503b398e985860416fd80688752ca4e83338de02f4c1a5e",
+    "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
     "references": [],
     "subjects": [],
     "requirements": [],
     "issues": [],
     "legacy_fixture": true,
-    "binding_sha256": "8203f1a97ee141df2e3e9c9737fdb92f644a3daad172de7da475401dd14906a9"
+    "binding_sha256": "d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb"
   },
   "h3_detail_policy": {
     "profile": "legacy_fixture",
@@ -42,5 +42,5 @@
   "delivery_manifest": "SERIAL_SEG_10.h3.txt.delivery.json",
   "format_contract": "SERIAL_SEG_10.h3.txt.check.json",
   "format_receipt": "SERIAL_SEG_10.h3.txt.acceptance.json",
-  "upload_card_sha256": "6e7ef45776245c8acfb6e6a05b5338b0e78c8f6d59acadf2448428f3f30db04c"
+  "upload_card_sha256": "47f60653dc0d2e36dce20eb18dc68e5091cb02c419894aecdf573aa9cd3f2127"
 }
