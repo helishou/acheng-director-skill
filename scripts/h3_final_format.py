@@ -198,6 +198,9 @@ def validate_h3_format(text: str, *, mode: str, shot_count: int,
                        speech_expectations=None, minimum_words: int = 0,
                        duration_seconds=None) -> None:
     """Validate a compiled prompt without changing any creative content."""
+    # Validate a local view of Windows/Unix line endings; receipt hashes still
+    # bind the caller's original bytes and no saved prompt is rewritten here.
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
     _need(mode in {"Ref2VA", "T2VA", "I2VA", "FL2VA", "L2VA"}, "unsupported H3 mode")
     _need(shot_count > 0, "at least one Shot is required")
     _need(not re.search(r"\b(?:CHAR|SCENE|PROP)_[A-Za-z0-9_]+\b", text),
