@@ -44,7 +44,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：d63bce120d7c3e8d66d524f5fd0c929c132db2b0a369fe9a1974d42ece87ab7b
+[完整提示词/草案](<asset_prompts/ART_MEI.image.txt>) · SHA-256：48f5b81d764aed312cea2d88d281bdeaad563f360ac75f7d7dead4d75f1cb44a
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -69,7 +69,7 @@ This is the Meilin character identity asset in the approved neutral_identity sta
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：a54193b9e46531c7d1600a384eaaf5bf97e1a7db286e6256d6131ac20fb6249f
+[完整提示词/草案](<asset_prompts/ART_BO.image.txt>) · SHA-256：bb1f33e4f648264ca218db68c8189b372631da5700942baf2fdbe92b19fe0457
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -94,7 +94,7 @@ This is the Bo character identity asset in the approved neutral_identity state. 
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_ARCHIVE.image.txt>) · SHA-256：76535a520447b0a9c378b9da7e1a148045e4343bc4979382135adbed82a44824
+[完整提示词/草案](<asset_prompts/ART_ARCHIVE.image.txt>) · SHA-256：bf5e7afc10966b8c9519a7a2f836436e679593a4f2d951f74179f4c08a31d38e
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -119,7 +119,7 @@ Create an unoccupied live-action environment reference. The harbor archive has a
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_DOCK.image.txt>) · SHA-256：701a7c87a54727aa5230065279ac25b35d489656f6d283fe92b863fc8a278406
+[完整提示词/草案](<asset_prompts/ART_DOCK.image.txt>) · SHA-256：c7cbd2ea77f5ade8db196a33f0b0675209e1d60a747711e3831d926527d8bf8b
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -144,7 +144,7 @@ Create an unoccupied live-action environment reference. The dock watch hut has a
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_LEDGER.image.txt>) · SHA-256：d91a979b14a79c122c7218936ea646397d7e9075cd872e500329d2e097c32290
+[完整提示词/草案](<asset_prompts/ART_LEDGER.image.txt>) · SHA-256：eda69c6833115519ff111575b1f0479b91e3c5cf7862f7b29b6f51dc7e75e7ea
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -169,7 +169,7 @@ Create a live-action reference of two cloth-bound tide ledgers lying open side b
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_TIDE.image.txt>) · SHA-256：e59a1ea965eb0d415bdf2b93acb4f6c13f257791a7558403a3a14082225a7791
+[完整提示词/草案](<asset_prompts/ART_TIDE.image.txt>) · SHA-256：5054c0b2ffb8cd5c29703ba1d28d440175b10fee64a5d656812ad961200a198c
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -194,7 +194,7 @@ Create a live-action reference of a cream tide sheet and a separate shipping man
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_NOTICE.image.txt>) · SHA-256：4a60bb88b4b6fe5392f9622a37f3edcd34303eb587deab93e4392a044f005d8b
+[完整提示词/草案](<asset_prompts/ART_NOTICE.image.txt>) · SHA-256：e2eb81f98d6dc1798ebd27824c27bf3291e185965dfe2e9b118bc3c2fcd70147
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -219,7 +219,7 @@ Create a live-action prop reference of one cream closure notice and a separate w
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_SANDBAG.image.txt>) · SHA-256：e6929264dda171406f1503f72ed70504b4ed330474683f46ab7f9beb0f86151d
+[完整提示词/草案](<asset_prompts/ART_SANDBAG.image.txt>) · SHA-256：ceb8bb6e51002b2f8a6e102ef1abd15084af63c801d943489923534043a84ba2
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -244,7 +244,7 @@ Create a live-action prop reference of one squat tan canvas sandbag tied with da
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_STATIONERY.image.txt>) · SHA-256：14648ad4b5911772c5edecb47962a43934f05047c44ad888c76c07156b63b8f2
+[完整提示词/草案](<asset_prompts/ART_STATIONERY.image.txt>) · SHA-256：c652b1247a28df5530015bf270efe94477d4063a8f31d87b00e8a6193e2a575b
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -269,7 +269,7 @@ Create a live-action prop reference of one short wooden pencil, two narrow cream
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_KEYFRAME_01.draft.txt>) · SHA-256：77909e33761fa12820091fc5ffb0815b56bdcf55638e460224802e52b2d707ad
+[完整提示词/草案](<asset_prompts/ART_KEYFRAME_01.draft.txt>) · SHA-256：062eb70e986a8a1b1536d363d7dbb5073666834b0f65f7c6eca3264ffb6d1277
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -314,7 +314,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_KEYFRAME_05.draft.txt>) · SHA-256：6c7625fe4c4de584aa3ff95c4f9c964b99971a8e46a8a161b26846406713e39f
+[完整提示词/草案](<asset_prompts/ART_KEYFRAME_05.draft.txt>) · SHA-256：753f21f8f407ad478d1faa0f999ff2306e96a425a8e73d439e2e89ef142bab35
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -359,7 +359,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_KEYFRAME_09.draft.txt>) · SHA-256：c8ca1d9f6f9d92aea77928c7726e62766a34220ff3fd93257a5dd7dc0551bb2c
+[完整提示词/草案](<asset_prompts/ART_KEYFRAME_09.draft.txt>) · SHA-256：b58b3a36d7a651f960ecd280ade0a676e7e6dd4b55f084a8f7f3e47102bfee2b
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -419,7 +419,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_01.h3.txt) · [独立上传卡](SERIAL_SEG_01.upload.md)
 
-绑定版本：`50c0e130d5fa1ba0147592d9785c5222b33d5aafe7a45af819e45245f73a032d` · 正文 SHA-256：`4622a7b68ad48d63bc5c3329306f59a8053ae0789e588b86df4a921d94f9821f`
+绑定版本：`50c0e130d5fa1ba0147592d9785c5222b33d5aafe7a45af819e45245f73a032d` · 正文 SHA-256：`d3a7a9ff652c6d29fc5cd93b7c4fb56847fb2743fd0bf0e2e3d608fa39fbcd80`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -433,7 +433,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_02.h3.txt) · [独立上传卡](SERIAL_SEG_02.upload.md)
 
-绑定版本：`5e0bb2b50b7221ca413323bb282ed79b6e6af1f51268175c45a8a909fa97b0c7` · 正文 SHA-256：`596e8c22bb73f697d674680c5a87f17a116ef8325f78e09009f88672970c1362`
+绑定版本：`5e0bb2b50b7221ca413323bb282ed79b6e6af1f51268175c45a8a909fa97b0c7` · 正文 SHA-256：`54de992e7dc18c1ef9bf10f6fc1d14277fb3e7239d0f3c73ac82f792e2ca4405`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -447,7 +447,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_03.h3.txt) · [独立上传卡](SERIAL_SEG_03.upload.md)
 
-绑定版本：`6c88bfe8dbaa5e0a5f6d01899ee3ba3ee766266ae940afae17b7d82e7e175149` · 正文 SHA-256：`f0446e8a48ed05bc151a89dd7cf64d89f864a493b6569c745c5f832712db905d`
+绑定版本：`6c88bfe8dbaa5e0a5f6d01899ee3ba3ee766266ae940afae17b7d82e7e175149` · 正文 SHA-256：`b8d96507560e5814055bf71d58f06d718e470a753ecaed570f3d01e58a84c692`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -461,7 +461,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_04.h3.txt) · [独立上传卡](SERIAL_SEG_04.upload.md)
 
-绑定版本：`2268020a4036b7def023a77908153f2e0f41b01d192dbd62f220c58b8020878d` · 正文 SHA-256：`d9a11aa752c186a1fc4bfc887e9353db60a540e7c26f0f043e32360800b83d0b`
+绑定版本：`2268020a4036b7def023a77908153f2e0f41b01d192dbd62f220c58b8020878d` · 正文 SHA-256：`c711c3fb0ad338c032f4fa2146d1bffe55cf1337bb296a349feda379cc534fef`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -475,7 +475,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_05.h3.txt) · [独立上传卡](SERIAL_SEG_05.upload.md)
 
-绑定版本：`16bdfd3c894f6c64b99086888bf74a01e5aa7ff8acb1d6e500aa320ea53c067a` · 正文 SHA-256：`60c445d475dfa9cd4249e10c21199457795f70356b0835f5ed901f29dd32e959`
+绑定版本：`16bdfd3c894f6c64b99086888bf74a01e5aa7ff8acb1d6e500aa320ea53c067a` · 正文 SHA-256：`4615ab438d1afc7140801db1331c07110e7372dd0b242ce1b7b1e6f0cbdce4a2`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -489,7 +489,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_06.h3.txt) · [独立上传卡](SERIAL_SEG_06.upload.md)
 
-绑定版本：`990d3144997b9857d6eaebbf6564ac2ec40a3911c4789079f7b181c0f15769be` · 正文 SHA-256：`83cbf49465b924671ce575c7e74eb52396e478fd3c7201989a97220597ba8f3c`
+绑定版本：`990d3144997b9857d6eaebbf6564ac2ec40a3911c4789079f7b181c0f15769be` · 正文 SHA-256：`32611201b460da4842454f290046d8cad0f19a53d453857f1c4c31489e454e3a`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -503,7 +503,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_07.h3.txt) · [独立上传卡](SERIAL_SEG_07.upload.md)
 
-绑定版本：`b31583e392bd0bf3ddf2c0f8ef7b1acd3b8cfcbe7f5534e064f69ecf13f2cd5c` · 正文 SHA-256：`8660ae5fe599aa11e4dd2d73fea63d4cdab314f5e1838ec3b0c74055d778267d`
+绑定版本：`b31583e392bd0bf3ddf2c0f8ef7b1acd3b8cfcbe7f5534e064f69ecf13f2cd5c` · 正文 SHA-256：`4a544167dc10d5e394bb3f410499612148f200a67a6f3fdfdf245be1940f21ea`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -517,7 +517,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_08.h3.txt) · [独立上传卡](SERIAL_SEG_08.upload.md)
 
-绑定版本：`519dd7fabbf6a6c9a75f304cbbdb64294397a88e4932188b37bb951fc433398b` · 正文 SHA-256：`76afdbd83227e8e74385986cc8163ef8725c8ba6b031e8d23691da0d784a3981`
+绑定版本：`519dd7fabbf6a6c9a75f304cbbdb64294397a88e4932188b37bb951fc433398b` · 正文 SHA-256：`600ff5dbe5724d3fc75406e7b200b0491f7ed19150456f84e846e869644a5e49`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -531,7 +531,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_09.h3.txt) · [独立上传卡](SERIAL_SEG_09.upload.md)
 
-绑定版本：`efe110d50e0d6ceec36af9b2ae71b22fa770fd8944fd55d1680796cdacb15f9a` · 正文 SHA-256：`3e9538c68bad0b6d907e651754f725b230700a1f94d5d770577b33965e0f16aa`
+绑定版本：`efe110d50e0d6ceec36af9b2ae71b22fa770fd8944fd55d1680796cdacb15f9a` · 正文 SHA-256：`ccddea27af764c97fb82f17bc5e621e094f7cb86463df5149047b5d58e97f16a`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -545,7 +545,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_10.h3.txt) · [独立上传卡](SERIAL_SEG_10.upload.md)
 
-绑定版本：`d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb` · 正文 SHA-256：`2a7a6e83510eabccdbc3937cdace92747997d4138185f7d19dcd92bceeaf5596`
+绑定版本：`d7059790351812a26fa0090cc5a9590da1d30cdf70573f8a44655706fd9ea4fb` · 正文 SHA-256：`e7584a143888782d6b2c8a4ec5f0629b4ced2285221b7ba5c0713787293b077f`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -559,7 +559,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_11.h3.txt) · [独立上传卡](SERIAL_SEG_11.upload.md)
 
-绑定版本：`f0b77abc539e6e10e406b909eb8f42a57cebf89be4a4f55b7eb1df000d98fc90` · 正文 SHA-256：`cece2f392fbfdd2bf4537d92fe122c7d0a952348e3b54293209db041811312c6`
+绑定版本：`f0b77abc539e6e10e406b909eb8f42a57cebf89be4a4f55b7eb1df000d98fc90` · 正文 SHA-256：`c3efa0117fda08011aa4660ec7e69ddbb7ba68ccc97f2b911d5b7193f090c5fd`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -573,7 +573,7 @@ Create one live-action medium two-shot before any gesture begins. Meilin is a 32
 
 [完整正文/草案](SERIAL_SEG_12.h3.txt) · [独立上传卡](SERIAL_SEG_12.upload.md)
 
-绑定版本：`bb358354f04125b73389e3c17243e5dfd123def5cb66f8e984a3f5dc72f1c19f` · 正文 SHA-256：`ea9b6fffe75aa0f4851e41bda4096ab876776c2f8b307840899c663ffa7f8c43`
+绑定版本：`bb358354f04125b73389e3c17243e5dfd123def5cb66f8e984a3f5dc72f1c19f` · 正文 SHA-256：`5d505a81bbf3699cf389d14db6e740b63f444c7bb3f1d38998434b63572ef584`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / laughing-open
 
-[完整提示词/草案](<asset_prompts/ASSET_ANIME_PHONE.image.txt>) · SHA-256：e5fc6003f9200f9d8ae458326cecb1a639c22a735a88a5859773ff0e2cf8e384
+[完整提示词/草案](<asset_prompts/ASSET_ANIME_PHONE.image.txt>) · SHA-256：21f183f5e4b7738118a356d3b205cd2954e059aa030ffa64b9a82ef36dcda0ef
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

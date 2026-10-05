@@ -33,7 +33,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_COMEDY_UMBRELLA.image.txt>) · SHA-256：943450b7fa1c7e310debe1304b7e872de7f19a9b098c232de7ab43dfa4816ef6
+[完整提示词/草案](<asset_prompts/ASSET_COMEDY_UMBRELLA.image.txt>) · SHA-256：1b932b35be7c45513a6f97fc28f78bf28ff80b3e9ad17ea92613527b5c9878c4
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -63,7 +63,7 @@ Create a live-action wide keyframe in a cramped prop workshop. Pei Jun, a slim a
 
 [完整正文/草案](COMEDY_SEG01.h3.txt) · [独立上传卡](COMEDY_SEG01.upload.md)
 
-绑定版本：`780800e92060768dc18dc288659aae737e5272ffa006ba2e000430f894390047` · 正文 SHA-256：`cadf5616f941a3f2c022db9cb6971db704d322f5ed69fd7068b487632fc6f44c`
+绑定版本：`780800e92060768dc18dc288659aae737e5272ffa006ba2e000430f894390047` · 正文 SHA-256：`7e505c63ed3fa2ca76db54632a6eee49cb5d80952a467b241c47e91d62565355`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -77,7 +77,7 @@ Create a live-action wide keyframe in a cramped prop workshop. Pei Jun, a slim a
 
 [完整正文/草案](COMEDY_SEG02.h3.txt) · [独立上传卡](COMEDY_SEG02.upload.md)
 
-绑定版本：`2341d1ce927d4821ac88439d32ab0a49284b20bca9d7a17804b1b8615d5851cc` · 正文 SHA-256：`85faa57da457fdfe3ec5adda3fc85648d6a25f35d4ab5cf1a948ec3937c61b07`
+绑定版本：`2341d1ce927d4821ac88439d32ab0a49284b20bca9d7a17804b1b8615d5851cc` · 正文 SHA-256：`0adb6d40199b418987f6cf6c9baf4b61363073ef2c36745591a7665317a74e29`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

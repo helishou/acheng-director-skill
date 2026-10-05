@@ -36,11 +36,11 @@
       "reference_count": 1,
       "state_version": null,
       "asset_version": null,
-      "prompt_sha256": "e11f206295ab426a4650cc0bb38ab028211cb3d280197f2a6df42b4afccf1453",
+      "prompt_sha256": "db0cfeab1c63d53527affe680c0a8a92ea6ec3b9e92f1f7ce77165631b78b5c5",
       "upload_card": "ASSET_03_COLOSSAL.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "d9ff9a704af4a2df4a0ec85aad07daa4a77957fc1c68fe434b2642b63ee97d96"
+      "upload_card_sha256": "09e46b9fede942a6f4b552653512857af1c8d0135f9f513573c8d5a46321f814"
     }
   ],
   "asset_plan": null,

@@ -45,11 +45,11 @@
       "state_label": null,
       "state_version": null,
       "asset_version": null,
-      "prompt_sha256": "72c54a8e55e3f23e2934dd935b6dc19bcdd516ed5ef9293ac08286b4cd3cc61f",
+      "prompt_sha256": "96930f132528d886aa585c3aab49aa07cc0ec2835ba67c6af87657428c2d4936",
       "upload_card": "ASSET_01_MECHA.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "665fb7b54317c7c02a3a26b09336ae18f486e98926d8103fcf073f8ee24dcb8b"
+      "upload_card_sha256": "40e32a03d1881b9d975b09ca3c75caab89b67386e64346931123e18b7ba636da"
     }
   ],
   "segments": [
@@ -67,7 +67,7 @@
         "<Picture 1>"
       ],
       "format_pass": "PASSED",
-      "sha256": "f2b02ba418dcc16267ddb5e26151b3d27309ee8cbc4e9003056e7827f8dab677",
+      "sha256": "acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -167,7 +167,7 @@
       "delivery_manifest": "MECHA_SEG01.h3.txt.delivery.json",
       "format_contract": "MECHA_SEG01.h3.txt.check.json",
       "format_receipt": "MECHA_SEG01.h3.txt.acceptance.json",
-      "upload_card_sha256": "92178d46d95ba7bd64058f1ff6ae20aeca40ec37de30b08261bd12b0a51fbfc4"
+      "upload_card_sha256": "4ec2c5f43a4d7fdc271507ca46cf4032de9882833b32df7955c0bf88538db379"
     }
   ]
 }

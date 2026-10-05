@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from contract_core import file_hash
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -22,7 +24,7 @@ def build():
     (ROOT / "data/camera-moves.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     source_root = ROOT / "references/sources"
     sources = [{"file": path.relative_to(ROOT).as_posix(), "bytes": path.stat().st_size,
-                "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+                "sha256": file_hash(path)}
                for path in sorted(source_root.rglob("*")) if path.is_file()]
     (ROOT / "data/source-hashes.json").write_text(json.dumps(sources, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Built {len(catalog)} camera records and {len(sources)} source hashes")

@@ -38,7 +38,7 @@ Forge试图穿过维修沟，Ward用盾面导走能量。护盾守住通路，Fo
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_01_MECHA.image.txt>) · SHA-256：72c54a8e55e3f23e2934dd935b6dc19bcdd516ed5ef9293ac08286b4cd3cc61f
+[完整提示词/草案](<asset_prompts/ASSET_01_MECHA.image.txt>) · SHA-256：96930f132528d886aa585c3aab49aa07cc0ec2835ba67c6af87657428c2d4936
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -69,7 +69,7 @@ Forge试图穿过维修沟，Ward用盾面导走能量。护盾守住通路，Fo
 
 [完整正文/草案](MECHA_SEG01.h3.txt) · [独立上传卡](MECHA_SEG01.upload.md)
 
-绑定版本：`d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd` · 正文 SHA-256：`f2b02ba418dcc16267ddb5e26151b3d27309ee8cbc4e9003056e7827f8dab677`
+绑定版本：`d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd` · 正文 SHA-256：`acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

@@ -13,7 +13,7 @@
     "<Picture 2>"
   ],
   "format_pass": "PASSED",
-  "sha256": "d796e99ea0389e3016d616b2ade7d75e83638f0602474b333c7c2a5aff02fe1f",
+  "sha256": "c64e1428e5c52ab5a4830dd44188a76d8b3c31e9450f3aa2c1e5ea62214176b8",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -149,5 +149,5 @@
   "delivery_manifest": "INK_SEG_2.h3.txt.delivery.json",
   "format_contract": "INK_SEG_2.h3.txt.check.json",
   "format_receipt": "INK_SEG_2.h3.txt.acceptance.json",
-  "upload_card_sha256": "41701046823894f2a986c6db5a9c551504db50580892bf7fc70710a82db903e6"
+  "upload_card_sha256": "9ba1b5d0f7261ea3ca026a1a74337fdc48758ca94e21d3fc99e557699efce552"
 }

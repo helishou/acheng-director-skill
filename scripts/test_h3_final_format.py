@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from audit_storyboard_quality import compile_segment, read_data
 from h3_final_format import H3FormatError, finalize_h3_prompt, normalize_h3_prompt, validate_h3_file, file_contract
+from contract_core import bytes_hash, file_hash
 
 
 class H3FinalFormatAcceptance(unittest.TestCase):
@@ -51,14 +52,14 @@ class H3FinalFormatAcceptance(unittest.TestCase):
         refs = []
         for ref in segment["references"]:
             source = (ROOT / "examples" / ref["file"]).resolve()
-            refs.append(dict(label=ref["label"], file=str(source), role=ref["role"], sha256=hashlib.sha256(source.read_bytes()).hexdigest()))
+            refs.append(dict(label=ref["label"], file=str(source), role=ref["role"], sha256=file_hash(source)))
         contract = file_contract(production, segment, refs)
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "segment.h3.txt"
             path.write_text(compile_segment(production, segment), encoding="utf-8")
             before = path.read_bytes()
             receipt = validate_h3_file(path, contract, allow_legacy_fixture=True)
-            self.assertEqual(receipt["sha256"], hashlib.sha256(before).hexdigest())
+            self.assertEqual(receipt["sha256"], bytes_hash(before))
             self.assertEqual(path.read_bytes(), before)
             contract["references"][0]["sha256"] = "0" * 64
             with self.assertRaisesRegex(H3FormatError, "SHA-256"):
@@ -72,7 +73,7 @@ class H3FinalFormatAcceptance(unittest.TestCase):
         refs = []
         for ref in segment["references"]:
             source = ROOT / 'examples/media/mecha-contact.png'
-            refs.append(dict(label=ref["label"], file=str(source), role=ref["role"], sha256=hashlib.sha256(source.read_bytes()).hexdigest()))
+            refs.append(dict(label=ref["label"], file=str(source), role=ref["role"], sha256=file_hash(source)))
         contract = file_contract(production, segment, refs)
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "dialogue.h3.txt"

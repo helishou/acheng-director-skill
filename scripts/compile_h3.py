@@ -10,7 +10,7 @@ import shutil
 import sys
 
 from audit_storyboard_quality import ContractError, audit, compile_segment, read_data
-from contract_core import content_hash
+from contract_core import content_hash, file_hash
 from h3_contract import detail_policy, english_word_count, speech_map
 from render_delivery_view import render_video
 from h3_final_format import file_contract, validate_h3_file
@@ -156,7 +156,7 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
         if blockers:
             text = "DRAFT — planned references/contract unresolved; do not submit. Creative content retained below.\n\n" + text
         (output / name).write_text(text, encoding="utf-8")
-        sha = hashlib.sha256((output / name).read_bytes()).hexdigest()
+        sha = file_hash(output / name)
         policy = detail_policy(production, seg)
         body_name = "detailed_description" if seg["mode"] == "Ref2VA" else "integrated_multimodal_description"
         body = text.split(body_name + ":\n", 1)[1].split("\n\noverall_soundscape:", 1)[0]
@@ -183,7 +183,7 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
             receipt = validate_h3_file(output / name, contract, output, allow_legacy_fixture=snapshot["legacy_fixture"])
             write_json(output / entry["format_receipt"], receipt)
         (output / entry["upload_card"]).write_text(upload_card(entry), encoding="utf-8")
-        entry["upload_card_sha256"] = hashlib.sha256((output / entry["upload_card"]).read_bytes()).hexdigest()
+        entry["upload_card_sha256"] = file_hash(output / entry["upload_card"])
         write_json(output / entry["delivery_manifest"], entry)
         index.append(entry)
     payload = {"version": "4.3.6", "status": "draft-dependencies-pending" if any(not e["accepted"] for e in index) else "compiled-not-generated",

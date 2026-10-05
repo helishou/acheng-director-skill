@@ -32,11 +32,11 @@
       "state_label": null,
       "state_version": "laughing-open",
       "asset_version": "v1.1",
-      "prompt_sha256": "e5fc6003f9200f9d8ae458326cecb1a639c22a735a88a5859773ff0e2cf8e384",
+      "prompt_sha256": "21f183f5e4b7738118a356d3b205cd2954e059aa030ffa64b9a82ef36dcda0ef",
       "upload_card": "ASSET_ANIME_PHONE.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "3ad7d4725669509ca0300bb9592115f711628eb22d51cd2a5660b3992c1ba624"
+      "upload_card_sha256": "d7aca422609fec2afa46fdabf450b8bc5281c79769d3ea2f08dda5e6ddeb4d1e"
     }
   ],
   "segments": [
@@ -58,7 +58,7 @@
         "<Subject 2>"
       ],
       "format_pass": "NOT_ACCEPTED",
-      "sha256": "5d246a7ac2d03004b6b20fe7c5374a02c126347de2905b480ddf7bb708da2776",
+      "sha256": "f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0",
       "status": "DRAFT_MISSING_REFERENCES",
       "accepted": false,
       "blockers": [
@@ -206,7 +206,7 @@
       ],
       "upload_card": "ANIME_PHONE_SEG01.upload.md",
       "delivery_manifest": "ANIME_PHONE_SEG01.h3.draft.txt.delivery.json",
-      "upload_card_sha256": "897e3dc6b5bc3add98a38bba793a99fcd41670c7c178ad727309351aaaf8f6bc"
+      "upload_card_sha256": "ca60abc91849172114625c19d62e13b1a17b6ab2f0f5eae89699c804c4cdc329"
     }
   ]
 }

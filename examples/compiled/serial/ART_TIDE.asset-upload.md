@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ART_TIDE.image.txt>) · SHA-256：e59a1ea965eb0d415bdf2b93acb4f6c13f257791a7558403a3a14082225a7791
+[完整提示词/草案](<asset_prompts/ART_TIDE.image.txt>) · SHA-256：5054c0b2ffb8cd5c29703ba1d28d440175b10fee64a5d656812ad961200a198c
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

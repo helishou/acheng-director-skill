@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<ASSET_03_COLOSSAL.image.txt>) · SHA-256：e11f206295ab426a4650cc0bb38ab028211cb3d280197f2a6df42b4afccf1453
+[完整提示词/草案](<ASSET_03_COLOSSAL.image.txt>) · SHA-256：db0cfeab1c63d53527affe680c0a8a92ea6ec3b9e92f1f7ce77165631b78b5c5
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

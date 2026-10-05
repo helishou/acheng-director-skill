@@ -12,7 +12,7 @@
     "<Picture 1>"
   ],
   "format_pass": "PASSED",
-  "sha256": "f2b02ba418dcc16267ddb5e26151b3d27309ee8cbc4e9003056e7827f8dab677",
+  "sha256": "acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -112,5 +112,5 @@
   "delivery_manifest": "MECHA_SEG01.h3.txt.delivery.json",
   "format_contract": "MECHA_SEG01.h3.txt.check.json",
   "format_receipt": "MECHA_SEG01.h3.txt.acceptance.json",
-  "upload_card_sha256": "92178d46d95ba7bd64058f1ff6ae20aeca40ec37de30b08261bd12b0a51fbfc4"
+  "upload_card_sha256": "4ec2c5f43a4d7fdc271507ca46cf4032de9882833b32df7955c0bf88538db379"
 }

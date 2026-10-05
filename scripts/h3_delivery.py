@@ -6,12 +6,8 @@ import hashlib
 import json
 from pathlib import Path
 
-from contract_core import content_hash, need
+from contract_core import content_hash, file_hash, need
 from reference_bindings import inspect_media
-
-
-def file_hash(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
 def cell(value):

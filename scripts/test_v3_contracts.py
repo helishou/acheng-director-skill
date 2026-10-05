@@ -11,6 +11,7 @@ from audit_storyboard_quality import audit, compile_segment, digest
 from build_examples import create_drama, create_mecha
 from build_v3_examples import add_handoff, create_serial
 from compile_assets import compile_assets
+from contract_core import file_hash
 from director_dispatch import accept_response, plan_dispatch
 from director_pipeline import archive, optimize, pack, restore
 from production_extensions import check_performance
@@ -119,7 +120,7 @@ class V3Acceptance(unittest.TestCase):
             self.assertEqual(sum(e["status"]=="draft-missing-references" for e in entries),3)
             approved = temp/"approved.png"
             approved.write_bytes((EX/"media/mecha-contact.png").read_bytes())
-            sha=hashlib.sha256(approved.read_bytes()).hexdigest()
+            sha=file_hash(approved)
             # A test fixture only: verifies file/version binding, not identity approval.
             for node in p["asset_plan"]:
                 if node["kind"] != "keyframe": node.update(status="approved",file="approved.png",sha256=sha)
@@ -145,7 +146,7 @@ class V3Acceptance(unittest.TestCase):
             temp = Path(temp)
             style = temp / "style.png"
             style.write_bytes((EX / "media/mecha-contact.png").read_bytes())
-            sha = hashlib.sha256(style.read_bytes()).hexdigest()
+            sha = file_hash(style)
             payload = {
                 "style_lock": {"anchor_asset_id": "STYLE_MOTHER", "anchor_version": "v1", "status": "approved", "medium": "2d_cel",
                                "preserve_scope": ["line weight", "cel shadow hierarchy"], "exclude_scope": ["identity", "scene geometry"],

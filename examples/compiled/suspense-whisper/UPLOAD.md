@@ -6,7 +6,7 @@
 
 [完整正文/草案](SUSPENSE_SEG01.h3.draft.txt) · [独立上传卡](SUSPENSE_SEG01.upload.md)
 
-绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`f2735a5d3940903155fd3a194898ffcdd73bbe061029acf344e711d57062f2ec`
+绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`0b651a3906a76e6faafbadfb871518486bdc45a81078597d2620fed3c460e586`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

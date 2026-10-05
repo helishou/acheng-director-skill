@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：character · 状态版本：neutral_identity / 未指定
 
-[完整提示词/草案](<ART_BO.image.txt>) · SHA-256：a54193b9e46531c7d1600a384eaaf5bf97e1a7db286e6256d6131ac20fb6249f
+[完整提示词/草案](<ART_BO.image.txt>) · SHA-256：bb1f33e4f648264ca218db68c8189b372631da5700942baf2fdbe92b19fe0457
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

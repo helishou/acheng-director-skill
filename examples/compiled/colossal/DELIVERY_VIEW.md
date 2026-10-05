@@ -38,7 +38,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_03_COLOSSAL.image.txt>) · SHA-256：e11f206295ab426a4650cc0bb38ab028211cb3d280197f2a6df42b4afccf1453
+[完整提示词/草案](<asset_prompts/ASSET_03_COLOSSAL.image.txt>) · SHA-256：db0cfeab1c63d53527affe680c0a8a92ea6ec3b9e92f1f7ce77165631b78b5c5
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -75,7 +75,7 @@ Create one cel-shaded harbor confrontation keyframe with a 180-meter winged bron
 
 [完整正文/草案](COLOSSAL_SEG01.h3.txt) · [独立上传卡](COLOSSAL_SEG01.upload.md)
 
-绑定版本：`bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837` · 正文 SHA-256：`2e80b460f4f9e894f0713cf928c8096cb54a80f71eb368b766414763430dfe7f`
+绑定版本：`bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837` · 正文 SHA-256：`65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

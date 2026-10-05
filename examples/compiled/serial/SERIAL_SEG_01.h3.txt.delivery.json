@@ -12,7 +12,7 @@
   "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "reference_labels": [],
   "format_pass": "PASSED",
-  "sha256": "4622a7b68ad48d63bc5c3329306f59a8053ae0789e588b86df4a921d94f9821f",
+  "sha256": "d3a7a9ff652c6d29fc5cd93b7c4fb56847fb2743fd0bf0e2e3d608fa39fbcd80",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -42,5 +42,5 @@
   "delivery_manifest": "SERIAL_SEG_01.h3.txt.delivery.json",
   "format_contract": "SERIAL_SEG_01.h3.txt.check.json",
   "format_receipt": "SERIAL_SEG_01.h3.txt.acceptance.json",
-  "upload_card_sha256": "3270461fc2439e9035be5e4824bd85afc1b0c8751807b477c62d12d4db75ed9e"
+  "upload_card_sha256": "baff2cfbdd164dde16dccb07abc08ee21f98f3d6f3fae0f21092a7995007b5c7"
 }

@@ -11,6 +11,7 @@ import sys
 import tempfile
 
 from audit_storyboard_quality import ContractError, audit, digest, read_data, require
+from contract_core import file_hash
 from post_hooks import check_assets
 from h3_contract import clip_bounds
 
@@ -39,7 +40,7 @@ def verify_archive(directory):
     for name, expected in manifest["hashes"].items():
         path = (directory / name).resolve()
         require(directory in path.parents, "archive path escapes revision")
-        require(path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == expected, f"corrupt existing archive: {name}")
+        require(path.is_file() and file_hash(path) == expected, f"corrupt existing archive: {name}")
     p = read_data(directory / "production.json")
     require(digest(p) == manifest["revision"], "corrupt archive revision")
     require(read_data(directory / "ledger.json") == p["ledger"], "archive ledger differs from source")
@@ -178,7 +179,7 @@ def archive(p, base, output):
                 continue
             source = (Path(base) / ref["file"]).resolve()
             import hashlib
-            content_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+            content_hash = file_hash(source)
             name = "assets/" + content_hash + source.suffix.lower()
             destination = temp / name
             destination.parent.mkdir(exist_ok=True)
@@ -189,7 +190,7 @@ def archive(p, base, output):
     if lock.get("status") == "approved" and lock.get("approved_file"):
         source = (Path(base) / lock["approved_file"]).resolve()
         import hashlib
-        content_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+        content_hash = file_hash(source)
         name = "assets/" + content_hash + source.suffix.lower()
         destination = temp / name
         destination.parent.mkdir(exist_ok=True)
@@ -209,11 +210,11 @@ def archive(p, base, output):
              "last_shot": p["shots"][-1]["id"], "unresolved_threads": p.get("unresolved_threads", [])})
     save_new(temp / "audit.json", report)
     import hashlib
-    hashes = {str(path.relative_to(temp)).replace("\\", "/"): hashlib.sha256(path.read_bytes()).hexdigest()
+    hashes = {str(path.relative_to(temp)).replace("\\", "/"): file_hash(path)
               for path in temp.rglob("*") if path.is_file()}
     save_new(temp / "manifest.json", {"revision": revision, "hashes": hashes, "reference_resolver": asset_map})
     for name, expected in hashes.items():
-        require(hashlib.sha256((temp / name).read_bytes()).hexdigest() == expected, f"archive verification failed: {name}")
+        require(file_hash(temp / name) == expected, f"archive verification failed: {name}")
     try:
         os.rename(temp, final)
     except FileExistsError:

@@ -16,7 +16,7 @@
     "<Subject 2>"
   ],
   "format_pass": "NOT_ACCEPTED",
-  "sha256": "5d246a7ac2d03004b6b20fe7c5374a02c126347de2905b480ddf7bb708da2776",
+  "sha256": "f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0",
   "status": "DRAFT_MISSING_REFERENCES",
   "accepted": false,
   "blockers": [
@@ -164,5 +164,5 @@
   ],
   "upload_card": "ANIME_PHONE_SEG01.upload.md",
   "delivery_manifest": "ANIME_PHONE_SEG01.h3.draft.txt.delivery.json",
-  "upload_card_sha256": "897e3dc6b5bc3add98a38bba793a99fcd41670c7c178ad727309351aaaf8f6bc"
+  "upload_card_sha256": "ca60abc91849172114625c19d62e13b1a17b6ab2f0f5eae89699c804c4cdc329"
 }

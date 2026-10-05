@@ -7,6 +7,8 @@ unlocked only when they explicitly carry a legacy waiver.
 import hashlib
 from pathlib import Path
 
+from contract_core import file_hash
+
 from audit_storyboard_quality import require, substantive
 
 
@@ -44,7 +46,7 @@ def check_style_lock(payload, base):
         require(isinstance(approved_file, str) and approved_file.strip(), "approved style_lock requires approved_file")
         file = Path(base) / approved_file
         require(file.is_file(), "approved style_lock file missing")
-        require(isinstance(approved_sha, str) and approved_sha == hashlib.sha256(file.read_bytes()).hexdigest(), "approved style_lock hash mismatch")
+        require(isinstance(approved_sha, str) and approved_sha == file_hash(file), "approved style_lock hash mismatch")
         require(anchor.get("file") and (Path(base) / anchor["file"]).resolve() == file.resolve(), "style_lock and anchor must approve the same file")
         require(anchor.get("sha256") == approved_sha, "style_lock and anchor must approve the same hash")
         from reference_bindings import inspect_media

@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<ART_KEYFRAME_05.draft.txt>) · SHA-256：9b72e783c86fe350e0fdee56103df938f04933da39906e09ae0c3942d9ee7ae5
+[完整提示词/草案](<ART_KEYFRAME_05.draft.txt>) · SHA-256：a68a1ce78b0b5fbea6d3a74bc2fc54ac4f88557d4dc9febde312b741e510333a
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

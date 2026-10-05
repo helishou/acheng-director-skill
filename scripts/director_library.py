@@ -7,6 +7,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from contract_core import file_hash
+
 ROOT = Path(__file__).resolve().parents[1]
 MEDIA = ("live_action", "cg_realistic", "anime_2d", "anime_3d", "ink")
 
@@ -55,7 +57,7 @@ def validate_libraries(root=ROOT, *, check_views=True):
     for data in (inquiries, visuals):
         source = root / data["source_file"]
         require(source.is_file(), f"Missing library source: {source}")
-        require(hashlib.sha256(source.read_bytes()).hexdigest() == data["source_sha256"],
+        require(file_hash(source) == data["source_sha256"],
                 f"Library source changed: {data['source_file']}")
         n = len(source.read_text(encoding="utf-8").splitlines())
         for record in data.get("questions", data.get("entries", [])):

@@ -23,11 +23,11 @@
       "reference_count": 0,
       "state_version": "listening-still",
       "asset_version": "v1.0",
-      "prompt_sha256": "b898bbb324cbf43fa950f79e438e29fcda5fb1ed2cbb2dc5aa6f60c8a45304b0",
+      "prompt_sha256": "d1858eaade7507e3b42abbc56d176373af1ea087fea2c1568986dceac0eb0034",
       "upload_card": "ASSET_SUSPENSE_ARCHIVE.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "92d02d63fd7290ffd86eee6e690f63f871dd40b9088b2536705ca0c1c0f47213"
+      "upload_card_sha256": "ff2902bd14a0e88f118770a8637f8b457b16f87904e587bf69718eae3b4994a6"
     }
   ],
   "asset_plan": null,

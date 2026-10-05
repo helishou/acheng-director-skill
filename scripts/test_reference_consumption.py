@@ -9,6 +9,7 @@ from compile_h3 import export_asset_prompt_bundle
 from audit_storyboard_quality import audit, read_data
 from post_hooks import check_assets
 from style_anchor import style_policy_report
+from contract_core import file_hash
 
 
 class ReferenceConsumptionAcceptance(unittest.TestCase):
@@ -36,7 +37,7 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             image = base / "style.png"
             image.write_bytes(b"\x89PNG\r\n\x1a\nreal-style")
             payload = self._payload()
-            digest = hashlib.sha256(image.read_bytes()).hexdigest()
+            digest = file_hash(image)
             payload["style_lock"].update({"approved_file": "style.png", "approved_sha256": digest})
             payload["asset_plan"][0].update({"file": "style.png", "sha256": digest})
             entries = export_asset_prompt_bundle(payload, base, out)
@@ -88,7 +89,7 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             base = Path(directory)
             image = base / 'style.png'
             image.write_bytes(b'\x89PNG\r\n\x1a\nstyle-test-only')
-            sha = hashlib.sha256(image.read_bytes()).hexdigest()
+            sha = file_hash(image)
             p = self._payload()
             p['style_lock'].update(approved_file='style.png', approved_sha256=sha)
             p['asset_plan'][0].update(file='style.png', sha256=sha)
@@ -123,7 +124,7 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             base = Path(directory)
             (base / 'style.png').write_bytes(b'\x89PNG\r\n\x1a\nstyle-test-only')
             p = self._payload()
-            p['asset_plan'][0].update(file='style.png', sha256=hashlib.sha256((base / 'style.png').read_bytes()).hexdigest(), state_version='neutral-v1')
+            p['asset_plan'][0].update(file='style.png', sha256=file_hash(base / 'style.png'), state_version='neutral-v1')
             for field, value, message in [('file', 'other.png', 'file conflicts'), ('sha256', '0'*64, 'SHA-256 conflicts'), ('state_version', 'wrong-v2', 'state_version conflict')]:
                 card = copy.deepcopy(p['asset_cards'][1]); card['references'][0][field] = value
                 with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
@@ -164,7 +165,7 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             self.assertEqual([r['label'] for r in entry['references']], ['<Picture 1>', '<Audio 1>', '<Video 1>'])
             self.assertEqual(validate_package(base / 'multimodal', p, base)['status'], 'PASS')
             for ref in entry['references']:
-                self.assertEqual(hashlib.sha256((base / 'multimodal' / ref['file']).read_bytes()).hexdigest(), ref['sha256'])
+                self.assertEqual(file_hash(base / 'multimodal' / ref['file']), ref['sha256'])
                 self.assertIn(ref['label'], (base / 'multimodal' / entry['file']).read_text(encoding='utf-8'))
             sha = inspect_media(audio, '<Audio 1>')
             segment['references'] = segment['references'][:1]

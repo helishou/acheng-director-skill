@@ -48,5 +48,5 @@
   },
   "input_revision": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
   "binding_sha256": "d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd",
-  "expected_prompt_sha256": "f2b02ba418dcc16267ddb5e26151b3d27309ee8cbc4e9003056e7827f8dab677"
+  "expected_prompt_sha256": "acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c"
 }

@@ -36,7 +36,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / laughing-open
 
-[完整提示词/草案](<asset_prompts/ASSET_ANIME_PHONE.image.txt>) · SHA-256：e5fc6003f9200f9d8ae458326cecb1a639c22a735a88a5859773ff0e2cf8e384
+[完整提示词/草案](<asset_prompts/ASSET_ANIME_PHONE.image.txt>) · SHA-256：21f183f5e4b7738118a356d3b205cd2954e059aa030ffa64b9a82ef36dcda0ef
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -67,7 +67,7 @@ Create a clean 2D cel-animation character-and-environment keyframe of Chen Qiany
 
 [完整正文/草案](ANIME_PHONE_SEG01.h3.draft.txt) · [独立上传卡](ANIME_PHONE_SEG01.upload.md)
 
-绑定版本：`bbfe17d564960bfdd0008e5994e8c380e96ecfb7a14c0bf28348c4039218356f` · 正文 SHA-256：`5d246a7ac2d03004b6b20fe7c5374a02c126347de2905b480ddf7bb708da2776`
+绑定版本：`bbfe17d564960bfdd0008e5994e8c380e96ecfb7a14c0bf28348c4039218356f` · 正文 SHA-256：`f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

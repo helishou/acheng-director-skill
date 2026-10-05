@@ -12,7 +12,7 @@
     "<Picture 1>"
   ],
   "format_pass": "PASSED",
-  "sha256": "541674c3222cc522fb5023d700b2a22d6d7c63771a8c48147aef080227749c57",
+  "sha256": "c4da3e36a9978bf4bcbdcd054570fd4ce3242ae75600299da3a38f3cce2d04c1",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -96,5 +96,5 @@
   "delivery_manifest": "INK_SEG_3.h3.txt.delivery.json",
   "format_contract": "INK_SEG_3.h3.txt.check.json",
   "format_receipt": "INK_SEG_3.h3.txt.acceptance.json",
-  "upload_card_sha256": "5e1de23fc26929508fbe2dc729a114ee0eb450411cd248602a9a373a59482f21"
+  "upload_card_sha256": "d4302b051f333d81b7338b7d503fb06df55612d0bec431bdd836dcd11e618de0"
 }

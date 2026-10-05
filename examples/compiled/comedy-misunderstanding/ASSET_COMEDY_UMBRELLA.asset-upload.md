@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_COMEDY_UMBRELLA.image.txt>) · SHA-256：943450b7fa1c7e310debe1304b7e872de7f19a9b098c232de7ab43dfa4816ef6
+[完整提示词/草案](<asset_prompts/ASSET_COMEDY_UMBRELLA.image.txt>) · SHA-256：1b932b35be7c45513a6f97fc28f78bf28ff80b3e9ad17ea92613527b5c9878c4
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

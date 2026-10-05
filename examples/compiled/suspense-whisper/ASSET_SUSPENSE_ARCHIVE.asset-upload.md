@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / listening-still
 
-[完整提示词/草案](<asset_prompts/ASSET_SUSPENSE_ARCHIVE.image.txt>) · SHA-256：b898bbb324cbf43fa950f79e438e29fcda5fb1ed2cbb2dc5aa6f60c8a45304b0
+[完整提示词/草案](<asset_prompts/ASSET_SUSPENSE_ARCHIVE.image.txt>) · SHA-256：d1858eaade7507e3b42abbc56d176373af1ea087fea2c1568986dceac0eb0034
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

@@ -285,7 +285,11 @@ python scripts/director_pipeline.py restore project-state/revisions/REVISION_ID 
 
 python scripts/validate_director_contract.py
 
+python -m unittest discover -s scripts -p "test_*.py"
+
 ```
+
+`test_compiled_examples_fresh.py` 会把每个 `examples/*.production.json` 重新编译到临时目录，与提交的 `examples/compiled/**` 逐字节比对。改了角色板排版、提示词模板或交付合同后必须先跑它：失败说明样例包已过期，重新编译对应目录再提交，不要把 `--out` 指向仓库根或项目目录留垃圾。
 
 
 

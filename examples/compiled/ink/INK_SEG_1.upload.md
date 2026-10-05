@@ -4,7 +4,7 @@
 
 [完整正文/草案](INK_SEG_1.h3.txt) · [独立上传卡](INK_SEG_1.upload.md)
 
-绑定版本：`a6798d7141cefd97f39d63bedde368014de63999623fe1a7e798353502c7a64f` · 正文 SHA-256：`78d70acee5d51d3e9b7a1f2225ada944e13e8418baca4f474d7fbf4e67c25262`
+绑定版本：`a6798d7141cefd97f39d63bedde368014de63999623fe1a7e798353502c7a64f` · 正文 SHA-256：`575bc9df31f6c7545efa35a90dbb464eade231d16286a2e3c8b4cc66eda0d577`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

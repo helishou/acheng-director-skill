@@ -32,11 +32,11 @@
       "state_label": null,
       "state_version": "listening-still",
       "asset_version": "v1.0",
-      "prompt_sha256": "b898bbb324cbf43fa950f79e438e29fcda5fb1ed2cbb2dc5aa6f60c8a45304b0",
+      "prompt_sha256": "d1858eaade7507e3b42abbc56d176373af1ea087fea2c1568986dceac0eb0034",
       "upload_card": "ASSET_SUSPENSE_ARCHIVE.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "f6a0bbbd77b695a6f224e709473826c63594be6e6f8e2fadb7fc04922ebf9c68"
+      "upload_card_sha256": "e96135fe589fc5990d6db9e9391a2050854eaa274c15aa4e6cbdc1d2edea31ac"
     }
   ],
   "segments": [
@@ -54,7 +54,7 @@
         "<Picture 1>"
       ],
       "format_pass": "NOT_ACCEPTED",
-      "sha256": "f2735a5d3940903155fd3a194898ffcdd73bbe061029acf344e711d57062f2ec",
+      "sha256": "0b651a3906a76e6faafbadfb871518486bdc45a81078597d2620fed3c460e586",
       "status": "DRAFT_MISSING_REFERENCES",
       "accepted": false,
       "blockers": [
@@ -147,7 +147,7 @@
       ],
       "upload_card": "SUSPENSE_SEG01.upload.md",
       "delivery_manifest": "SUSPENSE_SEG01.h3.draft.txt.delivery.json",
-      "upload_card_sha256": "d104acd38cee7a637897495235c602581d785bdc50cc59f3e509ab121f97c7c1"
+      "upload_card_sha256": "ccb54faa598a40b6da51fc29e1d973bb022a526d6eca0ef6a7c373014e9038c1"
     }
   ]
 }

@@ -38,11 +38,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "d63bce120d7c3e8d66d524f5fd0c929c132db2b0a369fe9a1974d42ece87ab7b",
+      "prompt_sha256": "48f5b81d764aed312cea2d88d281bdeaad563f360ac75f7d7dead4d75f1cb44a",
       "upload_card": "ART_MEI.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "daf40f313eddad7cc700e10b6921a2b92f7ec4b84f52e4ebf6831e3423f4ec88"
+      "upload_card_sha256": "2bd29480e0a7e22637ef7e63650b1a436d1a4e9ba2d314c4669c31219660b986"
     },
     {
       "asset_id": "ART_BO",
@@ -79,11 +79,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "a54193b9e46531c7d1600a384eaaf5bf97e1a7db286e6256d6131ac20fb6249f",
+      "prompt_sha256": "bb1f33e4f648264ca218db68c8189b372631da5700942baf2fdbe92b19fe0457",
       "upload_card": "ART_BO.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "5963c760eaee946b68b1f9a6ee2b466829814072139c62233acd83bb2f0af1d8"
+      "upload_card_sha256": "3247a413806ead69e9558b17681c7282d550de24d69798f18a70a911f987d44e"
     },
     {
       "asset_id": "ART_ARCHIVE",
@@ -105,11 +105,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "76535a520447b0a9c378b9da7e1a148045e4343bc4979382135adbed82a44824",
+      "prompt_sha256": "bf5e7afc10966b8c9519a7a2f836436e679593a4f2d951f74179f4c08a31d38e",
       "upload_card": "ART_ARCHIVE.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "e6ffdef1ed4741d93f547eb7a3ab3f16d646b0f146d2569964fa610c051a4794"
+      "upload_card_sha256": "dd421ecebf81e8202a6a14b7ed64bde8bc740cc701cd12cd5c5ecbbefab69db1"
     },
     {
       "asset_id": "ART_DOCK",
@@ -131,11 +131,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "701a7c87a54727aa5230065279ac25b35d489656f6d283fe92b863fc8a278406",
+      "prompt_sha256": "c7cbd2ea77f5ade8db196a33f0b0675209e1d60a747711e3831d926527d8bf8b",
       "upload_card": "ART_DOCK.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "c10186d4a079e0ba2fadeb05e5491ab27593923d11f9a25cca152b64af37224b"
+      "upload_card_sha256": "eff167d0f985cb5c145cdacc91df41fbd7d30bf56db2206857cd22d44767298a"
     },
     {
       "asset_id": "ART_LEDGER",
@@ -157,11 +157,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "d91a979b14a79c122c7218936ea646397d7e9075cd872e500329d2e097c32290",
+      "prompt_sha256": "eda69c6833115519ff111575b1f0479b91e3c5cf7862f7b29b6f51dc7e75e7ea",
       "upload_card": "ART_LEDGER.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "1f3bcc2ed36d438a5c334b3bfb4f5457ab2aa39a7e062f3fb69e524cf0601167"
+      "upload_card_sha256": "1016f15e8fc86cfcc0e07946001e1f35ddc7e441978492ea226b90166d2ea0bc"
     },
     {
       "asset_id": "ART_TIDE",
@@ -183,11 +183,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "e59a1ea965eb0d415bdf2b93acb4f6c13f257791a7558403a3a14082225a7791",
+      "prompt_sha256": "5054c0b2ffb8cd5c29703ba1d28d440175b10fee64a5d656812ad961200a198c",
       "upload_card": "ART_TIDE.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "d9ea6a906474d9b08672f0e20c2fd6c2222c397b6d4095164b8d65a36b0163a2"
+      "upload_card_sha256": "b483ad07270b042a1e05ce0ffbdb1f1adf8631922141a27330a0e129b6cdee2a"
     },
     {
       "asset_id": "ART_NOTICE",
@@ -209,11 +209,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "4a60bb88b4b6fe5392f9622a37f3edcd34303eb587deab93e4392a044f005d8b",
+      "prompt_sha256": "e2eb81f98d6dc1798ebd27824c27bf3291e185965dfe2e9b118bc3c2fcd70147",
       "upload_card": "ART_NOTICE.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "e114b8f5d982c3486d45bf8b9678e54781bfe34cf987e32febcbfb9a1ffb9f53"
+      "upload_card_sha256": "bd02d55876a1d916cfe00eb8298068496213f1532eb4982dc796632005a0ec72"
     },
     {
       "asset_id": "ART_SANDBAG",
@@ -235,11 +235,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "e6929264dda171406f1503f72ed70504b4ed330474683f46ab7f9beb0f86151d",
+      "prompt_sha256": "ceb8bb6e51002b2f8a6e102ef1abd15084af63c801d943489923534043a84ba2",
       "upload_card": "ART_SANDBAG.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "69dfde8d27662e1f2e7e135b071bf1fd86af1982d2ae8d2fe7ad9f0327460721"
+      "upload_card_sha256": "605d6ebf820bae945a4790cd707bd78b4a218c89113bf45e84410be32035eec3"
     },
     {
       "asset_id": "ART_STATIONERY",
@@ -261,11 +261,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "14648ad4b5911772c5edecb47962a43934f05047c44ad888c76c07156b63b8f2",
+      "prompt_sha256": "c652b1247a28df5530015bf270efe94477d4063a8f31d87b00e8a6193e2a575b",
       "upload_card": "ART_STATIONERY.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "34b61df5fea979298385c671bd1573ce07e000720e51f07d7dc9c6cdd41ad081"
+      "upload_card_sha256": "89b7f019dc7358e416343b3b9120c3cca65f89b51b0259b10b62356d46ee2597"
     },
     {
       "asset_id": "ART_KEYFRAME_01",
@@ -374,11 +374,11 @@
       "reference_count": 5,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "13e732cadaf6fc574ff23fbbe28515cf8265903a61e07debf5fa9e703e5ced5d",
+      "prompt_sha256": "390d9e7548e384bad720caf18d48134cea84a56d641878475a7b9ab3173b85c2",
       "upload_card": "ART_KEYFRAME_01.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "a075f521e658f38eaef93f307d0dad975c14601c9b750b4bbdf123e53a9c50d9"
+      "upload_card_sha256": "09b7c9b5555245c673920e4556ccb98c1d056bfc90f7268d6e88c81479acc557"
     },
     {
       "asset_id": "ART_KEYFRAME_05",
@@ -487,11 +487,11 @@
       "reference_count": 5,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "9b72e783c86fe350e0fdee56103df938f04933da39906e09ae0c3942d9ee7ae5",
+      "prompt_sha256": "a68a1ce78b0b5fbea6d3a74bc2fc54ac4f88557d4dc9febde312b741e510333a",
       "upload_card": "ART_KEYFRAME_05.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "544226fc7761291779fe81751954332ba7cd5b77fd7571d1a5c45ce250b025e7"
+      "upload_card_sha256": "987abccff55162d9ee88b9f2bc37b9fc6a793336bc4f8ea69f8ece27cd26525a"
     },
     {
       "asset_id": "ART_KEYFRAME_09",
@@ -600,11 +600,11 @@
       "reference_count": 5,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "3b911261e285c6f4afe8ef3179b6d48db3f176bf0a71185c93739b74a55fd78c",
+      "prompt_sha256": "280488e6ac45403d5a35d8622e0ca47f4b4db190c5dbb991b5edbb925355e741",
       "upload_card": "ART_KEYFRAME_09.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "0a130e4d1b3e576ab3f46f4881620a73434ce33db25eba0fc7da55b438b4393a"
+      "upload_card_sha256": "a7393a6c03dd3119044aeb6b2e5e31b09d8db66f818d8332c2a11a8009df8b79"
     }
   ],
   "asset_plan": {

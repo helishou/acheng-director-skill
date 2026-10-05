@@ -8,6 +8,7 @@ from pathlib import Path
 from orchestrator_plan import plan
 from post_hooks import check_assets
 from style_anchor import style_policy_report
+from contract_core import file_hash
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +35,7 @@ class StyleAnchorAcceptance(unittest.TestCase):
             base = Path(directory)
             image = base / "style.png"
             image.write_bytes(b"\x89PNG\r\n\x1a\napproved-style-anchor")
-            sha = hashlib.sha256(image.read_bytes()).hexdigest()
+            sha = file_hash(image)
             payload["style_lock"].update({"status": "approved", "approved_file": "style.png", "approved_sha256": sha})
             payload["asset_plan"][0].update({"status": "approved", "file": "style.png", "sha256": sha})
             report = style_policy_report(payload, base, strict=True)

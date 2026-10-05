@@ -9,7 +9,7 @@ import unittest
 
 from audit_storyboard_quality import compile_segment, read_data
 from compile_h3 import compile_package
-from contract_core import content_hash
+from contract_core import content_hash, file_hash
 from director_dispatch import plan_dispatch
 from director_pipeline import archive, restore
 from h3_delivery import validate_package, validate_segment_bundle, validate_upload_receipt
@@ -51,7 +51,7 @@ def fixture(base, kind="ref"):
         segment.update(mode_lock="Ref2VA", mode_selection_reason="The real blocking diagram supplies composition and event ordering only.")
         production["shots"][0]["visual"] += " " + EXTRA_DETAIL
         ref = segment["references"][0]
-        sha = hashlib.sha256((base / ref["file"]).read_bytes()).hexdigest()
+        sha = file_hash(base / ref["file"])
         ref.update(asset_version="blocking-v1", entity_id="blocking-board", sha256=sha,
                    approval={"status": "approved", "sha256": sha, "evidence": "Bundled authored 16-panel gray diagram reviewed for layout only; not identity or generated film."},
                    preserve="relative screen sides and ordered blocking", exclude="grid, captions, schematic appearance and materials", shot_ids=segment["shot_ids"])
@@ -81,7 +81,7 @@ class ReferenceDeliveryAcceptance(unittest.TestCase):
             receipt = {"segment_id": entry["segment_id"], "input_revision": entry["input_revision"], "prompt_sha256": entry["sha256"],
                        "binding_sha256": entry["binding_snapshot"]["binding_sha256"], "platform": "test-platform", "request_id": "test-request", "confirmed_by": "test-fixture",
                        "uploads": [{"label": r["label"], "sha256": r["sha256"]} for r in entry["references"]],
-                       "evidence": {"file": proof.name, "sha256": hashlib.sha256(proof.read_bytes()).hexdigest()}}
+                       "evidence": {"file": proof.name, "sha256": file_hash(proof)}}
             self.assertEqual(validate_upload_receipt(base / "out", entry, receipt)["platform_status"], "UPLOAD_CONFIRMED_BY_RECORDED_EVIDENCE")
             receipt["uploads"][0]["label"] = "<Picture 2>"
             with self.assertRaisesRegex(ValueError, "slot/hash"):

@@ -33,7 +33,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/INK_CHARACTER.image.txt>) · SHA-256：f372c8f51daab35dfb04e0b0ae69ad04022872b320de0088817ceddec2214cb8
+[完整提示词/草案](<asset_prompts/INK_CHARACTER.image.txt>) · SHA-256：0bef2006a4f8d872d65dbbfceb7468d8beab45b74d821012e343bfa0d53f87f7
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -64,7 +64,7 @@ Create a neutral side-view asset in two-dimensional ink-and-paper animation. A s
 
 [完整正文/草案](INK_SEG_1.h3.txt) · [独立上传卡](INK_SEG_1.upload.md)
 
-绑定版本：`a6798d7141cefd97f39d63bedde368014de63999623fe1a7e798353502c7a64f` · 正文 SHA-256：`78d70acee5d51d3e9b7a1f2225ada944e13e8418baca4f474d7fbf4e67c25262`
+绑定版本：`a6798d7141cefd97f39d63bedde368014de63999623fe1a7e798353502c7a64f` · 正文 SHA-256：`575bc9df31f6c7545efa35a90dbb464eade231d16286a2e3c8b4cc66eda0d577`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 
@@ -84,7 +84,7 @@ Create a neutral side-view asset in two-dimensional ink-and-paper animation. A s
 
 [完整正文/草案](INK_SEG_2.h3.txt) · [独立上传卡](INK_SEG_2.upload.md)
 
-绑定版本：`3c394cda1d023eb9cca3ae86091be4f9d9a7cbca2772f40130ef6baaf4ee4b8f` · 正文 SHA-256：`d796e99ea0389e3016d616b2ade7d75e83638f0602474b333c7c2a5aff02fe1f`
+绑定版本：`3c394cda1d023eb9cca3ae86091be4f9d9a7cbca2772f40130ef6baaf4ee4b8f` · 正文 SHA-256：`c64e1428e5c52ab5a4830dd44188a76d8b3c31e9450f3aa2c1e5ea62214176b8`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 
@@ -105,7 +105,7 @@ Create a neutral side-view asset in two-dimensional ink-and-paper animation. A s
 
 [完整正文/草案](INK_SEG_3.h3.txt) · [独立上传卡](INK_SEG_3.upload.md)
 
-绑定版本：`25a3b72a4d0fa4af0a67d055afddd0440e343a2195e9e0ea6991684b3ff7168c` · 正文 SHA-256：`541674c3222cc522fb5023d700b2a22d6d7c63771a8c48147aef080227749c57`
+绑定版本：`25a3b72a4d0fa4af0a67d055afddd0440e343a2195e9e0ea6991684b3ff7168c` · 正文 SHA-256：`c4da3e36a9978bf4bcbdcd054570fd4ce3242ae75600299da3a38f3cce2d04c1`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

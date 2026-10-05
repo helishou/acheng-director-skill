@@ -45,11 +45,11 @@
       "state_label": null,
       "state_version": null,
       "asset_version": null,
-      "prompt_sha256": "e11f206295ab426a4650cc0bb38ab028211cb3d280197f2a6df42b4afccf1453",
+      "prompt_sha256": "db0cfeab1c63d53527affe680c0a8a92ea6ec3b9e92f1f7ce77165631b78b5c5",
       "upload_card": "ASSET_03_COLOSSAL.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "16b790a106dd1d5aa30ae6f2837490b4a5b114d69ea50efe0326fd00b2bcf6fb"
+      "upload_card_sha256": "702e7d0b5190ee1b05cce051c50e0aab678c11906416aa15a02ab562671c1838"
     }
   ],
   "segments": [
@@ -67,7 +67,7 @@
         "<Picture 1>"
       ],
       "format_pass": "PASSED",
-      "sha256": "2e80b460f4f9e894f0713cf928c8096cb54a80f71eb368b766414763430dfe7f",
+      "sha256": "65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -167,7 +167,7 @@
       "delivery_manifest": "COLOSSAL_SEG01.h3.txt.delivery.json",
       "format_contract": "COLOSSAL_SEG01.h3.txt.check.json",
       "format_receipt": "COLOSSAL_SEG01.h3.txt.acceptance.json",
-      "upload_card_sha256": "40117f4c97f75783530817a681e867ed344b57a5694a62d56f19f3ca182decc3"
+      "upload_card_sha256": "9881c68e975769dbc08122d02163dc04e8b96c93066c7176fabe7e421359cc24"
     }
   ]
 }

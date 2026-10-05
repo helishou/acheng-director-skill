@@ -33,7 +33,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_02_DRAMA.image.txt>) · SHA-256：bf7e27e294178f1976cb610afc9079d865ba092b2c2d5c9c827e2f3eff326d7d
+[完整提示词/草案](<asset_prompts/ASSET_02_DRAMA.image.txt>) · SHA-256：99215fee4edd0cbfce943e7c13e14c01f3540facc6d3eb70e2c752958a3cb33e
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -63,7 +63,7 @@ Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions
 
 [完整正文/草案](DRAMA_SEG01.h3.txt) · [独立上传卡](DRAMA_SEG01.upload.md)
 
-绑定版本：`bcb31862ae9d5cf759a3e71b2babf1c00ce86dcb5d5b115f3cb12d90cf421b96` · 正文 SHA-256：`c6de183de6e6d260c5d690d37325f31e12e051ca67660081f2d97208bab7fdbb`
+绑定版本：`bcb31862ae9d5cf759a3e71b2babf1c00ce86dcb5d5b115f3cb12d90cf421b96` · 正文 SHA-256：`1bfa4004ddb68e328ef81b2f155dcbccd823ef9bee2bbaef78e0aa1fa054731d`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 
@@ -77,7 +77,7 @@ Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions
 
 [完整正文/草案](DRAMA_SEG02.h3.txt) · [独立上传卡](DRAMA_SEG02.upload.md)
 
-绑定版本：`b7cecf72549105eca6adb6207a4a3db25aac32f862623574ba782ea14770c6f8` · 正文 SHA-256：`153fb4ca8aedad373a4349c5083e2aa19fda50011eb54484a7836d964b4d7b04`
+绑定版本：`b7cecf72549105eca6adb6207a4a3db25aac32f862623574ba782ea14770c6f8` · 正文 SHA-256：`4613f38d30de1c62b37d2a7b16b1c93e12563c6eecff831d93ebc72f4ac3995b`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

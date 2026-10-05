@@ -4,7 +4,7 @@
 
 [完整正文/草案](MECHA_SEG01.h3.txt) · [独立上传卡](MECHA_SEG01.upload.md)
 
-绑定版本：`d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd` · 正文 SHA-256：`f2b02ba418dcc16267ddb5e26151b3d27309ee8cbc4e9003056e7827f8dab677`
+绑定版本：`d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd` · 正文 SHA-256：`acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

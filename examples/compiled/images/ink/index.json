@@ -23,11 +23,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "f372c8f51daab35dfb04e0b0ae69ad04022872b320de0088817ceddec2214cb8",
+      "prompt_sha256": "0bef2006a4f8d872d65dbbfceb7468d8beab45b74d821012e343bfa0d53f87f7",
       "upload_card": "INK_CHARACTER.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "2325b79754652435a4973dcabc87474d58b95131b63ec673d59aaf386116d50b"
+      "upload_card_sha256": "8817be922d91c2d59bdb2e731e3c8a6e07182dd9313030605a2acb1b249b0d78"
     }
   ],
   "asset_plan": null,

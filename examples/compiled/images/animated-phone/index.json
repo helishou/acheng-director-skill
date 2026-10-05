@@ -23,11 +23,11 @@
       "reference_count": 0,
       "state_version": "laughing-open",
       "asset_version": "v1.1",
-      "prompt_sha256": "e5fc6003f9200f9d8ae458326cecb1a639c22a735a88a5859773ff0e2cf8e384",
+      "prompt_sha256": "21f183f5e4b7738118a356d3b205cd2954e059aa030ffa64b9a82ef36dcda0ef",
       "upload_card": "ASSET_ANIME_PHONE.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "b4676ce88690d4a903e685ab43ef236d914d62671945f65fbccfa57374525759"
+      "upload_card_sha256": "4a54f0235be845c9ca44e30d7e9518117091695cd664e8d87a6fae8b8b797b6f"
     }
   ],
   "asset_plan": null,

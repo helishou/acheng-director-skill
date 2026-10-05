@@ -4,7 +4,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / 未指定
 
-[完整提示词/草案](<asset_prompts/ASSET_01_MECHA.image.txt>) · SHA-256：72c54a8e55e3f23e2934dd935b6dc19bcdd516ed5ef9293ac08286b4cd3cc61f
+[完整提示词/草案](<asset_prompts/ASSET_01_MECHA.image.txt>) · SHA-256：96930f132528d886aa585c3aab49aa07cc0ec2835ba67c6af87657428c2d4936
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 

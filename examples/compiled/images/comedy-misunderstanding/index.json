@@ -23,11 +23,11 @@
       "reference_count": 0,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "943450b7fa1c7e310debe1304b7e872de7f19a9b098c232de7ab43dfa4816ef6",
+      "prompt_sha256": "1b932b35be7c45513a6f97fc28f78bf28ff80b3e9ad17ea92613527b5c9878c4",
       "upload_card": "ASSET_COMEDY_UMBRELLA.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "6518afbc467a7806ddcd8191f7d8c3ad248693a8fc9ada12fcedaa10121b7ec6"
+      "upload_card_sha256": "80ed394c16ddd838e8ddd877ae681c0026a51c2d70ae1ef5b86525ab242ba277"
     }
   ],
   "asset_plan": null,

@@ -15,5 +15,5 @@
   "profile": "legacy_fixture",
   "input_revision": "83b4995fa9e3147e0be7ba66e95e5ca87035cd09af1a8629746f2e5fa0865fb1",
   "binding_sha256": "b31583e392bd0bf3ddf2c0f8ef7b1acd3b8cfcbe7f5534e064f69ecf13f2cd5c",
-  "expected_prompt_sha256": "8660ae5fe599aa11e4dd2d73fea63d4cdab314f5e1838ec3b0c74055d778267d"
+  "expected_prompt_sha256": "4a544167dc10d5e394bb3f410499612148f200a67a6f3fdfdf245be1940f21ea"
 }

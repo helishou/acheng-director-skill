@@ -10,6 +10,7 @@ import sys
 from urllib.parse import unquote
 
 from audit_storyboard_quality import ROOT, audit, compile_segment, read_data, require
+from contract_core import file_hash
 from post_hooks import check_assets
 from prompt_delivery import render_asset_prompt
 from asset_plan import resolve_card
@@ -88,7 +89,7 @@ def validate(root=ROOT):
     require(len(re.findall(r"^\d+\. \*\*", original, re.M)) == 100, "Original 100 emotions lost")
     for record in read_data(root / "data/source-hashes.json"):
         path = root / record["file"]
-        require(path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == record["sha256"], f"Source integrity mismatch: {record['file']}")
+        require(path.is_file() and file_hash(path) == record["sha256"], f"Source integrity mismatch: {record['file']}")
     terminology = read_data(root / "data/animation-art-terminology.json")
     require(terminology.get("schema_version") == "4.3", "Animation terminology catalog schema version mismatch")
     require(terminology.get("catalog_id") == "acheng-animation-art-terminology", "Animation terminology catalog id mismatch")
@@ -133,7 +134,7 @@ def validate(root=ROOT):
                 if ref.get('binding_status') in {'PLANNED', 'PLANNED_OR_CONFLICTED', 'NEEDS_REFERENCE_DECISION'}:
                     continue
                 copied = directory / ref["file"]
-                require(copied.is_file() and hashlib.sha256(copied.read_bytes()).hexdigest() == ref["sha256"], "Exported reference missing or corrupt")
+                require(copied.is_file() and file_hash(copied) == ref["sha256"], "Exported reference missing or corrupt")
     for path in sorted((root / "examples").glob("*.production.json")):
         production = read_data(path)
         report = audit(production, path.parent)

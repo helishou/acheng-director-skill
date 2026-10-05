@@ -12,7 +12,7 @@
   "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
   "reference_labels": [],
   "format_pass": "PASSED",
-  "sha256": "153fb4ca8aedad373a4349c5083e2aa19fda50011eb54484a7836d964b4d7b04",
+  "sha256": "4613f38d30de1c62b37d2a7b16b1c93e12563c6eecff831d93ebc72f4ac3995b",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -42,5 +42,5 @@
   "delivery_manifest": "DRAMA_SEG02.h3.txt.delivery.json",
   "format_contract": "DRAMA_SEG02.h3.txt.check.json",
   "format_receipt": "DRAMA_SEG02.h3.txt.acceptance.json",
-  "upload_card_sha256": "1aebe29f577c337d1ced9ea41279cef9dd3a6ead24556807c69787286e104869"
+  "upload_card_sha256": "b61569676bbf4458209cbfcea6c25a3185b36efac8cabddec84bc5e8246b0fdf"
 }

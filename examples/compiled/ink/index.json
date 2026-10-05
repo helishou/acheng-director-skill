@@ -32,11 +32,11 @@
       "state_label": null,
       "state_version": null,
       "asset_version": "v1.0",
-      "prompt_sha256": "f372c8f51daab35dfb04e0b0ae69ad04022872b320de0088817ceddec2214cb8",
+      "prompt_sha256": "0bef2006a4f8d872d65dbbfceb7468d8beab45b74d821012e343bfa0d53f87f7",
       "upload_card": "INK_CHARACTER.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "887ca2f94b6e8df2c0a1a00c05ac090ad7b93b394f15c93cead1eb0570bf73cb"
+      "upload_card_sha256": "ced0f4d3f5625e457ec8de959f321bfa279ffe3a6137a8dcee47857a2adfa146"
     }
   ],
   "segments": [
@@ -54,7 +54,7 @@
         "<Picture 1>"
       ],
       "format_pass": "PASSED",
-      "sha256": "78d70acee5d51d3e9b7a1f2225ada944e13e8418baca4f474d7fbf4e67c25262",
+      "sha256": "575bc9df31f6c7545efa35a90dbb464eade231d16286a2e3c8b4cc66eda0d577",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -138,7 +138,7 @@
       "delivery_manifest": "INK_SEG_1.h3.txt.delivery.json",
       "format_contract": "INK_SEG_1.h3.txt.check.json",
       "format_receipt": "INK_SEG_1.h3.txt.acceptance.json",
-      "upload_card_sha256": "08798b960e771af8f9a49eb6ce728ef88f8aa8d20994d73c0baf0b467497f2c5"
+      "upload_card_sha256": "fbbc7461600cafd19ecdabdbbe076f3efec120ae9e821c8c320dc30a24e97f17"
     },
     {
       "segment_id": "INK_SEG_2",
@@ -155,7 +155,7 @@
         "<Picture 2>"
       ],
       "format_pass": "PASSED",
-      "sha256": "d796e99ea0389e3016d616b2ade7d75e83638f0602474b333c7c2a5aff02fe1f",
+      "sha256": "c64e1428e5c52ab5a4830dd44188a76d8b3c31e9450f3aa2c1e5ea62214176b8",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -291,7 +291,7 @@
       "delivery_manifest": "INK_SEG_2.h3.txt.delivery.json",
       "format_contract": "INK_SEG_2.h3.txt.check.json",
       "format_receipt": "INK_SEG_2.h3.txt.acceptance.json",
-      "upload_card_sha256": "41701046823894f2a986c6db5a9c551504db50580892bf7fc70710a82db903e6"
+      "upload_card_sha256": "9ba1b5d0f7261ea3ca026a1a74337fdc48758ca94e21d3fc99e557699efce552"
     },
     {
       "segment_id": "INK_SEG_3",
@@ -307,7 +307,7 @@
         "<Picture 1>"
       ],
       "format_pass": "PASSED",
-      "sha256": "541674c3222cc522fb5023d700b2a22d6d7c63771a8c48147aef080227749c57",
+      "sha256": "c4da3e36a9978bf4bcbdcd054570fd4ce3242ae75600299da3a38f3cce2d04c1",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -391,7 +391,7 @@
       "delivery_manifest": "INK_SEG_3.h3.txt.delivery.json",
       "format_contract": "INK_SEG_3.h3.txt.check.json",
       "format_receipt": "INK_SEG_3.h3.txt.acceptance.json",
-      "upload_card_sha256": "5e1de23fc26929508fbe2dc729a114ee0eb450411cd248602a9a373a59482f21"
+      "upload_card_sha256": "d4302b051f333d81b7338b7d503fb06df55612d0bec431bdd836dcd11e618de0"
     }
   ]
 }

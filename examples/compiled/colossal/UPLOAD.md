@@ -6,7 +6,7 @@
 
 [完整正文/草案](COLOSSAL_SEG01.h3.txt) · [独立上传卡](COLOSSAL_SEG01.upload.md)
 
-绑定版本：`bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837` · 正文 SHA-256：`2e80b460f4f9e894f0713cf928c8096cb54a80f71eb368b766414763430dfe7f`
+绑定版本：`bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837` · 正文 SHA-256：`65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

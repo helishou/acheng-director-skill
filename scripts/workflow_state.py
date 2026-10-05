@@ -3,16 +3,16 @@ from __future__ import annotations
 import argparse, copy, hashlib, json, os, tempfile, uuid
 from datetime import datetime, timezone
 from pathlib import Path
+
+import contract_core
 SCHEMA_VERSION='4.0'
 TERMINAL={'COMPLETED','FAILED'}
 EXECUTION_MODES={'interactive_segment','autonomous_file_batch'}
 def content_hash(value):
     return hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
 def file_hash(path):
-    h=hashlib.sha256()
-    with Path(path).open('rb') as f:
-        for block in iter(lambda:f.read(1024*1024),b''): h.update(block)
-    return h.hexdigest()
+    # Delegate to the single canonical definition so digests agree everywhere.
+    return contract_core.file_hash(path)
 def now(): return datetime.now(timezone.utc).isoformat()
 def atomic_write_json(path,payload):
     path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)

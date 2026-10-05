@@ -14,6 +14,7 @@ from pathlib import Path
 import sys
 
 from h3_contract import english_word_count
+from contract_core import bytes_hash
 
 
 BASE_FIELDS = ("integrated_multimodal_description", "overall_soundscape", "non_diegetic_music")
@@ -264,7 +265,7 @@ def validate_h3_file(path, contract, base_dir=None, *, allow_legacy_fixture=Fals
     base = Path(base_dir) if base_dir is not None else path.parent
     raw = path.read_bytes()
     if contract.get("expected_prompt_sha256"):
-        _need(hashlib.sha256(raw).hexdigest() == contract["expected_prompt_sha256"], "H3 changed after binding compilation")
+        _need(bytes_hash(raw) == contract["expected_prompt_sha256"], "H3 changed after binding compilation")
     text = normalize_h3_prompt(raw.decode("utf-8-sig"))
     _need(isinstance(contract, dict), "H3 check manifest must be an object")
     mode = contract["mode"]
@@ -306,7 +307,7 @@ def validate_h3_file(path, contract, base_dir=None, *, allow_legacy_fixture=Fals
         _need(_section(text, field) == expected.rstrip(), "reference meaning differs from binding snapshot: " + field)
     body = _section(text, "detailed_description" if mode == "Ref2VA" else "integrated_multimodal_description")
     return {"format_pass": "PASSED", "validator": "h3_final_format/4.3.6",
-            "file": path.name, "sha256": hashlib.sha256(raw).hexdigest(),
+            "file": path.name, "sha256": bytes_hash(raw),
             "contract_sha256": hashlib.sha256(json.dumps(contract, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest(),
             "mode": mode, "duration_seconds": duration, "shot_count": contract["shot_count"],
             "english_words": english_word_count(body), "minimum_words": minimum,

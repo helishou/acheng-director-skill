@@ -33,7 +33,7 @@
 
 生成模式：GENERATE · 资产类型：未指定 · 状态版本：未指定 / listening-still
 
-[完整提示词/草案](<asset_prompts/ASSET_SUSPENSE_ARCHIVE.image.txt>) · SHA-256：b898bbb324cbf43fa950f79e438e29fcda5fb1ed2cbb2dc5aa6f60c8a45304b0
+[完整提示词/草案](<asset_prompts/ASSET_SUSPENSE_ARCHIVE.image.txt>) · SHA-256：d1858eaade7507e3b42abbc56d176373af1ea087fea2c1568986dceac0eb0034
 
 本卡用于生成这一个资产；H3 视频请求的参考图和编号另见对应 Segment 上传卡。
 
@@ -62,7 +62,7 @@ Create a low-key live-action suspense keyframe in an abandoned archive. Ning Yue
 
 [完整正文/草案](SUSPENSE_SEG01.h3.draft.txt) · [独立上传卡](SUSPENSE_SEG01.upload.md)
 
-绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`f2735a5d3940903155fd3a194898ffcdd73bbe061029acf344e711d57062f2ec`
+绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`0b651a3906a76e6faafbadfb871518486bdc45a81078597d2620fed3c460e586`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

@@ -2,7 +2,7 @@
 import copy
 import hashlib
 from pathlib import Path
-from contract_core import indexed, need, prose
+from contract_core import file_hash, indexed, need, prose
 
 KINDS = {"character", "costume", "injury", "scene", "prop", "vehicle", "keyframe", "effect", "style"}
 
@@ -92,7 +92,7 @@ def check_asset_plan(payload, base):
         if node["status"] == "approved":
             file = Path(base) / node.get("file", "")
             need(file.is_file(), f"{aid}: approved asset file missing")
-            need(hashlib.sha256(file.read_bytes()).hexdigest() == node.get("sha256"), f"{aid}: approved asset hash changed")
+            need(file_hash(file) == node.get("sha256"), f"{aid}: approved asset hash changed")
         else:
             need(aid in cards, f"{aid}: planned asset lacks a prompt card")
         if aid in cards:
