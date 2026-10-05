@@ -21,7 +21,16 @@
       "exact shot lighting",
       "text, logo, watermark and grid"
     ],
-    "apply_to_kinds": ["character", "costume", "injury", "scene", "prop", "vehicle", "keyframe", "effect"],
+    "apply_to_kinds": [
+      "character",
+      "costume",
+      "injury",
+      "scene",
+      "prop",
+      "vehicle",
+      "keyframe",
+      "effect"
+    ],
     "approved_file": null,
     "approved_sha256": null
   },
@@ -54,13 +63,34 @@
         "rebuild": "Keep the subject generic, unbranded and free of narrative identity."
       },
       "seven_steps": [
-        {"step": 1, "content": "One neutral faceless mannequin-like subject with simple joints on a plain unbranded studio ground, plus one representative material sample."},
-        {"step": 2, "content": "Show the declared medium, edge behavior and silhouette readability without a recognizable face or costume identity."},
-        {"step": 3, "content": "Use a quiet centered composition with one broad motivated key light and restrained fill."},
-        {"step": 4, "content": "Separate the representative material response from the neutral background without decorative scene detail."},
-        {"step": 5, "content": "Show the declared palette roles, shadow hierarchy and controlled atmospheric depth."},
-        {"step": 6, "content": "Keep background abstraction and surface detail sufficient for comparison but free of story-specific objects."},
-        {"step": 7, "content": "Exclude text, logos, watermarks, grids, panel labels, brands, dramatic action, complex narrative lighting and visual noise."}
+        {
+          "step": 1,
+          "content": "One neutral faceless mannequin-like subject with simple joints on a plain unbranded studio ground, plus one representative material sample."
+        },
+        {
+          "step": 2,
+          "content": "Show the declared medium, edge behavior and silhouette readability without a recognizable face or costume identity."
+        },
+        {
+          "step": 3,
+          "content": "Use a quiet centered composition with one broad motivated key light and restrained fill."
+        },
+        {
+          "step": 4,
+          "content": "Separate the representative material response from the neutral background without decorative scene detail."
+        },
+        {
+          "step": 5,
+          "content": "Show the declared palette roles, shadow hierarchy and controlled atmospheric depth."
+        },
+        {
+          "step": 6,
+          "content": "Keep background abstraction and surface detail sufficient for comparison but free of story-specific objects."
+        },
+        {
+          "step": 7,
+          "content": "Exclude text, logos, watermarks, grids, panel labels, brands, dramatic action, complex narrative lighting and visual noise."
+        }
       ],
       "prompt": "Create one clean low-contamination rendering-language test image for an animation production pipeline, not a story image and not a character design sheet. Show one neutral faceless mannequin-like subject with simple joints on a plain unbranded studio ground, plus one small sample of painted metal and wet concrete. Use a cinematic 3D rendering language with clean silhouette edges, a three-level shadow hierarchy, a cold blue base palette with one restrained amber accent, matte painted-metal response, damp concrete response and restrained atmospheric depth. Keep the composition quiet and centered with one broad motivated key light and soft fill so the medium, edge behavior, shadows, palette, materials and background abstraction can be judged. No recognizable face, no named character, no costume identity, no scene landmark, no story prop, no text, no logo, no watermark, no grid, no panel labels, no dramatic action, no complex narrative lighting and no decorative visual noise.",
       "generation_status": "planned",

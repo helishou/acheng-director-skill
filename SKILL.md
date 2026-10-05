@@ -311,3 +311,7 @@ python scripts/validate_director_contract.py
 
 样例入口：[重工业机甲](examples/01-hollywood-mecha-combat-h3.md)、[文戏对峙](examples/02-dramatic-micro-acting-h3.md)、[超巨构神魔对决](examples/03-colossal-scale-combat-h3.md)、[三集八线悬疑](examples/04-serial.production.md)、[非写实无特效动作](examples/05-ink.production.md)。完整样例数据是可复制的生产模板，修改题材时同时修改资产、动作与状态，不只替换角色名字。
 
+
+
+### 固定角色四格模板（用户指定）
+角色设定板统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。此条取代旧正/侧/背全身加正脸近景及横排规则；旧源稿须显式迁移，已确认媒体保持原版本。

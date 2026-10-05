@@ -2556,7 +2556,7 @@
       "seven_steps": [
         {
           "step": 1,
-          "content": "This is the Meilin character identity asset in the approved neutral_identity state. Create one clean four-view character turnaround board for this single subject, arranged left to right: 1) full-body front view, 2) full-body back view, 3) full-body side profile, 4) front-facing head-and-shoulders face close-up. Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background across the three full-body views; use the fourth panel only for the straight-on face. Do not render the character name or state as visible text, and do not add panel letters, labels, logos, extra people or extra limbs. Create a neutral full-body live-action character reference. Meilin is a 32-year-old woman with a narrow oval face, straight black eyebrows and chin-length dark hair tucked behind her left ear. She wears a faded blue cotton jacket, cream shirt and dark straight trousers; her hands are uninjured."
+          "content": "Create a neutral full-body live-action character reference. Meilin is a 32-year-old woman with a narrow oval face, straight black eyebrows and chin-length dark hair tucked behind her left ear. She wears a faded blue cotton jacket, cream shirt and dark straight trousers; her hands are uninjured."
         },
         {
           "step": 2,
@@ -2583,7 +2583,7 @@
           "content": "Avoid ghost texture, duplicated objects and unintended text."
         }
       ],
-      "prompt": "This is the Meilin character identity asset in the approved neutral_identity state. Create one clean four-view character turnaround board for this single subject, arranged left to right: 1) full-body front view, 2) full-body back view, 3) full-body side profile, 4) front-facing head-and-shoulders face close-up. Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background across the three full-body views; use the fourth panel only for the straight-on face. Do not render the character name or state as visible text, and do not add panel letters, labels, logos, extra people or extra limbs. Create a neutral full-body live-action character reference. Meilin is a 32-year-old woman with a narrow oval face, straight black eyebrows and chin-length dark hair tucked behind her left ear. She wears a faded blue cotton jacket, cream shirt and dark straight trousers; her hands are uninjured. Use one broad upper-left light with readable shadow planes and localized contact shadows. Keep the principal silhouette and functional details clear, with broad quiet background shapes. Separate the stated materials through their surface response. Avoid ghost texture, duplicated anatomy and unintended text.",
+      "prompt": "Create a neutral full-body live-action character reference. Meilin is a 32-year-old woman with a narrow oval face, straight black eyebrows and chin-length dark hair tucked behind her left ear. She wears a faded blue cotton jacket, cream shirt and dark straight trousers; her hands are uninjured. Use one broad upper-left light with readable shadow planes and localized contact shadows. Keep the principal silhouette and functional details clear, with broad quiet background shapes. Separate the stated materials through their surface response. Avoid ghost texture, duplicated anatomy and unintended text.",
       "generation_status": "planned",
       "actual_settings": null,
       "asset_kind": "character",
@@ -2592,12 +2592,12 @@
       "view_layout": {
         "type": "four_view_character_turnaround",
         "views": [
-          "front_full_body",
-          "back_full_body",
-          "side_profile_full_body",
-          "front_face_close_up"
+          "front_face_above_clavicle",
+          "right_profile_above_clavicle",
+          "headless_front_costume_full_body",
+          "back_full_body"
         ],
-        "order": "left_to_right",
+        "order": "grid_2x2",
         "same_subject": true,
         "purpose": "identity, proportions, costume, hairstyle and face reference"
       }
@@ -2620,7 +2620,7 @@
       "seven_steps": [
         {
           "step": 1,
-          "content": "This is the Bo character identity asset in the approved neutral_identity state. Create one clean four-view character turnaround board for this single subject, arranged left to right: 1) full-body front view, 2) full-body back view, 3) full-body side profile, 4) front-facing head-and-shoulders face close-up. Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background across the three full-body views; use the fourth panel only for the straight-on face. Do not render the character name or state as visible text, and do not add panel letters, labels, logos, extra people or extra limbs. Create a neutral full-body live-action character reference. Bo is a 40-year-old man with a broad face, short salt-and-pepper hair and a small pale scar on his left cheek. He wears a brown canvas vest over a rolled-sleeve gray shirt and dark work trousers; his hands are uninjured."
+          "content": "Create a neutral full-body live-action character reference. Bo is a 40-year-old man with a broad face, short salt-and-pepper hair and a small pale scar on his left cheek. He wears a brown canvas vest over a rolled-sleeve gray shirt and dark work trousers; his hands are uninjured."
         },
         {
           "step": 2,
@@ -2647,7 +2647,7 @@
           "content": "Avoid ghost texture, duplicated objects and unintended text."
         }
       ],
-      "prompt": "This is the Bo character identity asset in the approved neutral_identity state. Create one clean four-view character turnaround board for this single subject, arranged left to right: 1) full-body front view, 2) full-body back view, 3) full-body side profile, 4) front-facing head-and-shoulders face close-up. Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background across the three full-body views; use the fourth panel only for the straight-on face. Do not render the character name or state as visible text, and do not add panel letters, labels, logos, extra people or extra limbs. Create a neutral full-body live-action character reference. Bo is a 40-year-old man with a broad face, short salt-and-pepper hair and a small pale scar on his left cheek. He wears a brown canvas vest over a rolled-sleeve gray shirt and dark work trousers; his hands are uninjured. Use one broad upper-left light with readable shadow planes and localized contact shadows. Keep the principal silhouette and functional details clear, with broad quiet background shapes. Separate the stated materials through their surface response. Avoid ghost texture, duplicated anatomy and unintended text.",
+      "prompt": "Create a neutral full-body live-action character reference. Bo is a 40-year-old man with a broad face, short salt-and-pepper hair and a small pale scar on his left cheek. He wears a brown canvas vest over a rolled-sleeve gray shirt and dark work trousers; his hands are uninjured. Use one broad upper-left light with readable shadow planes and localized contact shadows. Keep the principal silhouette and functional details clear, with broad quiet background shapes. Separate the stated materials through their surface response. Avoid ghost texture, duplicated anatomy and unintended text.",
       "generation_status": "planned",
       "actual_settings": null,
       "asset_kind": "character",
@@ -2656,12 +2656,12 @@
       "view_layout": {
         "type": "four_view_character_turnaround",
         "views": [
-          "front_full_body",
-          "back_full_body",
-          "side_profile_full_body",
-          "front_face_close_up"
+          "front_face_above_clavicle",
+          "right_profile_above_clavicle",
+          "headless_front_costume_full_body",
+          "back_full_body"
         ],
-        "order": "left_to_right",
+        "order": "grid_2x2",
         "same_subject": true,
         "purpose": "identity, proportions, costume, hairstyle and face reference"
       }

@@ -61,9 +61,10 @@ def check_assets(payload, base, allow_missing=False):
             layout = card.get("view_layout")
             require(isinstance(layout, dict) and substantive(layout.get("type")), "character view layout required")
             if layout["type"] == "four_view_character_turnaround":
-                require(layout.get("views") == ["front_full_body", "back_full_body", "side_profile_full_body", "front_face_close_up"], "character four-view order incomplete")
+                require(layout.get("views") == ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"], "character four-view order incomplete")
+                require(layout.get("order") == "grid_2x2", "character layout must use grid_2x2")
                 require("four-view character turnaround" in card.get("prompt", "").lower(), "character prompt missing four-view directive")
-                require("front-facing head-and-shoulders face close-up" in card.get("prompt", "").lower(), "character prompt missing face view")
+                require(all(t in card.get("prompt", "").lower() for t in ("top left:", "top right:", "bottom left:", "bottom right:", "completely crop out head and face")), "character prompt missing fixed panel contract")
         if card.get("asset_kind") == "style":
             require(card.get("recipe") == "style", "style asset must use the style recipe")
             require(substantive(card.get("style_anchor_purpose")) or card.get("id") == (style_lock or {}).get("anchor_asset_id"), "style asset purpose required")

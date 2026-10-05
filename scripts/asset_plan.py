@@ -8,8 +8,8 @@ KINDS = {"character", "costume", "injury", "scene", "prop", "vehicle", "keyframe
 
 DEFAULT_CHARACTER_VIEW_LAYOUT = {
     "type": "four_view_character_turnaround",
-    "views": ["front_full_body", "back_full_body", "side_profile_full_body", "front_face_close_up"],
-    "order": "left_to_right",
+    "views": ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"],
+    "order": "grid_2x2",
     "same_subject": True,
     "purpose": "identity, proportions, costume, hairstyle and face reference"
 }
@@ -36,17 +36,24 @@ def prepare_asset_card(card, payload):
     result["view_layout"] = layout
     if layout.get("type") == "four_view_character_turnaround":
         views = layout.get("views")
+        need(views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
+        need(layout.get("order", "grid_2x2") == "grid_2x2", "character layout must use grid_2x2")
+        layout["order"] = "grid_2x2"
+        need(not any(t in result.get("prompt", "").lower() for t in ("arranged left to right", "full-body side profile", "横排四栏", "正面全身、背面全身、左侧全身")), "conflicting legacy character layout in prompt")
         if views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"]:
             name = result["character_name"]
             state = result["state_label"]
             directive = (
                 f"This is the {name} character identity asset in the approved {state} state. "
-                "Create one clean four-view character turnaround board for this single subject, arranged left to right: "
-                "1) full-body front view, 2) full-body back view, 3) full-body side profile, "
-                "4) front-facing head-and-shoulders face close-up. "
+                "Create one clean four-view character turnaround board in a fixed 2x2 grid. "
+                "Top left: front face above the clavicle. Top right: right profile face above the clavicle. "
+                "Bottom left: headless front costume full body starting below the clavicle; completely crop out head and face, arms relaxed down, legs and shoes complete. "
+                "Bottom right: complete back full body from back of head to soles, showing all rear attachments actually defined for this character. "
+                "Neutral light-grey background, orthographic, no perspective distortion. "
+                "Identity references lock only specified character traits, never background or pose. Do not invent traits from another character. "
                 "Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background "
-                "across the three full-body views; use the fourth panel only for the straight-on face. "
-                "Do not render the character name or state as visible text, and do not add panel letters, labels, logos, extra people or extra limbs."
+                "across all four panels; preserve only the project's actual character features and visual style. "
+                "No text, letters, numbers, symbols, watermark, logo or UI. Avoid head or face in the bottom-left panel, missing legs or shoes, exaggerated perspective, action poses, weapons, extra figures or costume changes."
             )
             if "four-view character turnaround" not in result.get("prompt", "").lower():
                 result["prompt"] = directive + " " + result.get("prompt", "")

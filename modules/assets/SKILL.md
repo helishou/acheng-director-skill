@@ -22,3 +22,7 @@ H3 引用衔接另读[114 绑定合同](../../references/114-reference-binding-d
 场景概念需求由嵌套的 `scene-design` 适配器按需触发。它先生成独立 `scene_art_direction.json` 和图像提示词，再由 assets 校验场景几何、版本、依赖与参考图；场景支路不直接写生产真值，不能把 moodboard 图片自动当作 STYLE_MOTHER。
 
 字段写入白名单取[模块登记](../../data/module-registry.json)。回包包含request_id/input_revision/module/status/attempt/patch/evidence/unresolved；最多初次加一次有证据的修正。只改允许路径，不能把其他模块的建议直接写成已确认事实。
+
+
+### 固定角色四格模板（用户指定）
+角色设定板统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。此条取代旧正/侧/背全身加正脸近景及横排规则；旧源稿须显式迁移，已确认媒体保持原版本。

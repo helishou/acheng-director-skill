@@ -186,7 +186,7 @@ def validate(root=ROOT):
                 character_asset_count += 1
                 require(resolved.get("character_name") and resolved.get("state_label"), f"Character asset labels missing: {card['id']}")
                 require(resolved.get("view_layout", {}).get("type") == "four_view_character_turnaround", f"Character four-view layout missing: {card['id']}")
-                require(resolved["view_layout"].get("views") == ["front_full_body", "back_full_body", "side_profile_full_body", "front_face_close_up"], f"Character four-view order invalid: {card['id']}")
+                require(resolved["view_layout"].get("views") == ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"], f"Character four-view order invalid: {card['id']}")
             entry = entries[card["id"]]
             prefix = "DRAFT — required reference images are not yet supplied. Do not submit until the upload manifest is resolved.\n\n" if missing else ""
             require((image_dir / entry["prompt_file"]).read_text(encoding="utf-8") == prefix + render_asset_prompt(resolved, production.get("prompt_bindings"), production.get("style_lock")), "Image export differs from source")
