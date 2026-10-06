@@ -7,6 +7,12 @@ metadata:
 
 # acheng-continuity
 
+无限画布运行包提供 ledger contract v2 时，视频制作必须读取并遵守 `getProductionContract(runtimeId, "set_director_production").continuityLedger` 及本运行包的 `scripts/continuity_v2.py`。先按已登记的角色、场景、资产、剧本块和 Shot 构造 timeline、facts、initial、events、requirements 与逐块 coverage。timelineId/storyOrder 显式声明叙事次序；倒叙使用新 timeline 和明确初态，不沿用播放顺序推断。knowledge/relationship 仍引用 story owner 字段；资产版本引用 assets owner 字段。
+
+coverage 是人工专业复核证据，不是机器语义发现：每个剧本 block 都有源摘要和 evidence_kind；变化必须链接事实、requirement、event 与来源；保持须链接对应事实的已知初态；not_applicable 仅使用合同允许的窄规则并附理由与复核引用；未知标 unresolved_review。不能为通过批量填写“不变”或伪造事件。普通编辑可以保存 blocked/partial，不能将它标记为完整。
+
+程序派生的 Shot 起止状态、outcome events 与报告严禁写入 ledger/source。覆盖回执、技能读取、程序重放和媒体观察分别报告；机器结构通过不声称自然语言已完整识别，也不声称实际画面通过。
+
 跨镜状态、参考版本或恢复游标有冲突时，按[局部决策指南](../../references/decisions/continuity.md)对应节定位来源；只返回具体缺口，不新增事件来强行对齐。
 
 读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。相邻复核 model 的稳定对象身份、素材状态版本、Shot/帧窗和尾态；发现错误退给字段 owner，不自行改 H3 或素材。联合回执必须与当前 revision 一致，机器 PASS 不等于语义识图、平台上传或实际成片验收。

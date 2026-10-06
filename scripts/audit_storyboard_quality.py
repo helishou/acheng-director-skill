@@ -132,9 +132,10 @@ def shape(p):
         require(isinstance(s.get("characters"), list), f"{s['id']}: characters must be a list")
         require(isinstance(s.get("dialogues"), list), f"{s['id']}: dialogues must be a list")
         require(isinstance(s.get("audio"), dict), f"{s['id']}: audio required")
-        for key in ("state_in", "state_out"):
-            require(isinstance(s.get(key), dict), f"{s['id']}: {key} required")
-        require(isinstance(s.get("outcome_events"), list), f"{s['id']}: outcome_events required")
+        if p.get("ledger", {}).get("contract_version") != 2:
+            for key in ("state_in", "state_out"):
+                require(isinstance(s.get(key), dict), f"{s['id']}: {key} required")
+            require(isinstance(s.get("outcome_events"), list), f"{s['id']}: outcome_events required")
     require(isinstance(p.get("ledger"), dict), "ledger required")
 
 
@@ -233,6 +234,17 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
 
 def continuity_text(shot, production):
     """Expose only this shot's recorded events and relevant held state, never invent blocking."""
+    if production.get("ledger", {}).get("contract_version") == 2:
+        report = production.get("_continuity_report", {})
+        trajectory = report.get("trajectories", {}).get(str(shot.get("id")), {})
+        if not trajectory:
+            return "Continuity state is unresolved for this shot; do not assume a prior or later state."
+        chunks = []
+        for fact_id, value in trajectory.get("end", {}).items():
+            chunks.append(f"At the end of this shot, registered continuity fact {fact_id} is {value}.")
+        if not chunks:
+            chunks.append("No registered continuity facts apply to this shot; semantic discovery was not performed.")
+        return " ".join(chunks)
     bindings = production.get('prompt_bindings', {})
     names = {item['id']: bindings.get(item['id'], item['name']) for field in ('character_registry', 'scene_registry') for item in production[field]}
     visible = {item['id'] for item in shot['characters']}
@@ -389,6 +401,12 @@ def compile_segment(p, seg, *, draft=False):
 
 def replay(p):
     ledger = p["ledger"]
+    if ledger.get("contract_version") == 2:
+        from continuity_v2 import audit as audit_continuity_v2
+        report = audit_continuity_v2(p)
+        if report["diagnostics"]:
+            raise ContractError("; ".join(f"{item['code']}: {item['message']}" for item in report["diagnostics"]))
+        return report["final"]
     initial = ledger.get("initial")
     require(isinstance(initial, dict), "ledger.initial required")
     chars = {c["id"] for c in p["character_registry"]}

@@ -14,6 +14,8 @@ metadata:
 
 # Acheng Director（Acheng 电影级导演综合引擎）
 
+Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模块。事实、时间线、要求和覆盖声明属于 authored source；重放快照只存在于检查报告或隔离编译输入，不得写回正式源稿。报告分别显示登记覆盖、程序重放和“语义发现未执行”；缺少覆盖、旧报告或未知上游不得标 ready。旧稿先只读诊断，仅在用户明确升级后按新合同编辑。
+
 
 
 用户简称是 **Acheng Director**；技术包名和调用标识继续使用 `acheng-director`，作者署名使用 Acheng。名称调整不改变模块权属、生产合同或调用方式。

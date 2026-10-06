@@ -20,6 +20,7 @@ from prompt_delivery import render_asset_prompt
 from asset_plan import resolve_card
 from style_anchor import style_policy_report
 from asset_delivery import copy_image_references, finish_asset_entry, missing_details
+from continuity_v2 import audit as audit_continuity_v2
 
 
 def write_json(path, value):
@@ -112,18 +113,26 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
         raise ContractError("unknown Segment")
     if output.exists():
         raise ContractError(f"Output already exists; choose a new revision directory: {output}")
+    continuity_report = audit_continuity_v2(production) if production.get("ledger", {}).get("contract_version") == 2 else None
+    if continuity_report is not None:
+        # Scratch-only projection: this dictionary is never written back to source.
+        production["_continuity_report"] = continuity_report
     report = audit(production, source.parent)
-    package_failed = [g for g in report["gates"] if g["status"] == "FAIL"]
+    package_failed = [g for g in report["gates"] if g["status"] == "FAIL" and not (continuity_report is not None and g.get("gate") == "continuity_ledger")]
     prepared = []
     for seg in selected:
         if not re.fullmatch(r"[A-Za-z0-9_-]+", seg["id"]):
             raise ContractError("segment id must be a safe filename")
         snapshot = resolve_bindings(production, seg, source.parent)
         segment_report = audit(production, source.parent, h3_segment_ids={seg['id']}) if any(g['gate'] == 'h3_schema' for g in package_failed) else report
-        failed = [g for g in segment_report['gates'] if g['status'] == 'FAIL']
+        failed = [g for g in segment_report['gates'] if g['status'] == 'FAIL' and not (continuity_report is not None and g.get('gate') == 'continuity_ledger')]
         if failed and not draft and not (snapshot["issues"] and all(g["gate"] == "h3_schema" for g in failed)):
             raise ContractError(json.dumps(report, ensure_ascii=False))
         blockers = list(snapshot["issues"])
+        if continuity_report is not None:
+            shot_ids = {str(value) for value in seg.get("shot_ids", [])}
+            blockers.extend(item["code"] + ": " + item["message"] for item in continuity_report["diagnostics"]
+                           if not item.get("affectedTargets") or seg["id"] in item.get("affectedTargets", []) or item.get("targetId") in shot_ids)
         blockers.extend(g["gate"] + ": " + "; ".join(g["errors"]) for g in failed)
         resolved_seg = copy.deepcopy(seg)
         resolved_seg["references"] = [copy.deepcopy(r) for r in snapshot["references"] if r["label"].startswith("<")]
@@ -196,6 +205,9 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
                "asset_prompts": asset_prompts, "segments": index}
     write_json(output / "index.json", payload)
     write_json(output / "audit.json", report)
+    if continuity_report is not None:
+        continuity_report["sourceHash"] = revision
+        write_json(output / "continuity.report.json", continuity_report)
     (output / "UPLOAD.md").write_text("# H3 逐段上传操作卡\n\n" + "\n".join(upload_card(e) for e in index), encoding="utf-8")
     (output / "DELIVERY_VIEW.md").write_text(render_video(production, output, payload), encoding="utf-8")
     (output / "CHAT_DELIVERY.md").write_text(render_video(production, output, payload, compact=True), encoding="utf-8")

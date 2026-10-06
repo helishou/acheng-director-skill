@@ -18,7 +18,7 @@
 - 变化有依据：登记已有状态差量，交 performance 选择当前可见信号。
 - 只有经过十秒之类计时推断：不新增疲劳或伤势，把证据不足列为待定。
 
-落点：/ledger、/unresolved_threads。
+落点：/ledger/facts、/ledger/requirements、/ledger/events、/unresolved_threads。
 完成即停：能力限制和恢复均可追溯到事件或设定。
 不采用的原文硬规则：不用10秒阈值、乳酸解释或毫米级颤抖强制疲劳。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第262–267行；原文只作出处。
@@ -37,7 +37,7 @@
 - 有合法变化：记录差量和时点，通知适用资产版本/状态绑定。
 - 没有依据：交对应 owner 修状态或素材，不能把身份参考里的新衣服覆盖进受损时段。
 
-落点：/ledger、/unresolved_threads。
+落点：/ledger/facts、/ledger/events、/ledger/requirements、/unresolved_threads。
 完成即停：物件状态变化有事件依据，版本与适用时段一致。
 不采用的原文硬规则：不规定熵只能增加；修复、清洁、时间省略和设定内复原都可能合法。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第269–274行；原文只作出处。
@@ -56,7 +56,7 @@
 - 有事件：按实际时点修正尾态、初态或适用参考，保持 owner 分工。
 - 没有事件：报出对象与冲突字段；不发明一次转移，也不声称算出了未记录的动量。
 
-落点：/ledger、/unresolved_threads。
+落点：/ledger/facts、/ledger/requirements、/shots/*/continuity_facts、/unresolved_threads。
 完成即停：承接有事件依据，完整描述和可计算账本各自一致。
 不采用的原文硬规则：尾态不强制包含伪精确动量；叙事省略可合法存在。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第338–339行；原文只作出处。

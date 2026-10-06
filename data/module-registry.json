@@ -153,11 +153,22 @@
       "reads": [
         "references/decisions/continuity.md",
         "references/80-continuity-ledger.md",
+        "scripts/continuity_v2.py",
         "references/95-quality-gates.md",
         "references/114-reference-binding-delivery-v4.3.6.md"
       ],
       "owns": [
-        "/ledger",
+        "/ledger/contract_version",
+        "/ledger/facts",
+        "/ledger/timelines",
+        "/ledger/initial",
+        "/ledger/events",
+        "/ledger/requirements",
+        "/ledger/coverage",
+        "/legacyContinuityProjection",
+        "/shots/*/timeline_id",
+        "/shots/*/story_order",
+        "/shots/*/continuity_facts",
         "/unresolved_threads"
       ],
       "checks_with": [
