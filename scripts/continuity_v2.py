@@ -36,7 +36,7 @@ def audit(source, target_ids=None):
         for shot_id in segment.get("shot_ids", []) if isinstance(segment.get("shot_ids"), list) else []:
             segment_by_shot.setdefault(str(shot_id), []).append(sid)
 
-    def issue(code, message, shot_id=None, fact_id=None, path="source.ledger"):
+    def issue(code, message, shot_id=None, fact_id=None, path="source.ledger", details=None):
         targets = segment_by_shot.get(str(shot_id), []) if shot_id else []
         if not targets and path.startswith("source.script_scenes."):
             scene_key = path.split(".")[2]
@@ -45,10 +45,13 @@ def audit(source, target_ids=None):
             source_scene_id = str(scene_row.get("id", ""))
             targets = sorted({segment for shot in shots if str(shot.get("scene_id", "")) == scene_id or str(shot.get("source_scene_id", "")) == source_scene_id
                               for segment in segment_by_shot.get(str(shot.get("id", "")), [])})
-        issues.append({"code": code, "path": path, "message": message,
-                       **({"targetId": str(shot_id)} if shot_id else {}),
-                       **({"factId": str(fact_id)} if fact_id else {}),
-                       "affectedTargets": targets})
+        diagnostic = {"code": code, "path": path, "message": message,
+                      **({"targetId": str(shot_id)} if shot_id else {}),
+                      **({"factId": str(fact_id)} if fact_id else {}),
+                      "affectedTargets": targets}
+        if isinstance(details, dict):
+            diagnostic.update(details)
+        issues.append(diagnostic)
 
     if not isinstance(ledger, dict) or ledger.get("contract_version") != 2:
         legacy_status = "unavailable"
@@ -146,7 +149,8 @@ def audit(source, target_ids=None):
             issue("CONTINUITY_EVENT_REFERENCE", f"事件 {event_id} 引用未知时间线、事实或镜头", shot_id, fact_id)
             continue
         if type(frame) is not int or frame < int(shot.get("start_frame", 0)) or frame >= int(shot.get("end_frame", 0)):
-            issue("CONTINUITY_EVENT_FRAME", f"事件 {event_id} 不在镜头播放帧窗内", shot_id, fact_id)
+            issue("CONTINUITY_EVENT_FRAME", f"事件 {event_id} 不在镜头播放帧窗内", shot_id, fact_id,
+                  details={"expected": {"startFrame": shot.get("start_frame"), "endFrameExclusive": shot.get("end_frame")}, "actual": frame})
         allowed = facts[fact_id].get("allowed_values", [])
         if before != "unknown" and before not in allowed or after != "unknown" and after not in allowed:
             issue("CONTINUITY_EVENT_VALUE", f"事件 {event_id} 使用事实 {fact_id} 不支持的状态", shot_id, fact_id)
@@ -275,7 +279,9 @@ def audit(source, target_ids=None):
                 same_frame.add(event_key)
                 prior = values.get(fact_id, "unknown")
                 if prior != event.get("before"):
-                    issue("CONTINUITY_BEFORE_MISMATCH", f"事件 {event.get('id')} 的 before 与重放状态不一致（期望 {prior}）", shot_id, fact_id)
+                    issue("CONTINUITY_BEFORE_MISMATCH", f"事件 {event.get('id')} 的 before 与重放状态不一致（期望 {prior}）", shot_id, fact_id,
+                          details={"expected": prior, "actual": event.get("before"),
+                                   "sourceBlockId": (event.get("source_anchor") or {}).get("block_id") if isinstance(event.get("source_anchor"), dict) else ""})
                     values[fact_id] = "unknown"
                 else:
                     values[fact_id] = event.get("after")
@@ -287,7 +293,9 @@ def audit(source, target_ids=None):
                         continue
                     for req in rows:
                         if req.get("kind") == "hold" and snapshot_in.get(req_fact, "unknown") != req.get("value"):
-                            issue("CONTINUITY_HOLD_MISMATCH", f"保持要求的事实 {req_fact} 与镜头起态不一致", shot_id, req_fact)
+                            issue("CONTINUITY_HOLD_MISMATCH", f"保持要求的事实 {req_fact} 与镜头起态不一致", shot_id, req_fact,
+                                  details={"expected": req.get("value"), "actual": snapshot_in.get(req_fact, "unknown"),
+                                           "sourceBlockId": (req.get("source_anchor") or {}).get("block_id") if isinstance(req.get("source_anchor"), dict) else ""})
                         if req.get("kind") == "change" and not any(str(event.get("id")) in [str(x) for x in req.get("event_ids", [])] for event in current_events):
                             issue("CONTINUITY_CHANGE_EVENT_NOT_IN_SHOT", f"变化要求的事实 {req_fact} 没有本镜事件", shot_id, req_fact)
         final_by_timeline[timeline_id] = dict(values)

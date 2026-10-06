@@ -54,6 +54,9 @@ class ContinuityV2Tests(unittest.TestCase):
         result = audit(value)
         diagnostic = next(item for item in result["diagnostics"] if item["code"] == "CONTINUITY_BEFORE_MISMATCH")
         self.assertEqual(diagnostic["affectedTargets"], ["SEG01"])
+        self.assertEqual(diagnostic["expected"], "blue")
+        self.assertEqual(diagnostic["actual"], "red")
+        self.assertEqual(diagnostic["sourceBlockId"], "B01")
 
     def test_unknown_timeline_state_blocks_consumers(self):
         value = production()
