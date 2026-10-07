@@ -62,6 +62,10 @@ class StoryboardPolicyTests(unittest.TestCase):
         p = fixture(); p["shots"][0]["visual"] = "A medium two-shot; cut to Bob."
         self.assertEqual({d["code"] for d in diagnostics(p)}, {"FRAMING_PROSE_CONFLICT", "EDITORIAL_CUT_IN_PROSE"})
 
+    def test_invalid_framing_type_returns_diagnostic(self):
+        p = fixture(); p['shots'][0]['camera']['framing'] = []
+        self.assertTrue(any(d['code'] == 'STORYBOARD_FRAMING_REQUIRED' for d in diagnostics(p)))
+
     def test_real_compiler_preserves_local_shots_and_speech(self):
         p = read_data(Path(__file__).resolve().parents[1] / "examples/02-drama.production.json")
         p["storyboard_policy"] = {"version": 1}

@@ -28,7 +28,7 @@ def diagnostics(source, shot_ids=None):
         sid = shot.get("id")
         path = f"shots.{index}"
         camera = shot.get("camera") if isinstance(shot.get("camera"), dict) else {}
-        if camera.get("framing") not in FRAMINGS:
+        if not isinstance(camera.get("framing"), str) or camera["framing"] not in FRAMINGS:
             issue("STORYBOARD_FRAMING_REQUIRED", path + ".camera.framing", "Declare framing: " + ", ".join(FRAMINGS), sid)
         attention = camera.get("attention_subject_ids")
         if not isinstance(attention, list) or not attention or any(not isinstance(x, str) or x not in registered for x in attention):
@@ -77,7 +77,7 @@ def render(shot, source):
     if source.get("storyboard_policy") is None:
         return ""
     camera = shot["camera"]
-    if camera.get("framing") not in FRAMINGS or not isinstance(camera.get("attention_subject_ids"), list) or not isinstance(camera.get("editorial_reason"), str):
+    if not isinstance(camera.get("framing"), str) or camera["framing"] not in FRAMINGS or not isinstance(camera.get("attention_subject_ids"), list) or not isinstance(camera.get("editorial_reason"), str):
         return ""  # Incomplete draft retains authored prose; strict compilation rejects it.
     names = {}
     for field in ("character_registry", "scene_registry", "asset_plan", "asset_cards"):
