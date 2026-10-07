@@ -147,9 +147,14 @@ def timecode(frame, p):
 def shot_text(shot, production=None, speakers=None, speech_parts=None, referenced_subjects=None):
     """Compile substantive structured fields into visible/audible English prose."""
     c = shot["camera"]
+    from storyboard_policy import render
     chunks = [shot["visual"], c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
+    if production:
+        framing = render(shot, production)
+        if framing:
+            chunks.insert(0, framing)
     bindings = (production or {}).get('prompt_bindings', {})
     names = {item['id']: bindings.get(item['id'], item['name']) for item in (production or {}).get('character_registry', [])}
     for character in shot.get('characters', []):
@@ -303,6 +308,9 @@ def animation_term_text(seg):
 
 
 def compile_segment(p, seg, *, draft=False):
+    from storyboard_policy import check
+    if not draft:
+        check(p, set(seg.get("shot_ids", [])))
     by_id = {s["id"]: s for s in p["shots"]}
     shots = [by_id[x] for x in seg["shot_ids"]]
     mode = seg["mode"]
@@ -547,6 +555,9 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
             require(type(c.get("lens_mm")) in (int, float) and c["lens_mm"] > 0, "lens_mm invalid")
             require(type(c.get("shutter_angle")) in (int, float) and 0 < c["shutter_angle"] <= 360, "shutter_angle invalid")
     gate(GATES[1], previs)
+    from storyboard_policy import check as check_storyboard, diagnostics as storyboard_diagnostics
+    if p.get("storyboard_policy") is not None:
+        gate("storyboard_structure", lambda: check_storyboard(p))
 
     def buzzwords():
         for s in shots:
@@ -774,6 +785,7 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
     return {"project_id": p["project_id"], "status": "PASS" if all(r["status"] != "FAIL" for r in results) else "FAIL",
             "score": score, "applicable_gates": len(applicable), "scope": "structural-contract-only",
             "production_sha256": digest(p), "gates": results, "visual_status": "UNVERIFIED",
+            **({"storyboard_diagnostics": storyboard_diagnostics(p)} if p.get("storyboard_policy") is not None else {}),
             "limitations": ["Semantic truth, natural acting, visual identity and acoustic spectrum require generated-media inspection.",
                             "Feature declarations and descriptive evidence remain author assertions, not automatic visual proof."]}
 
