@@ -80,5 +80,18 @@ class StoryboardPolicyTests(unittest.TestCase):
                 for line in shot["dialogues"]:
                     self.assertIn(f'<d>[{line["language"]}] {line["text"]}</d>', text)
 
+    def test_real_compiler_listener_voice_is_not_narration(self):
+        p = read_data(Path(__file__).resolve().parents[1] / "examples/02-drama.production.json")
+        p['storyboard_policy'] = {'version': 1}
+        shot = p['shots'][0]
+        speaker = next(c for c in p['character_registry'] if c['name'] == shot['dialogues'][0]['speaker_name'])
+        shot['dialogues'][0]['character_id'] = speaker['id']
+        shot['characters'] = [c for c in shot['characters'] if c['id'] != speaker['id']]
+        shot['camera'].update(framing='CU', attention_subject_ids=[shot['characters'][0]['id']], editorial_reason='Read the listener as the question continues')
+        text = shot_text(shot, p)
+        self.assertIn('not as narration', text)
+        self.assertIn('visible listener stays silent', text)
+        self.assertNotIn('synchronize visible mouth shapes', text)
+
 
 if __name__ == "__main__": unittest.main()

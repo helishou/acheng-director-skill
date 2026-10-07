@@ -213,6 +213,12 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         chunks.append(f"The designed low-frequency cue is {audio['low_frequency_hz']} Hz, sourced from {audio['source']}.")
     for line in sorted(shot["dialogues"], key=lambda x: x["start"]):
         delivery = "says in an off-screen voiceover" if line.get("voiceover", False) else "says"
+        offscreen_actor = False
+        if production and production.get("storyboard_policy") is not None and not line.get("voiceover", False):
+            speaker_character = line.get("character_id") or next((c["id"] for c in production.get("character_registry", []) if line["speaker_name"] in (c.get("name"), production.get("prompt_bindings", {}).get(c["id"]))), None)
+            offscreen_actor = speaker_character is not None and speaker_character not in {c["id"] for c in shot["characters"]}
+            if offscreen_actor:
+                delivery = "continues speaking from the established off-screen scene position, not as narration"
         speaker = speakers[line.get("character_id", line["speaker_name"])] if speakers is not None else line["speaker_id"]
         spoken = line["text"]
         if line.get("utterance_id") and speech_parts:
@@ -229,6 +235,8 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         if line.get("voiceover", False):
             text += " while the corresponding on-screen character's lips remain completely closed."
             text += " Keep this utterance intelligible and front-prioritized over room tone and incidental action noise, with the named voice as the only speaker for this line."
+        elif offscreen_actor:
+            text += " Preserve the original voice, spatial direction and speech timing across this listener view. The visible listener stays silent; do not synchronize the listener's lips to the off-screen speaker's words."
         else:
             text += " Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap."
         if line.get("utterance_id"):
