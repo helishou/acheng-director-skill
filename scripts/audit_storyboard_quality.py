@@ -218,7 +218,7 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
             speaker_character = line.get("character_id") or next((c["id"] for c in production.get("character_registry", []) if line["speaker_name"] in (c.get("name"), production.get("prompt_bindings", {}).get(c["id"]))), None)
             offscreen_actor = speaker_character is not None and speaker_character not in {c["id"] for c in shot["characters"]}
             if offscreen_actor:
-                delivery = "continues speaking from the established off-screen scene position, not as narration"
+                delivery = "speaks from the established off-screen scene position, not as narration"
         speaker = speakers[line.get("character_id", line["speaker_name"])] if speakers is not None else line["speaker_id"]
         spoken = line["text"]
         if line.get("utterance_id") and speech_parts:
