@@ -2,6 +2,7 @@ import copy
 import unittest
 from pathlib import Path
 from storyboard_policy import diagnostics, check, render
+from dialogue_editing import compile_dialogue_camera_guidance
 from audit_storyboard_quality import read_data, compile_segment, shot_text
 
 
@@ -62,6 +63,29 @@ class StoryboardPolicyTests(unittest.TestCase):
         p = fixture(); p["shots"][0]["visual"] = "A medium two-shot; cut to Bob."
         self.assertEqual({d["code"] for d in diagnostics(p)}, {"FRAMING_PROSE_CONFLICT", "EDITORIAL_CUT_IN_PROSE"})
 
+    def test_compiler_inserts_closeups_and_listener_cut_on_source_timing(self):
+        production = fixture()
+        production.pop("storyboard_policy")  # Existing production opts in through compiler-derived dialogue coverage.
+        production['shots'][0]['start_frame'] = 0
+        production['shots'][0]['end_frame'] = 240
+        production['shots'][0]['camera'] = {"lens_mm": 50, "sensor_basis": "full-frame equivalent", "shutter_angle": 180, "movement": "static", "path": "hold axis", "target": "speaker", "description": "two-person view"}
+        production['shots'][0]['characters'] = [{"id": "A", "position": [.3, .5], "facing": "right", "gaze": "Bob", "weapon_hand": "empty", "weapon_direction": "none"}, {"id": "B", "position": [.7, .5], "facing": "left", "gaze": "Alice", "weapon_hand": "empty", "weapon_direction": "none"}]
+        production['shots'][0]['dialogues'] = [{"character_id": "A", "speaker_name": "Alice", "text": "你为什么这样做，我一直相信你，今天我终于知道全部真相了。", "start": 24, "end": 216, "voiceover": False}]
+        guidance = compile_dialogue_camera_guidance(production['shots'][0], production)
+        self.assertIn("00:01.000", guidance)
+        self.assertIn("close-up of Alice's face and shoulders", guidance)
+        self.assertIn("00:05.292", guidance)
+        self.assertIn("close reaction view of Bob", guidance)
+        self.assertIn("do not alter its duration", guidance)
+
+    def test_compiler_leaves_narration_and_historical_fixtures_unchanged(self):
+        production = fixture(); production.pop("storyboard_policy")
+        shot = production['shots'][0]
+        shot['dialogues'] = [{"character_id": "A", "speaker_name": "Alice", "voiceover": True, "text": "An independent narrator."}]
+        self.assertEqual(compile_dialogue_camera_guidance(shot, production), "")
+        production['prompt_detail_policy'] = {"profile": "legacy_fixture"}
+        self.assertEqual(compile_dialogue_camera_guidance(shot, production), "")
+
     def test_invalid_framing_type_returns_diagnostic(self):
         p = fixture(); p['shots'][0]['camera']['framing'] = []
         self.assertTrue(any(d['code'] == 'STORYBOARD_FRAMING_REQUIRED' for d in diagnostics(p)))
@@ -83,6 +107,7 @@ class StoryboardPolicyTests(unittest.TestCase):
     def test_real_compiler_listener_voice_is_not_narration(self):
         p = read_data(Path(__file__).resolve().parents[1] / "examples/02-drama.production.json")
         p['storyboard_policy'] = {'version': 1}
+        p.pop('prompt_detail_policy', None)
         shot = p['shots'][0]
         speaker = next(c for c in p['character_registry'] if c['name'] == shot['dialogues'][0]['speaker_name'])
         shot['dialogues'][0]['character_id'] = speaker['id']

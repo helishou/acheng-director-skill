@@ -148,6 +148,7 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
     """Compile substantive structured fields into visible/audible English prose."""
     c = shot["camera"]
     from storyboard_policy import render
+    from dialogue_editing import compile_dialogue_camera_guidance
     chunks = [shot["visual"], c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
@@ -155,6 +156,9 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         framing = render(shot, production)
         if framing:
             chunks.insert(0, framing)
+        dialogue_camera = compile_dialogue_camera_guidance(shot, production, referenced_subjects)
+        if dialogue_camera:
+            chunks.insert(0, dialogue_camera)
     bindings = (production or {}).get('prompt_bindings', {})
     names = {item['id']: bindings.get(item['id'], item['name']) for item in (production or {}).get('character_registry', [])}
     for character in shot.get('characters', []):
@@ -214,7 +218,7 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
     for line in sorted(shot["dialogues"], key=lambda x: x["start"]):
         delivery = "says in an off-screen voiceover" if line.get("voiceover", False) else "says"
         offscreen_actor = False
-        if production and production.get("storyboard_policy") is not None and not line.get("voiceover", False):
+        if production and production.get("prompt_detail_policy", {}).get("profile") != "legacy_fixture" and not line.get("voiceover", False):
             speaker_character = line.get("character_id") or next((c["id"] for c in production.get("character_registry", []) if line["speaker_name"] in (c.get("name"), production.get("prompt_bindings", {}).get(c["id"]))), None)
             offscreen_actor = speaker_character is not None and speaker_character not in {c["id"] for c in shot["characters"]}
             if offscreen_actor:
