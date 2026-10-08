@@ -87,4 +87,6 @@ def render(shot, source):
             if name:
                 names.setdefault(identifier, name)
     subjects = [names.get(sid, "the declared reference subject") for sid in camera["attention_subject_ids"]]
+    scoped_labels = {subject.get('entity_id'): subject.get('label') for segment in rows(source.get('segments')) if shot['id'] in rows(segment.get('shot_ids')) for subject in rows(segment.get('subjects')) if shot['id'] in rows(subject.get('shot_ids'))}
+    subjects = [scoped_labels.get(sid, names.get(sid, "the declared reference subject")) for sid in camera["attention_subject_ids"]]
     return f"Framing: {FRAMINGS[camera['framing']]}. Primary attention: {', '.join(subjects)}. Editorial purpose: {camera['editorial_reason']}."

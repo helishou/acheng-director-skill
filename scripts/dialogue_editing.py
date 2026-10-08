@@ -20,6 +20,8 @@ def compile_dialogue_camera_guidance(shot, production, referenced_subjects=None)
     """Return model-facing close-up/reverse-shot cues on exact authored local frames."""
     if production.get("prompt_detail_policy", {}).get("profile") == "legacy_fixture":
         return ""
+    if shot.get("camera", {}).get("framing") and shot.get("camera", {}).get("editorial_reason"):
+        return ""  # Explicit independent views already own their cuts and attention.
     visible = {character.get("id") for character in _rows(shot.get("characters"))}
     listeners = [character for character in _rows(shot.get("characters")) if character.get("id")]
     fps = Fraction(production.get("fps_den", 1), production.get("fps_num", 24))
