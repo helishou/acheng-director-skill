@@ -147,11 +147,15 @@ def timecode(frame, p):
 def shot_text(shot, production=None, speakers=None, speech_parts=None, referenced_subjects=None):
     """Compile substantive structured fields into visible/audible English prose."""
     c = shot["camera"]
+    modern = (production or {}).get("prompt_detail_policy", {}).get("profile") != "legacy_fixture"
     from storyboard_policy import render
     from dialogue_editing import compile_dialogue_camera_guidance
-    chunks = [shot["visual"], c["description"],
+    chunks = [c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
+    chunks.append(shot["visual"])
+    if not modern:
+        chunks = [shot["visual"], *chunks[:-1]]
     if production:
         framing = render(shot, production)
         if framing:
@@ -235,9 +239,12 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
             spoken += "<cutoff>"
         subject = (referenced_subjects or {}).get(line.get('character_id')) or (referenced_subjects or {}).get(line['speaker_name'])
         voice_identity = line['speaker_name'] + (' ' + subject if subject else '')
-        text = f"During {window(line['start'], line['end'])}, {voice_identity} ({speaker}), {line['delivery']}, {delivery}: <d>[{line['language']}] {spoken}</d>"
+        voice_delivery = line['delivery']
+        if modern and (line.get("voiceover", False) or offscreen_actor):
+            voice_delivery = re.sub(r",?\s*(?:with )?(?:synchronized mouth movement|mouth shapes synchronized|synchronized lip motion|mouth shapes synchronized|mouth movements synchronized)", "", voice_delivery, flags=re.I)
+        text = f"During {window(line['start'], line['end'])}, {voice_identity} ({speaker}), {voice_delivery}, {delivery}: <d>[{line['language']}] {spoken}</d>"
         if line.get("voiceover", False):
-            text += " while the corresponding on-screen character's lips remain completely closed."
+            text += (" The speaker remains offscreen for this utterance. Visible listeners remain silent; the voice comes from its authored scene position." if modern else " while the corresponding on-screen character's lips remain completely closed.")
             text += " Keep this utterance intelligible and front-prioritized over room tone and incidental action noise, with the named voice as the only speaker for this line."
         elif offscreen_actor:
             text += " Preserve the original voice, spatial direction and speech timing across this listener view. The visible listener stays silent; do not synchronize the listener's lips to the off-screen speaker's words."
@@ -332,6 +339,9 @@ def compile_segment(p, seg, *, draft=False):
     scenes = {s["id"]: s for s in p["scene_registry"]}
     speakers = speech_map(p, seg)
     speech_parts = {}
+    seen_context = set()
+    seen_references = set()
+    modern = p.get("prompt_detail_policy", {}).get("profile") != "legacy_fixture"
     for shot in shots:
         for line in shot["dialogues"]:
             if line.get("utterance_id"):
@@ -342,6 +352,8 @@ def compile_segment(p, seg, *, draft=False):
             prefix += f"At {timecode(s['start_frame'] - seg['start_frame'], p)}, the camera cuts to the following view. "
         elif mode != "Ref2VA":
             prefix += opening + " "
+        if modern:
+            prefix += f"Local time window {timecode(s['start_frame'] - seg['start_frame'], p)} to {timecode(s['end_frame'] - seg['start_frame'], p)}. "
         panels = [x for x in seg.get("panels", []) if x["shot_id"] == s["id"]]
         panel_text = ""
         if panels:
@@ -352,11 +364,18 @@ def compile_segment(p, seg, *, draft=False):
         # Repeat the complete visible context in every shot. A later shot in
         # the same segment must remain intelligible when copied on its own.
         context = [SHOT_DETAIL_DIRECTIVE]
-        context.extend(characters[ch["id"]]["prompt_description"] for ch in s["characters"])
-        context.append(scenes[s["scene_id"]]["prompt_description"])
-        context.append("At the start of this shot: " + s["state_description"])
+        if modern:
+            context.append("At the start of this shot: " + s["state_description"])
+        descriptions = [s.get("identity_context", {}).get(ch["id"], characters[ch["id"]]["prompt_description"]) for ch in s["characters"]]
+        descriptions.append(scenes[s["scene_id"]]["prompt_description"])
+        for description in descriptions:
+            if not modern or description not in seen_context:
+                context.append(description)
+                seen_context.add(description)
+        if not modern:
+            context.append("At the start of this shot: " + s["state_description"])
         from reference_bindings import shot_reference_text, applies_to
-        reference_text = shot_reference_text(seg, s, p)
+        reference_text = shot_reference_text(seg, s, p, seen=seen_references)
         if reference_text:
             context.append(reference_text)
         if s.get("performance", {}).get("acting_design"):
@@ -748,7 +767,7 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
                 shot = next(item for item in shots if item["id"] == shot_id)
                 require(shot["state_description"] in text, f"{shot_id}: current state not consumed by H3")
                 for character in shot["characters"]:
-                    require(characters[character["id"]]["prompt_description"] in text, f"{shot_id}: character context not consumed by H3")
+                    require(shot.get("identity_context", {}).get(character["id"], characters[character["id"]]["prompt_description"]) in text, f"{shot_id}: character context not consumed by H3")
                     require(scenes[shot["scene_id"]]["prompt_description"] in text, f"{shot_id}: scene context not consumed by H3")
             term_ids = list(seg.get("animation_term_ids", []))
             term_evidence = list(seg.get("animation_term_evidence", []))

@@ -7,6 +7,8 @@ metadata:
 
 # acheng-model-output
 
+新生产编译按每个独立 Shot 的局部时间窗组织初态、可见对象、摄影、动作、声音和尾态。Subject 定义与参考保留范围不重复堆叠；画外对白不追加可见说话人口型指令。镜头可选 `prompt_contract_version: 2` 启用可见身份、出场范围、摄影可见性与对白后动作时间检查；局部 `identity_context` 只写本镜需要的外观事实，不混入后续剧情。
+
 资产到 H3 的对象／帧锚点、状态范围与交付映射未定时，按[局部决策指南](../../references/decisions/model.md)对应节执行；随 H3 附带的资产提示词也须携带各自真实参考副本与上传卡。
 
 H3 必须读[114 绑定与交付](../../references/114-reference-binding-delivery-v4.3.6.md)：从同一绑定快照消费真实素材、Subject、Shot/帧窗，生成正文、manifest、逐段上传卡并联合回读。缺素材保留完整草案，不伪造正式来源或改模式。与 assets 核对版本、与 continuity 核对状态和范围，不替他方写字段。

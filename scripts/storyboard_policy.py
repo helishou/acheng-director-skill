@@ -74,7 +74,7 @@ def check(source, shot_ids=None):
 
 
 def render(shot, source):
-    if source.get("storyboard_policy") is None:
+    if source.get("storyboard_policy") is None and not shot.get("camera", {}).get("framing"):
         return ""
     camera = shot["camera"]
     if not isinstance(camera.get("framing"), str) or camera["framing"] not in FRAMINGS or not isinstance(camera.get("attention_subject_ids"), list) or not isinstance(camera.get("editorial_reason"), str):
