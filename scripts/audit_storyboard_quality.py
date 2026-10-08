@@ -221,6 +221,8 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         chunks.append(f"The designed low-frequency cue is {audio['low_frequency_hz']} Hz, sourced from {audio['source']}.")
     for line in sorted(shot["dialogues"], key=lambda x: x["start"]):
         delivery = "says in an off-screen voiceover" if line.get("voiceover", False) else "says"
+        if modern and line.get("voiceover", False) and line.get("sound_source"):
+            delivery = "speaks from " + line['sound_source'] + ", entirely offscreen"
         offscreen_actor = False
         if production and production.get("prompt_detail_policy", {}).get("profile") != "legacy_fixture" and not line.get("voiceover", False):
             speaker_character = line.get("character_id") or next((c["id"] for c in production.get("character_registry", []) if line["speaker_name"] in (c.get("name"), production.get("prompt_bindings", {}).get(c["id"]))), None)
