@@ -7,7 +7,7 @@ metadata:
 
 # acheng-shots
 
-对白镜头由编译器根据每句台词的说话者与整数帧窗插入说话者脸肩近景、转轮反打和长句末尾的听者反应视角；旁白不触发人物近景。手工确定景别/关注对象/剪辑理由的镜头可选用 `storyboard_policy.version=1`，细则见[对白摄影与剪辑](../../references/decisions/shots.md#对白摄影与剪辑)。编译插入不改变源稿 Shot/Segment、对白或时间轴。
+新旧源稿的对白镜头由编译器根据每句台词的说话者与整数帧窗插入说话者脸肩近景、转轮反打和长句末尾的听者反应视角；旁白不触发人物近景。手工确定景别/关注对象/剪辑理由的镜头可选用 `storyboard_policy.version=1`，细则见[对白摄影与剪辑](../../references/decisions/shots.md#对白摄影与剪辑)。编译插入不改变源稿 Shot/Segment、对白或时间轴。
 
 确定可见事件、视轴、运镜或参考图用途时，按[局部决策指南](../../references/decisions/shots.md)对应节执行；先排除不适用选项再查库，不强制每镜双候选辩论。
 

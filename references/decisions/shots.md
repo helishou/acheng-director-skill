@@ -6,7 +6,7 @@
 
 每一条插入视角都写明本镜局部时刻、观看者、切镜理由、轴线/视线和静默/口型边界。插入提示只覆盖该对白时间，不截断原本动作或接触；同一说话者连续说话保持其近景，避免按逗号机械剪切。Clip 原有时长、Shot/Segment 切片和全局对白时钟保持不变。
 
-需要摄影时间轴脱离对白自动推导时，可声明 `storyboard_policy: {version: 1}`，每镜填写 framing、attention_subject_ids、editorial_reason；程序此时校验结构字段及帧窗。普通镜头依局部决策指南设计景别，旧稿无策略声明时保持兼容。
+摄影师需要固定镜头覆盖或覆盖编译建议时，才声明 `storyboard_policy: {version: 1}`，并在对应镜头填写 framing、attention_subject_ids、editorial_reason；程序此时校验结构字段及帧窗。普通新旧源稿都由对白编译规则自动补充视角提示，无需升级整稿。
 
 每个 Shot 的 camera 必须填写：`framing` 为 EWS/WS/FS/MS/MCU/CU/ECU（大远景/远景/全景/中景/中近景/近景/大特写）；`attention_subject_ids` 为已登记人物或对象的非空 ID 数组；`editorial_reason` 用完整英文说明为何切入或保持、承载哪项信息或反应。中文用途保存在 display_summary，内部 ID 不进入模型正文。
 
