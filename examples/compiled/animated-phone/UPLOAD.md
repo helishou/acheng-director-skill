@@ -18,7 +18,6 @@
 
 Subject 是内容对象，不是新增上传槽位；一份素材可承载多个对象，同一对象可用多个来源。
 - 阻塞：<Picture 1>: missing or empty reference media: PENDING-anime-phone-approved.png
-- 阻塞：h3_schema: missing reference file: media/PENDING-anime-phone-approved.png
 
 下一步：补齐上述素材、版本或合同缺项后重新编译到新目录；保留创作全文，不改名冒充正式稿，不切换 T2VA。
 平台上传：当前卡不证明云端已有素材。上传确认必须另附绑定本段、正文与素材哈希的入口回执。

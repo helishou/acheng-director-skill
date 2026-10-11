@@ -71,6 +71,7 @@
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
+      "quality_diagnostics": [],
       "platform_status": "NOT_UPLOADED",
       "binding_snapshot": {
         "schema_version": "4.3.6",

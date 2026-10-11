@@ -88,11 +88,11 @@ def check_asset_plan(payload, base):
         need(isinstance(dependencies, list) and len(dependencies) == len(set(dependencies)), "invalid asset dependencies")
         for dep in dependencies:
             visit(dep)
-        need(node.get("status") in ("planned", "approved"), "asset status must be planned/approved")
-        if node["status"] == "approved":
+        need(node.get("status") in ("planned", "generated", "approved"), "asset status must be planned/generated/approved")
+        if node["status"] in ("generated", "approved"):
             file = Path(base) / node.get("file", "")
-            need(file.is_file(), f"{aid}: approved asset file missing")
-            need(file_hash(file) == node.get("sha256"), f"{aid}: approved asset hash changed")
+            need(file.is_file(), f"{aid}: generated asset file missing")
+            need(file_hash(file) == node.get("sha256"), f"{aid}: generated asset hash changed")
         else:
             need(aid in cards, f"{aid}: planned asset lacks a prompt card")
         if aid in cards:
@@ -158,11 +158,11 @@ def resolve_card(card, payload, base, allow_missing=False):
             need(ref.get("asset_version") == node["version"], f"reference version mismatch: {aid}")
             for field in ("entity_id", "state_label", "state_version"):
                 need(not ref.get(field) or not node.get(field) or ref[field] == node[field], f"reference {field} conflict: {aid}")
-            if node["status"] == "approved":
-                need(not ref.get("file") or (Path(base) / ref["file"]).resolve() == (Path(base) / node["file"]).resolve(), f"reference file conflicts with approved asset: {aid}")
-                need(not expected or expected == node.get("sha256"), f"reference SHA-256 conflicts with approved asset: {aid}")
+            if node["status"] in ("approved", "generated"):
+                need(not ref.get("file") or (Path(base) / ref["file"]).resolve() == (Path(base) / node["file"]).resolve(), f"reference file conflicts with generated asset: {aid}")
+                need(not expected or expected == node.get("sha256"), f"reference SHA-256 conflicts with generated asset: {aid}")
                 expected = node.get("sha256")
-                need(expected, f"approved reference hash missing: {aid}")
+                need(expected, f"generated reference hash missing: {aid}")
                 ref["file"] = node["file"]
             else:
                 ref["file"] = "PENDING_APPROVED_ASSET"

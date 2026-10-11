@@ -59,7 +59,7 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             self.assertTrue(text.startswith("DRAFT —"))
             self.assertIn("Reference image 1 supplies style guidance", text)
 
-    def test_multi_asset_missing_style_policy_is_blocked(self):
+    def test_multi_asset_missing_style_policy_is_a_warning_not_a_compile_block(self):
         payload = self._payload()
         payload.pop("style_policy")
         report = style_policy_report(payload, Path("."), strict=True)
@@ -67,8 +67,10 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
         self.assertEqual(style_policy_report(payload, Path("."), strict=True)["status"], "BLOCKED")
         pending = self._payload(False)
         pending.pop('style_policy')
-        with self.assertRaisesRegex(ValueError, 'must declare style_policy'):
-            check_assets(pending, Path('.'), allow_missing=True)
+        assets = check_assets(pending, Path('.'), allow_missing=True)
+        self.assertEqual(assets["status"], "DRAFT")
+        self.assertTrue(assets["missing_references"], "only the absent selected image remains a technical input blocker")
+        self.assertEqual(assets["style_policy"]["status"], "STYLE_ANCHOR_PENDING_APPROVAL")
 
     def test_animation_term_selection_requires_evidence_and_reaches_h3(self):
         production = read_data(Path(__file__).resolve().parents[1] / "examples/02-drama.production.json")

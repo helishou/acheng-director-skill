@@ -125,7 +125,7 @@ def speech_map(p, seg):
 def remap_speech_references(value, p, seg):
     local = speech_map(p, seg)
     old = {line["speaker_id"]: local[line.get("character_id", line["speaker_name"])]
-           for shot in p["shots"] for line in shot["dialogues"]
+           for shot in p["shots"] for line in shot.get("dialogues", [])
            if line.get("character_id", line["speaker_name"]) in local}
     return re.sub(r"\((S[1-9]\d*)\)", lambda m: "(" + old.get(m[1], m[1]) + ")", value)
 

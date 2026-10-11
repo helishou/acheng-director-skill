@@ -162,7 +162,8 @@ def validate(root=ROOT):
         check_export(image_dir, image_index["assets"])
         from asset_delivery import validate_asset_entries
         require(video_index.get('asset_reference_contract') == '1.0' and image_index.get('asset_reference_contract') == '1.0', 'Example asset reference contract missing')
-        validate_asset_entries(image_dir, image_index['assets'], production=production, source_base=path.parent)
+        validate_asset_entries(image_dir, image_index['assets'], production=production, source_base=path.parent,
+                                selected_asset_ids=image_index.get('selected_asset_ids'))
         for seg in production["segments"]:
             from reference_bindings import resolve_bindings
             import copy

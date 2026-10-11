@@ -16,8 +16,15 @@
   "status": "DRAFT_MISSING_REFERENCES",
   "accepted": false,
   "blockers": [
-    "<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png",
-    "h3_schema: missing reference file: media/PENDING-suspense-archive-approved.png"
+    "<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png"
+  ],
+  "quality_diagnostics": [
+    {
+      "code": "h3_schema",
+      "message": "missing reference file: media/PENDING-suspense-archive-approved.png",
+      "path": "h3_schema",
+      "target_id": "SUSPENSE_SEG01"
+    }
   ],
   "platform_status": "NOT_UPLOADED",
   "binding_snapshot": {
@@ -105,5 +112,5 @@
   ],
   "upload_card": "SUSPENSE_SEG01.upload.md",
   "delivery_manifest": "SUSPENSE_SEG01.h3.draft.txt.delivery.json",
-  "upload_card_sha256": "ccb54faa598a40b6da51fc29e1d973bb022a526d6eca0ef6a7c373014e9038c1"
+  "upload_card_sha256": "c6e9a2ac92adb0c6980b5768fcd5b8a9579b739e78fbb697297a5b1666985329"
 }
