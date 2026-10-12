@@ -75,28 +75,18 @@ def detail_policy(production, segment):
     if policy.get("profile") == "legacy_fixture":
         return {"profile": "legacy_fixture", "minimum_words": 0, "target_words": 0}
     seconds = _duration_seconds(production, segment)
-    min_rate = int(policy.get("minimum_words_per_second", REF2VA_MIN_WORDS_PER_SECOND))
-    target_rate = int(policy.get("target_words_per_second", REF2VA_TARGET_WORDS_PER_SECOND))
-    if min_rate < REF2VA_MIN_WORDS_PER_SECOND:
-        raise ValueError(f"minimum_words_per_second must be at least {REF2VA_MIN_WORDS_PER_SECOND}")
-    if target_rate < min_rate:
-        raise ValueError("target_words_per_second must be greater than or equal to minimum_words_per_second")
+    # Detail policy is a writing recommendation. A lower requested density must
+    # not make an otherwise compilable H3 request fail before the user can use it.
+    min_rate = max(0, int(policy.get("minimum_words_per_second", REF2VA_MIN_WORDS_PER_SECOND)))
+    target_rate = max(min_rate, int(policy.get("target_words_per_second", REF2VA_TARGET_WORDS_PER_SECOND)))
     addition = _complexity_addition(production, segment)
-    maximum = int(policy.get("ref2va_max_words", REF2VA_MAX_WORDS))
+    maximum = max(1, int(policy.get("ref2va_max_words", REF2VA_MAX_WORDS)))
     derived_minimum = min(max(REF2VA_MIN_WORDS, ceil(seconds * min_rate)) + addition, maximum)
     derived_target = min(max(REF2VA_TARGET_WORDS, ceil(seconds * target_rate), derived_minimum + 200), maximum)
     explicit_minimum = policy.get("ref2va_min_words")
     explicit_target = policy.get("ref2va_target_words")
-    if explicit_minimum is not None and int(explicit_minimum) < derived_minimum:
-        raise ValueError(f"Ref2VA minimum detail must be at least the derived {derived_minimum} words for this Segment")
-    minimum = int(explicit_minimum) if explicit_minimum is not None else derived_minimum
-    if explicit_target is not None and int(explicit_target) < derived_target:
-        raise ValueError(f"Ref2VA target detail must be at least the derived {derived_target} words for this Segment")
-    target = int(explicit_target) if explicit_target is not None else max(derived_target, min(minimum + 200, maximum))
-    if target > maximum:
-        target = maximum
-    if target < minimum:
-        raise ValueError("Ref2VA target detail must be greater than or equal to its minimum")
+    minimum = min(maximum, max(0, int(explicit_minimum))) if explicit_minimum is not None else derived_minimum
+    target = min(maximum, max(minimum, int(explicit_target))) if explicit_target is not None else max(derived_target, min(minimum + 200, maximum))
     return {"profile": policy.get("profile", "strict"), "minimum_words": minimum, "target_words": target,
             "maximum_words": maximum,
             "duration_seconds": seconds, "complexity_addition": addition,

@@ -75,8 +75,9 @@ class WorkflowV4Acceptance(unittest.TestCase):
         self.assertEqual(complex_policy['minimum_words'], 2600)
         self.assertEqual(english_word_count('English words 24 中文 123'), 2)
         simple['prompt_detail_policy'] = {'ref2va_min_words': 2000}
-        with self.assertRaisesRegex(ValueError, 'derived 2600'):
-            detail_policy(simple, simple['segments'][0])
+        lower_recommendation = detail_policy(simple, simple['segments'][0])
+        self.assertEqual(lower_recommendation['minimum_words'], 2000)
+        self.assertEqual(lower_recommendation['derived_minimum_words'], 2600)
 
     def test_automatic_terms_are_candidates_and_explicit_conflicts_fail(self):
         auto = plan({'request_id':'REQ_TERMS','intent':'h3-compile'}, self.production)

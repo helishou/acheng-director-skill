@@ -9,7 +9,7 @@ metadata:
 
 决定资产顺序、逐图用途、关键帧依赖与场景修复时，按[局部决策指南](../../references/decisions/assets.md)对应节执行；区分风格、身份、状态、空间、单帧和接触表，再建立原有依赖与编号。
 
-H3 引用衔接另读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。assets 提供 asset_plan 的批准文件/哈希/版本与状态，核对 shots.reference_requirements；不抢写 model 的 Segment 标签。尚未生成的 .image.txt 只能是制作指令，不是媒体。合理复核可读相邻字段，写入仍由唯一 owner 完成。
+H3 引用衔接另读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。assets 提供 asset_plan 实际选用媒体的文件/哈希/版本与状态，核对 shots.reference_requirements；不抢写 model 的 Segment 标签。尚未生成的 .image.txt 只能是制作指令，不是媒体。合理复核可读相邻字段，写入仍由唯一 owner 完成。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 

@@ -4,6 +4,7 @@ import unittest
 import json
 import hashlib
 import tempfile
+from unittest.mock import patch
 
 from pathlib import Path
 
@@ -11,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from audit_storyboard_quality import compile_segment, read_data
-from h3_final_format import H3FormatError, finalize_h3_prompt, normalize_h3_prompt, validate_h3_file, file_contract
+from h3_final_format import H3FormatError, finalize_h3_prompt, normalize_h3_prompt, validate_h3_file, validate_h3_format, file_contract
 from contract_core import bytes_hash, file_hash
 
 
@@ -61,9 +62,37 @@ class H3FinalFormatAcceptance(unittest.TestCase):
             receipt = validate_h3_file(path, contract, allow_legacy_fixture=True)
             self.assertEqual(receipt["sha256"], bytes_hash(before))
             self.assertEqual(path.read_bytes(), before)
+            contract["minimum_words"] = 9000
+            contract["profile"] = "strict"
+            short_receipt = validate_h3_file(path, contract, allow_legacy_fixture=True)
+            self.assertEqual(short_receipt["format_pass"], "PASSED")
+            self.assertTrue(any(item["code"] == "REF2VA_DETAIL_BELOW_RECOMMENDED_MINIMUM" for item in short_receipt["quality_diagnostics"]))
             contract["references"][0]["sha256"] = "0" * 64
             with self.assertRaisesRegex(H3FormatError, "SHA-256"):
                 validate_h3_file(path, contract, allow_legacy_fixture=True)
+
+    def test_one_bad_segment_format_keeps_other_compiled_segments(self):
+        import compile_h3
+        source = ROOT / "examples/02-drama.production.json"
+        real_validate = compile_h3.validate_h3_file
+        calls = 0
+
+        def fail_first_segment(*args, **kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise H3FormatError("fixture target format issue")
+            return real_validate(*args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory, patch("compile_h3.validate_h3_file", side_effect=fail_first_segment):
+            entries = compile_h3.compile_package(source, Path(directory) / "bundle")
+            self.assertEqual(len(entries), 2)
+            drafts = [item for item in entries if not item["accepted"]]
+            ready = [item for item in entries if item["accepted"]]
+            self.assertEqual(len(drafts), 1)
+            self.assertEqual(len(ready), 1)
+            self.assertTrue(drafts[0]["file"].endswith(".h3.draft.txt"))
+            self.assertIn("fixture target format issue", drafts[0]["blockers"])
 
     def test_final_file_accepts_json_list_dialogue_manifest(self):
         production = read_data(ROOT / "examples/06-animated-phone.production.json")
@@ -151,20 +180,28 @@ class H3FinalFormatAcceptance(unittest.TestCase):
                 speech_expectations=[("S1", "Chinese", "上次是我没听。现在你来。")],
             )
 
-    def test_format_pass_rejects_ref2va_below_minimum_without_compressing(self):
+    def test_ref2va_below_recommended_minimum_passes_with_quality_diagnostic(self):
         production = read_data(ROOT / "examples/01-mecha.production.json")
         segment = copy.deepcopy(production["segments"][0])
         text = compile_segment(production, segment)
         body = text.split("detailed_description:\n", 1)[1].split("\n\noverall_soundscape:", 1)[0]
         shortened = text.replace(body, "[Shot 1] Short.\n[Shot 2] At 00:07.000, short.")
-        with self.assertRaisesRegex(H3FormatError, "minimum"):
-            finalize_h3_prompt(
-                shortened,
-                mode="Ref2VA",
-                shot_count=2,
-                reference_labels=["<Picture 1>"],
-                minimum_words=2000,
-            )
+        diagnostics = validate_h3_format(
+            shortened,
+            mode="Ref2VA",
+            shot_count=2,
+            reference_labels=["<Picture 1>"],
+            minimum_words=2000,
+        )
+        self.assertEqual([item["code"] for item in diagnostics], ["REF2VA_DETAIL_BELOW_RECOMMENDED_MINIMUM"])
+        self.assertEqual(diagnostics[0]["severity"], "warning")
+        self.assertIn("Short.", finalize_h3_prompt(
+            shortened,
+            mode="Ref2VA",
+            shot_count=2,
+            reference_labels=["<Picture 1>"],
+            minimum_words=2000,
+        ))
 
     def test_format_pass_rejects_speaker_without_local_speech_binding(self):
         production = read_data(ROOT / "examples/02-drama.production.json")

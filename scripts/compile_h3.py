@@ -148,7 +148,7 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
             if not draft:
                 raise
             blockers.append(str(exc))
-            text = compile_segment(production, resolved_seg, draft=True)
+            text = "DRAFT — prompt assembly failed; authored source is retained.\n"
         prepared.append((seg, resolved_seg, snapshot, text, blockers, quality))
     output.mkdir(parents=True)
     # A target-scoped H3 package consumes bound image references; it does not need
@@ -193,13 +193,27 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
                  "visual_status": "UNVERIFIED", "references": snapshot["references"],
                  "upload_card": seg["id"] + ".upload.md", "delivery_manifest": name + ".delivery.json"}
         if not blockers:
-            contract = file_contract(production, resolved_seg, snapshot["references"])
-            contract.update(input_revision=revision, binding_sha256=snapshot["binding_sha256"], expected_prompt_sha256=sha)
-            entry["format_contract"] = name + ".check.json"
-            entry["format_receipt"] = name + ".acceptance.json"
-            write_json(output / entry["format_contract"], contract)
-            receipt = validate_h3_file(output / name, contract, output, allow_legacy_fixture=snapshot["legacy_fixture"])
-            write_json(output / entry["format_receipt"], receipt)
+            try:
+                contract = file_contract(production, resolved_seg, snapshot["references"])
+                contract.update(input_revision=revision, binding_sha256=snapshot["binding_sha256"], expected_prompt_sha256=sha)
+                format_contract = name + ".check.json"
+                format_receipt = name + ".acceptance.json"
+                write_json(output / format_contract, contract)
+                receipt = validate_h3_file(output / name, contract, output, allow_legacy_fixture=snapshot["legacy_fixture"])
+                quality.extend(receipt.get("quality_diagnostics", []))
+                entry["format_contract"] = format_contract
+                entry["format_receipt"] = format_receipt
+                write_json(output / format_receipt, receipt)
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                # A malformed target stays inspectable as a draft; it must not
+                # discard successful prompts from other Segments in this package.
+                blockers.append(str(exc))
+                draft_name = seg["id"] + ".h3.draft.txt"
+                (output / name).replace(output / draft_name)
+                entry.update({"file": draft_name, "sha256": file_hash(output / draft_name),
+                              "format_pass": "NOT_ACCEPTED", "status": "DRAFT_CONTRACT_FAILED",
+                              "accepted": False, "blockers": list(dict.fromkeys(blockers)),
+                              "delivery_manifest": draft_name + ".delivery.json"})
         (output / entry["upload_card"]).write_text(upload_card(entry), encoding="utf-8")
         entry["upload_card_sha256"] = file_hash(output / entry["upload_card"])
         write_json(output / entry["delivery_manifest"], entry)
