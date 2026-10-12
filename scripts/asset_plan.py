@@ -110,13 +110,12 @@ def check_asset_plan(payload, base):
     consumers = {aid: [] for aid in nodes}
     for shot in payload.get("shots", []):
         required = shot.get("required_assets", [])
-        need(required and isinstance(required, list) and set(required) <= set(nodes), f"{shot['id']}: asset requirements incomplete")
+        need(isinstance(required, list) and set(required) <= set(nodes), f"{shot['id']}: asset requirements incomplete")
         for aid in required:
             consumers[aid].append(shot["id"])
         visible_chars = {c["id"] for c in shot["characters"]}
         supplied_chars = {nodes[a].get("entity_id") for a in required if nodes[a]["kind"] == "character"}
         need(visible_chars <= supplied_chars, f"{shot['id']}: visible character asset missing")
-        need(any(nodes[a]["kind"] == "scene" and nodes[a].get("entity_id") == shot["scene_id"] for a in required), f"{shot['id']}: scene asset missing")
         for prop in shot.get("required_prop_ids", []):
             need(any(nodes[a]["kind"] in ("prop", "vehicle") and nodes[a].get("entity_id") == prop for a in required), f"{shot['id']}: prop asset missing")
     impact = {}

@@ -2,11 +2,9 @@
 
 ## 版本与基本类型
 
-生产文件使用 UTF-8 JSON 或 YAML，`version:"2.0"`。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。主样例 JSON 是完整、无空槽的参考实例。
+当前画布生产源使用 UTF-8 JSON 或 YAML；Subject Prompt 合同由 `prompt_assembly.version: 2` 标识，连续性账本由 `ledger.contract_version: 2` 标识。根字段 `version` 不参与当前源稿校验。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。
 
 根字段：project_id；fps_num/fps_den；production_total_duration；generation_clip_limit；scene_registry；character_registry；shots；segments；ledger。可选 brief、story、asset_cards、unresolved_threads、dispatch_log、base_revision 保存叙事和溯源，不能替代必需字段。
-
-v3技能继续兼容version:"2.0"的镜头存储格式。generation_clip_min默认4，上限不大于15。delivery_scope为prompt_only或full_production；完整生产必须使用story.contract_version:"3.0"、script_scenes、asset_plan和逐镜story_beat_ids/required_assets。局部任务不要求编造上游故事，但不能报告全故事通过。
 
 新合同分别见[11叙事](11-story-architecture.md)、[31表演](31-performance-handoff.md)、[32灵动表演](32-liveliness-performance-framework.md)、[46条件特效](46-effect-families.md)、[61资产依赖](61-asset-dependency-production.md)、[91专业模块](91-module-orchestration.md)。旧A/B/C支路契约继续解释已有资产来源与窄操作，七模块登记负责新的阶段分工；两者不重复赋予同一字段多个最终写入者。
 
@@ -15,8 +13,6 @@ v3技能继续兼容version:"2.0"的镜头存储格式。generation_clip_min默�
 scene_registry 每项至少 id/name，生产使用时同时写 space、entrances、exits、landmarks、key_light、version。character_registry 每项 id/name/height_m/identity；height_m 是设计值或测量值须在旁注区分，百米以上自动触发尺度审查。角色 ID 和场景 ID 互不复用；道具 ownership 只指向登记对象。
 
 ## ShotSpec v2
-
-v2.1交付检查继续读取version:"2.0"数据，但收紧可独立提交条件：角色和场景每项必须新增完整英文`prompt_description`，每镜新增`state_description`描述开场道具／伤势／空间状态。旧数据缺项会报告G8失败；主导演依真值源补全，不从检索ID猜测。可选根字段`prompt_bindings`为显式`{{KEY}}`提供文字展开；字典不是模型输入。详见[交付合同](72-standalone-prompt-delivery.md)。
 
 | 字段 | 合同 |
 |---|---|

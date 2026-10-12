@@ -25,10 +25,36 @@ def _rows(value):
 def audit(source, target_ids=None):
     """Return scope-labeled diagnostics and source-derived state trajectories."""
     ledger = source.get("ledger") if isinstance(source, dict) else None
-    shots = _rows(source.get("shots"))
+    raw_shots = _rows(source.get("shots"))
     segments = _rows(source.get("segments"))
     issues = []
     trajectories = {}
+    timeline_rows = _rows(ledger.get("timelines")) if isinstance(ledger, dict) else []
+    timelines = {str(row.get("id")): row for row in timeline_rows if isinstance(row, dict) and row.get("id")}
+    timeline_ids = list(timelines)
+    default_timeline_id = "main" if "main" in timelines else (timeline_ids[0] if timeline_ids else "main")
+    if not timelines:
+        timelines[default_timeline_id] = {"id": default_timeline_id, "start_frame": 0}
+    shots = []
+    next_order = {}
+    occupied_orders = {}
+    for raw in raw_shots:
+        if not isinstance(raw, dict):
+            shots.append(raw)
+            continue
+        shot = dict(raw)
+        timeline_id = str(shot.get("timeline_id") or default_timeline_id)
+        shot["timeline_id"] = timeline_id
+        used = occupied_orders.setdefault(timeline_id, set())
+        order = shot.get("story_order")
+        if type(order) is not int or order < 0:
+            order = next_order.get(timeline_id, 0)
+            while order in used:
+                order += 1
+            shot["story_order"] = order
+        used.add(order)
+        next_order[timeline_id] = max(next_order.get(timeline_id, 0), order + 1)
+        shots.append(shot)
     full_shots = {str(row.get("id")): row for row in shots if row.get("id")}
     segment_by_shot = {}
     for segment in segments:
@@ -67,7 +93,6 @@ def audit(source, target_ids=None):
                 "limits": ["旧版结构重放结果仅供诊断，不评估剧本覆盖，不作为新版生产回执。"]}
 
     facts = {str(item.get("id")): item for item in _rows(ledger.get("facts")) if isinstance(item, dict) and item.get("id")}
-    timelines = {str(item.get("id")): item for item in _rows(ledger.get("timelines")) if isinstance(item, dict) and item.get("id")}
     initial_rows = _rows(ledger.get("initial"))
     events = _rows(ledger.get("events"))
     requirements = _rows(ledger.get("requirements"))
@@ -75,7 +100,10 @@ def audit(source, target_ids=None):
     source_scenes = _rows(source.get("script_scenes"))
     blocks = {}
     for scene in source_scenes:
-        for block in _rows(scene.get("blocks")):
+        scene_blocks = _rows(scene.get("blocks"))
+        if not scene_blocks and isinstance(scene.get("text"), str) and scene.get("id"):
+            scene_blocks = [scene]
+        for block in scene_blocks:
             if block.get("id"):
                 blocks[str(block["id"])] = (scene, block)
 
@@ -199,7 +227,7 @@ def audit(source, target_ids=None):
             issue("CONTINUITY_COVERAGE_SOURCE", f"覆盖证据引用未知剧本块 {block_id}")
             continue
         scene, block = blocks[block_id]
-        current_digest = digest({"scene_id": scene.get("scene_id"), "block": block})
+        current_digest = digest({"scene_id": scene.get("scene_id") or scene.get("id"), "block": block})
         if row.get("source_digest") != current_digest:
             issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}")
         kinds = covered_kinds.setdefault(block_id, set())
@@ -316,7 +344,7 @@ def contract():
     return {"contract_version": 2, "evidence_kinds": sorted(EVIDENCE), "not_applicable_rules": sorted(NOT_APPLICABLE_RULES),
             "fact": {"required": ["id", "object_kind", "object_id", "allowed_values"]},
             "timeline": {"required": ["id"]},
-            "shot": {"required": ["timeline_id", "story_order"]},
+            "shot": {"defaults": {"timeline_id": "main or first registered timeline", "story_order": "source order within the timeline"}},
             "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "reason", "source_anchor.block_id"]},
             "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"]}}
 

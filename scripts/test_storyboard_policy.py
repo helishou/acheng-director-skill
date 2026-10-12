@@ -63,9 +63,9 @@ class StoryboardPolicyTests(unittest.TestCase):
         p = fixture(); p["shots"][0]["visual"] = "A medium two-shot; cut to Bob."
         self.assertEqual({d["code"] for d in diagnostics(p)}, {"FRAMING_PROSE_CONFLICT", "EDITORIAL_CUT_IN_PROSE"})
 
-    def test_compiler_inserts_closeups_and_listener_cut_on_source_timing(self):
+    def test_dialogue_guidance_helper_uses_source_timing_when_called_explicitly(self):
         production = fixture()
-        production.pop("storyboard_policy")  # Existing production opts in through compiler-derived dialogue coverage.
+        production.pop("storyboard_policy")  # The helper remains available, but the compiler no longer inserts it by default.
         production['shots'][0]['start_frame'] = 0
         production['shots'][0]['end_frame'] = 240
         production['shots'][0]['camera'] = {"lens_mm": 50, "sensor_basis": "full-frame equivalent", "shutter_angle": 180, "movement": "static", "path": "hold axis", "target": "speaker", "description": "two-person view"}

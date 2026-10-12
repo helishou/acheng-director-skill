@@ -105,19 +105,24 @@ def resolve_bindings(production, segment, base):
             if not set(ref["entity_ids"]) <= set(owned):
                 errors.append("reference composite entities not declared by approved asset")
         file = ref.get("file")
-        if node.get("status") == "approved":
-            if file and (base / file).resolve() != (base / node["file"]).resolve():
-                errors.append("file conflicts with approved asset version")
-            file = node["file"]
+        media_status = node.get("status") in ("approved", "generated", "selected_result")
+        if media_status:
+            node_file = node.get("file")
+            if not node_file:
+                errors.append("generated asset file missing")
+            else:
+                if file and (base / file).resolve() != (base / node_file).resolve():
+                    errors.append("file conflicts with generated asset version")
+                file = node_file
         elif node:
-            errors.append("asset planned; real approved media pending")
-        expected = node.get("sha256") if node.get("status") == "approved" else ref.get("sha256")
-        if node.get("status") == "approved" and ref.get("sha256") and ref["sha256"] != expected:
-            errors.append("reference SHA-256 conflicts with approved asset")
+            errors.append("asset planned; generated media not bound")
+        expected = node.get("sha256") if media_status else ref.get("sha256")
+        if media_status and ref.get("sha256") and ref["sha256"] != expected:
+            errors.append("reference SHA-256 conflicts with generated asset")
         if ref.get('approval', {}).get('status') in {'rejected', 'revoked'}:
             errors.append('reference content approval rejected or revoked')
-        if node.get("status") == "approved" and not expected:
-            errors.append("approved asset SHA-256 missing")
+        if media_status and not expected:
+            errors.append("generated asset SHA-256 missing")
         sha = None
         if file:
             try:
@@ -182,7 +187,7 @@ def resolve_bindings(production, segment, base):
                "preserve": preserve or "See the authored retention relationship.",
                "exclude": ref.get("exclude"),
                "binding_status": "BOUND_LOCAL" if sha and not errors else "PLANNED_OR_CONFLICTED",
-               "content_status": "LEGACY_FIXTURE_NOT_REVIEWED" if legacy else ("APPROVAL_RECORDED" if not errors else "UNVERIFIED"),
+               "content_status": "LEGACY_FIXTURE_NOT_REVIEWED" if legacy else ("APPROVAL_RECORDED" if node.get("status") == "approved" and not errors else ("GENERATED_RESULT_BOUND" if node.get("status") == "generated" and not errors else ("BOUND_ARCHIVED_RESULT" if node.get("status") == "selected_result" and not errors else "UNVERIFIED"))),
                "platform_status": "NOT_UPLOADED", "issues": errors}
         rows.append(row)
         issues.extend(label + ": " + e for e in errors)

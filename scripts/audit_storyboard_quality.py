@@ -103,7 +103,6 @@ def require(condition, message):
 
 def shape(p):
     require(isinstance(p, dict), "production must be an object")
-    require(p.get("version") == "2.0", "version must be 2.0")
     require(p.get("delivery_scope", "prompt_only") in ("prompt_only", "full_production"), "invalid delivery_scope")
     require(substantive(p.get("project_id")), "project_id required")
     for field in ("fps_num", "fps_den"):
@@ -149,7 +148,8 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
     c = shot["camera"]
     modern = (production or {}).get("prompt_detail_policy", {}).get("profile") != "legacy_fixture"
     from storyboard_policy import render
-    from dialogue_editing import compile_dialogue_camera_guidance
+    # 暂时停用自动对白切镜编译规则；保留源码里作者明确写入的摄影描述。
+    # from dialogue_editing import compile_dialogue_camera_guidance
     chunks = [c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
@@ -160,9 +160,10 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         framing = render(shot, production)
         if framing:
             chunks.insert(0, framing)
-        dialogue_camera = compile_dialogue_camera_guidance(shot, production, referenced_subjects)
-        if dialogue_camera:
-            chunks.insert(0, dialogue_camera)
+        # Temporarily disabled: do not synthesize dialogue-driven camera cuts.
+        # dialogue_camera = compile_dialogue_camera_guidance(shot, production, referenced_subjects)
+        # if dialogue_camera:
+        #     chunks.insert(0, dialogue_camera)
     bindings = (production or {}).get('prompt_bindings', {})
     names = {item['id']: bindings.get(item['id'], item['name']) for item in (production or {}).get('character_registry', [])}
     for character in shot.get('characters', []):
