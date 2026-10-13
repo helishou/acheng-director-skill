@@ -18,7 +18,7 @@
 
 专业问题与视觉资料按指南的局部链接按需读取，不加入全量必读列表。提交前只核对所采纳决定是否进入本模块原字段；evidence 可记录来源 Q/视觉条目、采用结果、字段位置与必要取舍，未采用的题无需交答卷。检索工具只读资料；有跨 owner 影响时交具体建议由主导演合并。原身份、状态、时长、详细度、恢复和哈希门保持优先。
 
-请求含request_id、stage、execution_mode、可选features、completed_modules、shot_ids、frozen_paths。执行模式先由用户选择；1 为自动文件与逐段操作卡，2 为每轮一个完整 Segment。stage为script/storyboard/perform/action/vfx/assets/h3-compile/continue/audit/full。completed_modules 需要实际产物，不能仅凭字符串跳过。引用衔接遵守[114 合同](114-reference-binding-delivery-v4.3.6.md)，相邻互检即使不在生产写入步骤中也可按只读入口加载。
+请求含request_id、stage、execution_mode、可选features、completed_modules、shot_ids、frozen_paths。执行模式先由用户选择；1 为自动文件与逐段操作卡，2 为每轮一个完整 Segment。stage为script/storyboard/perform/action/vfx/assets/h3-compile/continue/audit/full。completed_modules 需要实际产物，不能仅凭字符串跳过。引用衔接遵守[114 合同](114-reference-binding-delivery.md)，相邻互检即使不在生产写入步骤中也可按只读入口加载。
 
 plan回包含input_revision、steps、integration_steps、required_reads、external_reads、shot_ids、frozen_paths、max_corrections。H3步骤要求找到已安装h3-prompt-writing及两个指南，否则BLOCKED并列出路径；不能静默使用泛化格式。普通资产阶段不强制载入H3。整合步骤必须注明触发理由、owner、输出类型和自检项；`superseded` 记录不得进入计划。
 
@@ -33,7 +33,7 @@ python scripts/director_dispatch.py accept production.json dispatch.json --respo
 
 输出必须新文件；输入不覆盖。接受回包时执行已具备数据的合同检查并保存dispatch_log回执。回执的result_revision描述加入回执前的数据摘要，避免摘要自引用；完整最终文件摘要由下一请求计算。
 
-4.3.8明确阶段边界：story/assets/performance/shots/effects回包只接受当前负责人所管合同，回执列 checked_gates、deferred_gates 和 final_delivery_accepted:false。下游H3尚未写完不能阻止已合格的上游事实回包；model/continuity具备整份数据时执行完整生产合同，最终还必须通过磁盘正文与绑定联合验收。阶段通过不是全片通过。
+当前合同明确阶段边界：story/assets/performance/shots/effects回包只接受当前负责人所管合同，回执列 checked_gates、deferred_gates 和 final_delivery_accepted:false。下游H3尚未写完不能阻止已合格的上游事实回包；model/continuity具备整份数据时执行完整生产合同，最终还必须通过磁盘正文与绑定联合验收。阶段通过不是全片通过。
 
 资产模块负责 style_policy/style_policy_reason/style_lock 的数据回包，仍遵守用户风格批准与冻结字段；shots负责 required_assets/required_prop_ids 和 reference_requirements；model负责所选 animation_term_ids 及展开证据。读取某资料库不自动授予它写真值的权限。
 

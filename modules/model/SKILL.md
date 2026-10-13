@@ -11,7 +11,7 @@ metadata:
 
 资产到 H3 的对象／帧锚点、状态范围与交付映射未定时，按[局部决策指南](../../references/decisions/model.md)对应节执行；随 H3 附带的资产提示词也须携带各自真实参考副本与上传卡。
 
-H3 必须读[114 绑定与交付](../../references/114-reference-binding-delivery-v4.3.6.md)：从同一绑定快照消费真实素材、Subject、Shot/帧窗，生成正文、manifest、逐段上传卡并联合回读。缺素材保留完整草案，不伪造正式来源或改模式。与 assets 核对版本、与 continuity 核对状态和范围，不替他方写字段。
+H3 必须读[114 绑定与交付](../../references/114-reference-binding-delivery.md)：从同一绑定快照消费真实素材、Subject、Shot/帧窗，生成正文、manifest、逐段上传卡并联合回读。缺素材保留完整草案，不伪造正式来源或改模式。与 assets 核对版本、与 continuity 核对状态和范围，不替他方写字段。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 

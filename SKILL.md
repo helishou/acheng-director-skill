@@ -4,7 +4,7 @@ description: Acheng Director 用于编写和生产影视剧本、分镜、文戏
 
 metadata:
 
-  version: "4.3.9"
+  version: "4.3.10"
 
   trigger-words: [acheng-director, 阿城导演, 影视编剧, 影视导演, 分镜生产, 提示词编译, 剧本创作]
 
@@ -14,7 +14,7 @@ metadata:
 
 # Acheng Director（Acheng 电影级导演综合引擎）
 
-Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模块。事实、时间线、要求和覆盖声明属于 authored source；重放快照只存在于检查报告或隔离编译输入，不得写回正式源稿。报告分别显示登记覆盖、程序重放和“语义发现未执行”；缺少覆盖、旧报告或未知上游不得标 ready。旧稿先只读诊断，仅在用户明确升级后按新合同编辑。
+当前制作格式只有一条路径：根字段 `version: 2`、`prompt_assembly.version: 2`、`ledger.contract_version: 2`；镜头使用 `duration_frames`、`timeline_id`、`story_order` 和 Shot 局部帧。角色、场景、道具和关键帧通过 `subject_registry`、`subject_usages`、`keyframes` 表达；Clip 图片从主体/关键帧绑定派生，归档音频通过 `audio_bindings` 绑定。缺少任一当前标记、使用全局帧或旧 Clip `references` 的草稿停止解析与编辑，提示“请使用当前版 Acheng Director 升级后重新提交”，原稿保持不变。不做旧稿兼容解析、静默转换或自动迁移。`runtime.version` 是编译器版本，制作 `revision` 与 `publishedVersion` 是历史身份，不是源稿格式版本。连续性事实、时间线、要求和覆盖声明属于 authored source；重放快照只存在于检查报告或隔离编译输入，不得写回正式源稿。报告分别显示登记覆盖、程序重放和“语义发现未执行”；缺少覆盖、旧报告或未知上游不得标 ready。
 
 
 
@@ -30,17 +30,17 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 
 用户确认后，通过正式 `set_settings` 保存 `{ videoAspectRatio: <比例或沿用画布时为 null>, videoAspectRatioConfirmed: true }`，回读 revision 后再继续。纯资产包且不交付视频时跳过此问题。成片画幅只约束视频生成，角色设定图、STYLE_MOTHER、场景图和关键帧按各自用途设置比例。工作台已保存的内容交付模式与媒体生产模式优先；内容交付默认自动文件批处理，媒体生产默认逐项生成，不重复询问上游旧版固定的“自动文件／逐段互动”选择题，也不再次确认已保存的选择。数据操作遵循本项目 `canvas-video-production-sop` 适配规范。
 
-### Infinite Canvas 集成：Subject Prompt v2 源稿与编译
+### Infinite Canvas 集成：Subject Prompt Assembly 与编译
 
-新建制作稿采用 `prompt_assembly.version=2`。先登记稳定 Subject，并通过 `entityRef` 绑定角色、场景或道具的正式实体；Subject 图片绑定可指向对应素材节点或智能图片节点，始终使用真实 `sourceNode.projectId/nodeId` 与选择策略；Shot 通过 Subject 使用对象和绑定，不自编 `<Picture N>` 编号。连续性事实只写入唯一权威 `ledger`，事实所属对象由 Subject 的实体引用解析；Shot 初态、事件和尾态由局部帧与连续性重放派生。Shot 是摄影原子，时长使用整数帧；Clip 只重组相邻 Shot，不重复保存 Prompt、Subject 列表或 Picture 编号。
+当前 Director 源稿统一使用根字段 `version: 2`。启用 Subject Prompt Assembly 时，先登记稳定 Subject，并通过 `entityRef` 绑定角色、场景或道具的正式实体；Subject 图片绑定可指向对应素材节点或智能图片节点，始终使用真实 `sourceNode.projectId/nodeId` 与选择策略；Shot 通过 Subject 使用对象和绑定，不自编 `<Picture N>` 编号。连续性事实只写入唯一权威 `ledger`，事实所属对象由 Subject 的实体引用解析；Shot 初态、事件和尾态由局部帧与连续性重放派生。Shot 是摄影原子，时长使用整数帧；Clip 只重组相邻 Shot，不重复保存 Prompt、Subject 列表或 Picture 编号。
 
 正式 Prompt、参考顺序与上传映射只由当前激活编译器从结构化源稿组装。Agent 只写结构字段，不在 `segments[].prompt` 或画布 Clip 中手工组装正式 Prompt。用户在画布明确编辑 Prompt 后，可要求反向同步；仅当本次编译回执提供的 SourceMap 能把全部修改唯一映射到单个 Shot 文本或对白字段时才写回，其他文本留在画布并报告歧义，不猜测修改摄影、身份、绑定或连续性。缺少 SourceMap 时保留手工 Prompt，不宣称同步完成。
 
-Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。旧制作稿保持原合同，只有显式迁移才进入 Subject Prompt v2。
+Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。当前写入只接受 Director 源稿 v2；旧版源稿需要按当前合同重新整理并重新提交，不迁移改写旧源稿。
 
 ### Infinite Canvas 集成：素材节点与共享资产
 
-角色、场景、道具登记使用正式 `production_edit`：已有实体沿 `patch_director_source` 更新，新增素材沿 `create_manual_director_asset` 一次登记资产卡、实体与 Subject。Backend 在同一事务内创建对应的角色／场景／道具节点；稳定关联为 owner + kind + entity ID，不按名称匹配，不另造可独立维护的描述副本。旧稿缺节点时用 `production_prepare_targets` 的 `entity:character:<实体ID>`、`entity:scene:<实体ID>` 或 `entity:prop:<资产ID>` 补齐，读取短回执中的 revision；需要定位时用 `production_get_workbench` 的 `subject_workbench` 定向回读 `entityNodeSource` 中的真实 projectId/nodeId，保留原布局与连线。风格不随此节点接入自动创建。
+角色、场景、道具登记使用正式 `production_edit`：已有实体沿 `patch_director_source` 更新，新增素材沿 `create_manual_director_asset` 一次登记资产卡、实体与 Subject。Backend 在同一事务内创建对应的角色／场景／道具节点；稳定关联为 owner + kind + entity ID，不按名称匹配，不另造可独立维护的描述副本。当前格式源稿缺节点时用 `production_prepare_targets` 的 `entity:character:<实体ID>`、`entity:scene:<实体ID>` 或 `entity:prop:<资产ID>` 补齐，读取短回执中的 revision；需要定位时用 `production_get_workbench` 的 `subject_workbench` 定向回读 `entityNodeSource` 中的真实 projectId/nodeId，保留原布局与连线。风格不随此节点接入自动创建。
 
 图片生成节点保留参数、任务与结果历史；它与素材身份节点职责分开。图片绑定沿 Subject/Shot 正式操作维护；素材节点消费当前有效图片，智能节点遵循 `node_selection/latest_success/selected_result`。使用已归档媒体，编译与生成冻结本轮输入；不因节点接入自动批准、发布或生成。
 
@@ -76,7 +76,7 @@ Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果
 
 
 
-恢复时同时保留最后已接受的完整产物和当前未完成节点的最新partial游标；partial永远不算完成。进入新revision须重新规划剩余工作，不能跳过依赖或用旧回执冒充新产物。4.3.8的检查范围、修复与尚需真实影像的边界见[本版审查报告](reports/v4.3.8-functional-review.md)。
+恢复时同时保留最后已接受的完整产物和当前未完成节点的最新partial游标；partial永远不算完成。进入新revision须重新规划剩余工作，不能跳过依赖或用旧回执冒充新产物。历史审查记录见[4.3.8功能消费链审查](reports/v4.3.8-functional-review.md)，它是历史证据，不是另一份活动合同。
 
 
 
@@ -88,7 +88,7 @@ Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果
 
 
 
-涉及 H3 交付时，参考[逐段绑定与联合交付](references/114-reference-binding-delivery-v4.3.6.md)。Shot 的确需媒体引用时，绑定实际选择的归档文件、节点和内容哈希；未审核媒体不伪装成 approved。只缺风格或连续性质量信息时保留提示并继续编译。实际引用的文件、哈希或节点不一致时，仅阻止依赖该输入的目标。自动模式展示操作卡，长正文留文件；只有 T2VA 且确实未声明引用需求时才写无需上传。
+涉及 H3 交付时，参考[逐段绑定与联合交付](references/114-reference-binding-delivery.md)。Shot 的确需媒体引用时，绑定实际选择的归档文件、节点和内容哈希；未审核媒体不伪装成 approved。只缺风格或连续性质量信息时保留提示并继续编译。实际引用的文件、哈希或节点不一致时，仅阻止依赖该输入的目标。自动模式展示操作卡，长正文留文件；只有 T2VA 且确实未声明引用需求时才写无需上传。
 
 
 
@@ -344,4 +344,4 @@ python -m unittest discover -s scripts -p "test_*.py"
 
 
 ### 固定角色四格模板（用户指定）
-角色设定板统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。此条取代旧正/侧/背全身加正脸近景及横排规则；旧源稿须显式迁移，已确认媒体保持原版本。
+角色设定板统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。此版规则是唯一活动模板；确认过的媒体与制作历史保持原版本。遇到不符合当前源稿合同的稿件，按顶部升级提示重新整理，不在原稿上迁移。

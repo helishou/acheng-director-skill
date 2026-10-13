@@ -25,7 +25,7 @@ REQUIRED = ["00-visual-constitution", "10-scriptwriter-engine", "20-storyboard-c
             "12-character-dialogue-revision", "21-genre-camera-capacity", "31-performance-handoff",
             "32-liveliness-performance-framework", "46-effect-families", "61-asset-dependency-production", "91-module-orchestration",
             "93-red-monkey-integration", "94-delivery-integrity", "62-style-anchor", "111-h3-final-format-pass-v4",
-            "113-animation-art-terminology-library-v4.3", "114-reference-binding-delivery-v4.3.6", "115-directed-decisions",
+            "113-animation-art-terminology-library-v4.3", "114-reference-binding-delivery", "115-directed-decisions",
             "116-visual-reference-library"]
 
 TERMINOLOGY_CATEGORIES = {

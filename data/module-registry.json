@@ -1,5 +1,5 @@
 {
-  "version": "4.3.8",
+  "version": "4.3.10",
   "modules": [
     {
       "id": "story",
@@ -26,7 +26,7 @@
         "references/decisions/shots.md",
         "references/20-storyboard-compiler.md",
         "references/21-genre-camera-capacity.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md"
       ],
       "owns": [
         "/shots/*/camera",
@@ -80,7 +80,7 @@
         "references/62-style-anchor.md",
         "references/72-standalone-prompt-delivery.md",
         "references/105-scene-design-adapter-v4.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md"
       ],
       "owns": [
         "/asset_plan",
@@ -124,7 +124,7 @@
         "references/72-standalone-prompt-delivery.md",
         "references/32-liveliness-performance-framework.md",
         "references/113-animation-art-terminology-library-v4.3.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md"
       ],
       "owns": [
         "/segments/*/style",
@@ -155,7 +155,7 @@
         "references/80-continuity-ledger.md",
         "scripts/continuity_v2.py",
         "references/95-quality-gates.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md"
       ],
       "owns": [
         "/ledger/contract_version",

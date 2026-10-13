@@ -13,7 +13,7 @@ metadata:
 
 确定可见事件、视轴、运镜或参考图用途时，按[局部决策指南](../../references/decisions/shots.md)对应节执行；先排除不适用选项再查库，不强制每镜双候选辩论。
 
-读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。在 reference_requirements 写本镜确需的对象/素材版本/用途，与 assets 复核，不能把整个资产库都上传。首帧、尾帧、中间关键帧和构图图分开；未来状态不能提前继承。标签由 model 分配，shots 不写第二套绑定真值。
+读[114 绑定合同](../../references/114-reference-binding-delivery.md)。在 reference_requirements 写本镜确需的对象/素材版本/用途，与 assets 复核，不能把整个资产库都上传。首帧、尾帧、中间关键帧和构图图分开；未来状态不能提前继承。标签由 model 分配，shots 不写第二套绑定真值。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 

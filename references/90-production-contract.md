@@ -2,9 +2,9 @@
 
 ## 版本与基本类型
 
-当前画布生产源使用 UTF-8 JSON 或 YAML；Subject Prompt 合同由 `prompt_assembly.version: 2` 标识，连续性账本由 `ledger.contract_version: 2` 标识。根字段 `version` 不参与当前源稿校验。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。
+当前唯一画布生产格式使用 UTF-8 JSON 或 YAML，必须同时声明根 `version: 2`、`prompt_assembly.version: 2` 与 `ledger.contract_version: 2`。Shot 使用整数 `duration_frames`、`timeline_id`、`story_order` 和局部帧，不保存全局 `start_frame/end_frame`。角色、场景、道具引用走 `subject_registry`、`subject_usages`；关键帧走 `shots[].keyframes`；对白通过 `utterances` 与 `utterance_refs` 绑定；Clip 图片由 Subject/关键帧编译派生，归档声音由 `audio_bindings` 显式绑定。旧格式、未知标记、全局帧 Shot 与 `segments[].references` 均不再解析或回写，需由当前 Acheng Director 显式升级。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。
 
-根字段：project_id；fps_num/fps_den；production_total_duration；generation_clip_limit；scene_registry；character_registry；shots；segments；ledger。可选 brief、story、asset_cards、unresolved_threads、dispatch_log、base_revision 保存叙事和溯源，不能替代必需字段。
+必需字段：version、prompt_assembly、ledger、project_id、fps_num/fps_den、production_total_duration、generation_clip_limit、scene_registry、character_registry、subject_registry、shots、utterances、segments。可选 brief、story、asset_cards、unresolved_threads、dispatch_log 保存叙事和溯源，不能替代必需字段。`audio_bindings` 每项保存 label、来源音频节点、storageKey、SHA-256、角色和局部 Shot 范围；不复用旧 `Segment.references`。
 
 新合同分别见[11叙事](11-story-architecture.md)、[31表演](31-performance-handoff.md)、[32灵动表演](32-liveliness-performance-framework.md)、[46条件特效](46-effect-families.md)、[61资产依赖](61-asset-dependency-production.md)、[91专业模块](91-module-orchestration.md)。旧A/B/C支路契约继续解释已有资产来源与窄操作，七模块登记负责新的阶段分工；两者不重复赋予同一字段多个最终写入者。
 
@@ -12,44 +12,36 @@
 
 scene_registry 每项至少 id/name，生产使用时同时写 space、entrances、exits、landmarks、key_light、version。character_registry 每项 id/name/height_m/identity；height_m 是设计值或测量值须在旁注区分，百米以上自动触发尺度审查。角色 ID 和场景 ID 互不复用；道具 ownership 只指向登记对象。
 
-## ShotSpec v2
+## Shot：Subject Prompt Assembly v2
 
 | 字段 | 合同 |
 |---|---|
 | id / scene_id | 稳定且已登记的身份 |
-| start_frame / end_frame | 全局整数帧，前一镜尾=后一镜头 |
+| duration_frames / timeline_id / story_order | 正整数 Shot 时长及所属时间线顺序；绝对窗口由编译器派生 |
 | visual | 英文可见画面、当前场所、身份和动作初态 |
 | features | core_emotion/combat/supernatural_vfx/colossal 四个显式布尔值；不能通过关 flag 躲审查 |
-| characters | 画内角色数组，每项 id、position[x,y]、facing、gaze、weapon_hand、weapon_direction |
+| subject_usages | Subject ID、可见/画外音/状态上下文、显式图片绑定、局部用途与状态条件 |
 | camera | previs_id 三位字符串，description、movement、path、target、adaptation、sensor_basis、lens_mm、shutter_angle |
 | performance | 旧完整五轨或strategy:selective轨道；也可用source_beat_id/source_anchor/events消费完整表演交接；需要灵动/夸张/动作化表演时增加acting_design与段级motion_profile；详见31/32 |
 | combat | 战斗时七层 force_source/trajectory/contact/resistance/impact_hold/transfer/recoil，加 chain.attack/response/result/continuation |
 | vfx | energy_fluid使用主干/三通道/四相位；其他family使用origin/scope/process/end_state/lighting/continuity/events |
 | scale_proofs | 巨构时至少两类证据，每项 type/detail/frame_location/depth_relation |
-| dialogues | 无台词用空数组；有则 speaker_id/speaker_name/delivery/language/text/start/end/voiceover |
+| keyframes / utterance_refs | 关键帧局部锚点及对白原文片段的局部帧窗口 |
 | audio | foley 数组、low_frequency_hz；有低频写 source/classification，无则 no_low_frequency_reason |
 | outcome_events | 本镜造成的账本事件 ID，未变化为空数组 |
 | state_in/state_out | 对应初始／事件重放的完整状态快照 |
 
-表演、VFX、对白局部帧相对当前 Shot 开始。相机路径与人物位置是计划目标，不声称来自源片精确测量。提示词 visual 和 cues 用英语，台词保留用户原文；内部中文分析不得混入最终 H3 正文。
+表演、声音、VFX、关键帧与连续性事件时间都使用 Shot 局部帧。相机路径与人物位置是计划目标，不声称来自源片精确测量。提示词 visual 和 cues 用英语，台词保留用户原文；内部中文分析不得混入最终 H3 正文。
 
 ## Segment
 
-4.3.6 兼容扩展见[114 绑定合同](114-reference-binding-delivery-v4.3.6.md)：shots.reference_requirements 属 shots；Segment references/subjects 仍属 model，允许 planned 与真实绑定分阶段，新增 asset_id/asset_version/entity_id、shot_ids、preserve/exclude、可选帧窗和 state_guards。正式绑定从 asset_plan 批准版本解析，外部媒体要求哈希与批准证据。派生 manifest 不能成为第二生产真值。
+Segment 的 `shot_ids` 按源稿顺序连续覆盖，`mode`、`mode_lock`、`mode_selection_reason`、`styleTemplateId`、`style`、`motion_profile`、`overall_soundscape`、`non_diegetic_music` 和 `summary` 保存执行配置与描述。时长与 Shot 窗口派生；禁止在源稿写入 references、subjects、Prompt 或绝对帧。`audio_bindings` 是唯一外部音频输入字段，图像输入使用 `pictureBindings` 与 Shot keyframes。Ref2VA 正文由当前 Subject Prompt 编译器生成；编译产物的 Picture/Audio 清单是派生回执，不是第二生产真值。
 
-id 为安全文件名；start_frame/end_frame；shot_ids 严格按时间顺序、无重复、无漏镜；generation_clip_duration 与帧区间一致；mode 五选一；`mode_lock`、`mode_selection_reason`、`prompt_detail_policy`；style、overall_soundscape、non_diegetic_music；references 数组；Ref2VA 还需 summary。新 Ref2VA 任务的 `detailed_description` 按时长与复杂度动态计算最低词数（默认 10 秒段为 2,000）和目标词数（默认约 2,400） 个英文词，极限值 2900 词硬性封顶（处于 2200-2900 词区间，剔除无上限输出）；历史夹具必须显式声明 `prompt_detail_policy.profile:"legacy_fixture"`。
-
-每个参考项 label/file/role。Ref2VA 项增加 definition/retention；后两者必须使用同一标签，标签在全段唯一。首尾帧模式 Picture 标签按指南固定。panels 仅在接触表参考时出现，完整1–16编号，每项 panel/shot_id/frame/phase/description。格号按阅读顺序，frame 不得逆序或落到所属镜头外。
-
-Ref2VA可另有`subjects`数组，每项label/definition/retention，label为`<Subject N>`，definition必须引用真实素材的Picture/Video等标签。Subject表示可复用内容，不额外上传一张名叫Subject的图片。若Picture/Video只给Subject提供来源，references项可设source_only:true，仍保留真实file/role，但不重复生成独立definition/retention；必须被Subject定义实际引用。
-
-实际首尾帧应在 shot.visual 中写初始锚定与最终收敛路径，不能仅靠首行声明。工具负责语法和结构检查，人负责看图核对角色与路径。
+实际关键帧应在 `shots[].keyframes` 写主体、锚点与局部帧；工具负责语法和结构检查，人负责看图核对角色与路径。
 
 ## 账本事件
 
-initial/final 都包含 characters{id:{ammo,trauma_phase}}、scenes{id:damage_level}、props{prop_id:owner_id}。完整制作可给每个角色另附 wounds 明细，trauma_phase 作为本切片主要功能限制的汇总；多伤不能被汇总字段清除。
-
-events 每项 id/frame/shot_id/domain/target/before/after/reason。domain 为 ammo/trauma/damage/prop；ammo 必须含 delta，增加时附 action:reload/resupply 与 resource_source；trauma 向稳定或恢复推进时附 action:treat/recover 与 story_time_evidence；damage 降级必须 action:repair。事件顺序按 frame 稳定排序，同帧多个事件按数组顺序重放。
+账本使用 `facts`、`timelines`、`initial`、`events`、`requirements` 与 `coverage`。事实通过 object_kind/object_id 关联已登记 Subject；事件通过 fact_id、shot_id 与 `local_frame` 锚定，保持 before/after/reason；要求和覆盖保留稳定 ID 与来源锚点。检查重放只写入报告，不回填到源稿；无法映射局部 Shot 的事件拒绝迁移。
 
 ## A/B/C 标准消息外壳
 
