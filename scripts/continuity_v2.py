@@ -185,8 +185,6 @@ def audit(source, target_ids=None):
         anchor = event.get("source_anchor")
         if not isinstance(anchor, dict) or str(anchor.get("block_id", "")) not in blocks:
             issue("CONTINUITY_EVENT_SOURCE", f"事件 {event_id} 缺少有效剧本块来源", shot_id, fact_id)
-        if len(str(event.get("reason", "")).strip()) < 8:
-            issue("CONTINUITY_EVENT_REASON", f"事件 {event_id} 缺少具体原因", shot_id, fact_id)
         ordered_events.setdefault(timeline_id, []).append(event)
 
     req_by_shot_fact = {}
@@ -345,7 +343,8 @@ def contract():
             "fact": {"required": ["id", "object_kind", "object_id", "allowed_values"]},
             "timeline": {"required": ["id"]},
             "shot": {"defaults": {"timeline_id": "main or first registered timeline", "story_order": "source order within the timeline"}},
-            "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "reason", "source_anchor.block_id"]},
+            "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "source_anchor.block_id"],
+                      "optional": ["reason"], "optional_note": "reason 为可选说明；填写后由编译器作为 Recorded cause 写入提示词。"},
             "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"]}}
 
 
