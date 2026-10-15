@@ -7,7 +7,7 @@ class CharacterLayoutTests(unittest.TestCase):
     def test_new_character_defaults_to_one_identity_image(self):
         card = prepare_asset_card({'id': 'Cuizi', 'asset_kind': 'character', 'prompt': 'Silk qipao.'}, {})
         for text in ('single-frame neutral full-body identity image', 'exactly one person', 'not a contact sheet', 'hands remain empty'):
-            self.assertIn(text, card['prompt'])
+            self.assertIn(text, card['prompt'].lower())
         self.assertEqual(card['view_layout']['type'], 'single_character_identity_image')
         self.assertEqual(card['view_layout']['order'], 'single')
         self.assertNotIn('Top left:', card['prompt'])

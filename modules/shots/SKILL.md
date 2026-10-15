@@ -21,7 +21,7 @@ metadata:
 
 先读确认剧本、场景地图、资产版本和必须可见事件。选择受限/全知视点、景别与路径；为每次切镜说明新增信息。绑定真实Previs家族并展开运动，静态构图不强行运动。按事件安全边界装箱，超窗或短尾不可行时返回边界问题。
 
-返回既有shots的visual/camera/时序/角色位置及segments的镜头覆盖。不得改台词与胜负；由主导演建新对象骨架。和表演动作模块核对可见性。
+返回正式源稿已有 `shots[]` 的 `visual`、`camera`、`duration_frames`、`subject_usages`、局部对白引用与 `segments[].shot_ids` 覆盖 patch。工作台编辑的 Shot/Segment 必须与 `source.shots[]`/`source.segments[]` 同形；不要生成 `director.shots/story/clipGroups` 或工作台镜像。不得用 `characters`、绝对 `start_frame/end_frame` 或 `shotIds` 投影字段代替当前 v2 字段；不得改台词与胜负；由主导演建新对象骨架。和表演动作模块核对可见性。
 
 每个 Shot 都要同时保存 `scene_id`（场景环境登记 ID）与 `source_scene_id`（所属剧本场次 occurrence ID）。同一环境若在剧本中多次出现，不能只靠环境 ID 推断场次；缺少 `source_scene_id` 会让 Clip 无法映射到唯一正式场次、不能准备 H3 节点。
 

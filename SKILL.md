@@ -34,7 +34,7 @@ metadata:
 
 当前 Director 源稿统一使用根字段 `version: 2`。启用 Subject Prompt Assembly 时，先登记稳定 Subject，并通过 `entityRef` 绑定角色、场景或道具的正式实体；Subject 图片绑定可指向对应素材节点或智能图片节点，始终使用真实 `sourceNode.projectId/nodeId` 与选择策略；Shot 通过 Subject 使用对象和绑定，不自编 `<Picture N>` 编号。连续性事实只写入唯一权威 `ledger`，事实所属对象由 Subject 的实体引用解析；Shot 初态、事件和尾态由局部帧与连续性重放派生。Shot 是摄影原子，时长使用整数帧；Clip 只重组相邻 Shot，不重复保存 Prompt、Subject 列表或 Picture 编号。
 
-正式 Prompt、参考顺序与上传映射只由当前激活编译器从结构化源稿组装。Agent 只写结构字段，不在 `segments[].prompt` 或画布 Clip 中手工组装正式 Prompt。用户在画布明确编辑 Prompt 后，可要求反向同步；仅当本次编译回执提供的 SourceMap 能把全部修改唯一映射到单个 Shot 文本或对白字段时才写回，其他文本留在画布并报告歧义，不猜测修改摄影、身份、绑定或连续性。缺少 SourceMap 时保留手工 Prompt，不宣称同步完成。
+正式 Prompt、参考顺序与上传映射只由当前激活编译器从结构化源稿组装。Agent 只写结构字段，不在 `segments[].prompt` 或画布 Clip 中手工组装正式 Prompt。用户在画布明确编辑 Prompt 后，可要求反向同步；仅当本次编译回执提供的 SourceMap 能把全部修改唯一映射到单个 Shot 文本或对白字段时才写回，其他文本留在画布并报告歧义，不猜测修改摄影、身份、绑定或连续性。缺少 SourceMap 时保留手工 Prompt，不宣称同步完成。Canvas 工作台直接编辑唯一的 `draft.director.source`；v2 不另存 Shot/Segment 镜像。旧格式与现存 v2 双写稿只能由维护者用 `director-source-storage` 只读检查并显式迁移，不自动兼容或启动时清理。
 
 Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。当前写入只接受 Director 源稿 v2；旧版源稿需要按当前合同重新整理并重新提交，不迁移改写旧源稿。
 
@@ -339,7 +339,7 @@ python -m unittest discover -s scripts -p "test_*.py"
 
 
 
-样例入口：[重工业机甲](examples/01-hollywood-mecha-combat-h3.md)、[文戏对峙](examples/02-dramatic-micro-acting-h3.md)、[超巨构神魔对决](examples/03-colossal-scale-combat-h3.md)、[三集八线悬疑](examples/04-serial.production.md)、[非写实无特效动作](examples/05-ink.production.md)。完整样例数据是可复制的生产模板，修改题材时同时修改资产、动作与状态，不只替换角色名字。
+样例入口：[重工业机甲](examples/01-hollywood-mecha-combat-h3.md)、[文戏对峙](examples/02-dramatic-micro-acting-h3.md)、[超巨构神魔对决](examples/03-colossal-scale-combat-h3.md)、[三集八线悬疑](examples/04-serial.production.md)、[非写实无特效动作](examples/05-ink.production.md)。这些是内容与编译交付案例；仓库内 `examples/*.production.json` 是历史兼容 fixture（含 `version: "2.0"`、`legacy_fixture` 或旧 Shot/Segment 字段），不得作为新源稿模板复制。新稿结构只按[统一生产合同](references/90-production-contract.md)和当前 `production_get_contract` 返回的 schema/example 组装；任何历史 `.md` 内嵌结构也不能覆盖当前合同。
 
 
 

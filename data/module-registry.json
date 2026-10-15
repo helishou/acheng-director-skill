@@ -31,14 +31,11 @@
       "owns": [
         "/shots/*/camera",
         "/shots/*/visual",
-        "/shots/*/characters",
-        "/shots/*/start_frame",
-        "/shots/*/end_frame",
+        "/shots/*/subject_usages",
+        "/shots/*/duration_frames",
+        "/shots/*/source_scene_id",
         "/shots/*/reference_requirements",
         "/segments/*/shot_ids",
-        "/segments/*/start_frame",
-        "/segments/*/end_frame",
-        "/segments/*/generation_clip_duration",
         "/shots/*/required_assets",
         "/shots/*/required_prop_ids"
       ],
@@ -132,8 +129,7 @@
         "/segments/*/mode",
         "/segments/*/mode_lock",
         "/segments/*/mode_selection_reason",
-        "/segments/*/references",
-        "/segments/*/subjects",
+        "/segments/*/audio_bindings",
         "/segments/*/summary",
         "/segments/*/overall_soundscape",
         "/segments/*/non_diegetic_music",
@@ -165,10 +161,8 @@
         "/ledger/events",
         "/ledger/requirements",
         "/ledger/coverage",
-        "/legacyContinuityProjection",
         "/shots/*/timeline_id",
         "/shots/*/story_order",
-        "/shots/*/continuity_facts",
         "/unresolved_threads"
       ],
       "checks_with": [

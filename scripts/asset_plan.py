@@ -110,6 +110,7 @@ def prepare_asset_card(card, payload):
 def check_asset_plan(payload, base):
     nodes = indexed(payload.get("asset_plan"), "asset plan")
     cards = indexed(payload.get("asset_cards", []), "asset cards", True)
+    subject_assembly = (payload.get("prompt_assembly") or {}).get("version") == 2
     order, visiting, visited = [], set(), set()
 
     def visit(aid):
@@ -124,8 +125,8 @@ def check_asset_plan(payload, base):
         need(isinstance(dependencies, list) and len(dependencies) == len(set(dependencies)), "invalid asset dependencies")
         for dep in dependencies:
             visit(dep)
-        need(node.get("status") in ("planned", "generated", "approved"), "asset status must be planned/generated/approved")
-        if node["status"] in ("generated", "approved"):
+        need(node.get("status") in ("planned", "generated", "approved", "selected_result"), "asset status must be planned/generated/approved/selected_result")
+        if node["status"] in ("generated", "approved", "selected_result"):
             file = Path(base) / node.get("file", "")
             need(file.is_file(), f"{aid}: generated asset file missing")
             need(file_hash(file) == node.get("sha256"), f"{aid}: generated asset hash changed")
@@ -149,11 +150,15 @@ def check_asset_plan(payload, base):
         need(isinstance(required, list) and set(required) <= set(nodes), f"{shot['id']}: asset requirements incomplete")
         for aid in required:
             consumers[aid].append(shot["id"])
-        visible_chars = {c["id"] for c in shot["characters"]}
-        supplied_chars = {nodes[a].get("entity_id") for a in required if nodes[a]["kind"] == "character"}
-        need(visible_chars <= supplied_chars, f"{shot['id']}: visible character asset missing")
-        for prop in shot.get("required_prop_ids", []):
-            need(any(nodes[a]["kind"] in ("prop", "vehicle") and nodes[a].get("entity_id") == prop for a in required), f"{shot['id']}: prop asset missing")
+        # Subject Prompt v2 declares visibility through subject_usages and resolves
+        # pictures through subject_registry. It has no legacy characters/required_assets
+        # shot contract; applying that contract here falsely drafts every image card.
+        if not subject_assembly:
+            visible_chars = {c["id"] for c in shot["characters"]}
+            supplied_chars = {nodes[a].get("entity_id") for a in required if nodes[a]["kind"] == "character"}
+            need(visible_chars <= supplied_chars, f"{shot['id']}: visible character asset missing")
+            for prop in shot.get("required_prop_ids", []):
+                need(any(nodes[a]["kind"] in ("prop", "vehicle") and nodes[a].get("entity_id") == prop for a in required), f"{shot['id']}: prop asset missing")
     impact = {}
     shots = {s["id"]: s for s in payload.get("shots", [])}
     keyframe_coverage = {}

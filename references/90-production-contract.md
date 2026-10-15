@@ -4,6 +4,14 @@
 
 当前唯一画布生产格式使用 UTF-8 JSON 或 YAML，必须同时声明根 `version: 2`、`prompt_assembly.version: 2` 与 `ledger.contract_version: 2`。Shot 使用整数 `duration_frames`、`timeline_id`、`story_order` 和局部帧，不保存全局 `start_frame/end_frame`。角色、场景、道具引用走 `subject_registry`、`subject_usages`；关键帧走 `shots[].keyframes`；对白通过 `utterances` 与 `utterance_refs` 绑定；Clip 图片由 Subject/关键帧编译派生，归档声音由 `audio_bindings` 显式绑定。旧格式、未知标记、全局帧 Shot 与 `segments[].references` 均不再解析或回写，需由当前 Acheng Director 显式升级。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。
 
+### 序列化边界：正式源稿与画布投影
+
+独立 `production.json` 的 JSON/YAML 根对象就是上面的正式源稿，不要套 Backend API 响应外壳。画布记录中的权威位置是 `draft.director.source`：`story`、`script_scenes`、`shots`、`segments`、`ledger` 等字段都属于这个 source。不要另写 `draft.director.story`、`draft.director.shots` 或 `draft.director.clipGroups`，也不要把这些别名和正式 source 并存。`story.contract_version` 只标记故事子合同，不替代根 `version: 2`。`camera`、`audio` 等结构字段保持 JSON object/array，不能把序列化后的 JSON 字符串塞回字段；正式 Segment 使用 `shot_ids`，工作台投影的 `shotIds` 不能复制进源稿。
+
+Acheng v2 的唯一制作源是 `draft.director.source`。工作台的 Story、Shot、Segment 和连续性编辑直接对应 source 中同形字段；Backend 不持久化或通过 v2 API 暴露 `draft.scenes`、`draft.shots`、`draft.clipGroups` 镜像。运行态 Canvas 节点、任务和选用结果按 owner、Segment ID 与已有任务记录只读派生；不写入 source，也不补建缺失或重复关联。找不到或出现多个 Canvas 匹配时，只阻塞受影响目标并返回诊断。生成完整制作稿时必须输出本节定义的全部必需 source 字段；只给 `version: 2`、`prompt_assembly` 和剧本正文的片段不是可提交制作稿。故事模块回包里的 `story`/`script_scenes` 及镜头模块回包里的 Shot/Segment patch 是待合并字段，不是另一种存储格式。
+
+普通工作台读取、编辑、编译和生成不兼容旧版 Director 格式。维护者使用 Backend `director-source-storage --inspect` 命令只读检查；旧稿须先人工整理完整 v2 source，再带 revision 与 operationId 显式应用：`director-source-storage --apply --kind episode|canvas --id <owner> --expected-revision <revision> --operation-id <id> --source-file <prepared-v2.json>`。v2 双写稿省略 `--source-file`；只有 source、历史镜像和 Canvas 归属一致时才可显式去重。出现差异、缺失或歧义均保留原记录并停止。不得启动时自动迁移或直接改 SQLite。
+
 必需字段：version、prompt_assembly、ledger、project_id、fps_num/fps_den、production_total_duration、generation_clip_limit、scene_registry、character_registry、subject_registry、shots、utterances、segments。可选 brief、story、asset_cards、unresolved_threads、dispatch_log 保存叙事和溯源，不能替代必需字段。`audio_bindings` 每项保存 label、来源音频节点、storageKey、SHA-256、角色和局部 Shot 范围；不复用旧 `Segment.references`。
 
 新合同分别见[11叙事](11-story-architecture.md)、[31表演](31-performance-handoff.md)、[32灵动表演](32-liveliness-performance-framework.md)、[46条件特效](46-effect-families.md)、[61资产依赖](61-asset-dependency-production.md)、[91专业模块](91-module-orchestration.md)。旧A/B/C支路契约继续解释已有资产来源与窄操作，七模块登记负责新的阶段分工；两者不重复赋予同一字段多个最终写入者。

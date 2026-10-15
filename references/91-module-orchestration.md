@@ -24,6 +24,8 @@ plan回包含input_revision、steps、integration_steps、required_reads、exter
 
 专业回包含request_id、input_revision、module、status、attempt、patch、evidence、unresolved。patch是[{path,value}]，path使用JSON指针形式，只支持替换允许字段；禁止删除、越权、重叠写入与离开本次shot_ids。新镜头、角色、场景、片段由主导演建骨架，专业模块不通过替换整个shots数组抢走他人字段。
 
+patch 路径以 `production.json` 的正式源稿根对象为根，不含 API 信封或画布存储包装。story 模块的 `/story`、`/script_scenes` 合并到正式源稿；镜头和段落 patch 写入 `/shots`、`/segments`。写入 Canvas 后，`draft.director.source` 仍是唯一制作源，工作台直接编辑这些字段；不得持久化或返回 `draft.scenes/shots/clipGroups` 镜像，也不得改写为 `draft.director.story/shots/clipGroups`。Canvas 节点、任务与结果是只读运行上下文，按 owner 和稳定 Segment ID 派生；缺失或重复匹配时阻塞对应目标，不猜测或补建。
+
 READY且没有unresolved才可合并。NEEDS_DIRECTOR_REVISION或EXECUTION_BLOCKED交回主导演；attempt最多2，即初次与一次有证据的修正。每次成功合并后SHA改变，下一模块必须基于新版本重新生成请求。独立分支只能返回建议，不能拿过期基线覆盖当前文件。
 
 ```text
