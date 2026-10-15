@@ -119,7 +119,7 @@ def validate(root=ROOT):
     require(all(set(group) <= term_id_set and len(set(group)) == len(group) for group in groups),
             "Animation terminology mutual exclusion group references an unknown or duplicate term")
     reports = []
-    video_count, image_count, draft_count, character_asset_count, draft_video_count = 0, 0, 0, 0, 0
+    video_count, image_count, draft_count, character_identity_count, character_four_view_count, draft_video_count = 0, 0, 0, 0, 0, 0
     modes, scopes = set(), set()
     liveliness_examples = 0
     def check_export(directory, entries):
@@ -185,10 +185,19 @@ def validate(root=ROOT):
         for card in production["asset_cards"]:
             resolved, missing = resolve_card(card, production, path.parent, True)
             if resolved.get("asset_kind") == "character":
-                character_asset_count += 1
                 require(resolved.get("character_name") and resolved.get("state_label"), f"Character asset labels missing: {card['id']}")
-                require(resolved.get("view_layout", {}).get("type") == "four_view_character_turnaround", f"Character four-view layout missing: {card['id']}")
-                require(resolved["view_layout"].get("views") == ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"], f"Character four-view order invalid: {card['id']}")
+                layout = resolved.get("view_layout", {})
+                if layout.get("type") == "single_character_identity_image":
+                    character_identity_count += 1
+                    require(layout.get("views") == ["single_full_body_front"] and layout.get("order") == "single", f"Character identity image layout invalid: {card['id']}")
+                    require("single-frame neutral full-body identity image" in resolved.get("prompt", "").lower(), f"Character identity prompt missing single-image contract: {card['id']}")
+                elif layout.get("type") == "four_view_character_turnaround":
+                    character_four_view_count += 1
+                    require(layout.get("views") == ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"], f"Character four-view order invalid: {card['id']}")
+                    if layout.get("stage") == "identity_based_turnaround":
+                        require(any(ref.get("role") == "identity" and ref.get("asset_id") for ref in resolved.get("references", [])), f"Character four-view identity reference missing: {card['id']}")
+                else:
+                    require(False, f"Character image stage/layout invalid: {card['id']}")
             entry = entries[card["id"]]
             prefix = "DRAFT — required reference images are not yet supplied. Do not submit until the upload manifest is resolved.\n\n" if missing else ""
             require((image_dir / entry["prompt_file"]).read_text(encoding="utf-8") == prefix + render_asset_prompt(resolved, production.get("prompt_bindings"), production.get("style_lock")), "Image export differs from source")
@@ -205,7 +214,7 @@ def validate(root=ROOT):
     return {"status": "PASS", "camera_entries": 132, "original_emotions": 100, "expanded_emotions": 100,
             "required_references": len(REQUIRED), "examples": reports, "reference_libraries": reference_libraries,
             "modules": len(modules), "local_decision_guides": len(modules), "asset_reference_contract": "1.0", "integrations": len(integrations), "terminology_categories": len(categories),
-            "terminology_terms": len(term_ids), "character_four_view_assets": character_asset_count, "h3_modes": sorted(modes),
+            "terminology_terms": len(term_ids), "character_identity_assets": character_identity_count, "character_four_view_assets": character_four_view_count, "h3_modes": sorted(modes),
             "standalone_video_prompts": video_count, "image_prompt_designs": image_count,
             "ready_video_prompts": video_count - draft_video_count, "draft_video_prompts": draft_video_count,
             "ready_image_prompts": image_count - draft_count, "draft_image_prompts": draft_count,

@@ -23,4 +23,8 @@ metadata:
 
 返回既有shots的visual/camera/时序/角色位置及segments的镜头覆盖。不得改台词与胜负；由主导演建新对象骨架。和表演动作模块核对可见性。
 
+每个 Shot 都要同时保存 `scene_id`（场景环境登记 ID）与 `source_scene_id`（所属剧本场次 occurrence ID）。同一环境若在剧本中多次出现，不能只靠环境 ID 推断场次；缺少 `source_scene_id` 会让 Clip 无法映射到唯一正式场次、不能准备 H3 节点。
+
+可见 Subject 若本镜有意采用文字身份而不上传身份图，须显式写 `pictureBindingMode: "explicit"` 和空 `pictureBindingIds`。省略选择模式或只留空 ID 数组仍会继承 identity 默认绑定，并把缺图误报为阻塞。
+
 字段写入白名单取[模块登记](../../data/module-registry.json)。回包包含request_id/input_revision/module/status/attempt/patch/evidence/unresolved；最多初次加一次有证据的修正。只改允许路径，不能把其他模块的建议直接写成已确认事实。

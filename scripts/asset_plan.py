@@ -7,6 +7,14 @@ from contract_core import file_hash, indexed, need, prose
 KINDS = {"character", "costume", "injury", "scene", "prop", "vehicle", "keyframe", "effect", "style"}
 
 DEFAULT_CHARACTER_VIEW_LAYOUT = {
+    "type": "single_character_identity_image",
+    "views": ["single_full_body_front"],
+    "order": "single",
+    "same_subject": True,
+    "purpose": "primary single-frame identity source for the later four-view turnaround"
+}
+
+DEFAULT_CHARACTER_TURNAROUND_LAYOUT = {
     "type": "four_view_character_turnaround",
     "views": ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"],
     "order": "grid_2x2",
@@ -17,7 +25,7 @@ DEFAULT_CHARACTER_VIEW_LAYOUT = {
 
 
 def prepare_asset_card(card, payload):
-    """Apply explicit defaults for character identity boards without changing the source payload."""
+    """Default new character assets to a single identity image; four-views are a later referenced stage."""
     result = copy.deepcopy(card)
     plan_nodes = {node["id"]: node for node in payload.get("asset_plan", [])}
     node = plan_nodes.get(result.get("id"), {})
@@ -33,11 +41,35 @@ def prepare_asset_card(card, payload):
     character = registry.get(node.get("entity_id"), {})
     result["character_name"] = result.get("character_name") or character.get("name") or result.get("name") or result["id"]
     result["state_label"] = result.get("state_label") or "neutral_identity"
-    layout = result.get("view_layout") or copy.deepcopy(DEFAULT_CHARACTER_VIEW_LAYOUT)
+    if result.get("view_layout"):
+        layout = result["view_layout"]
+    elif payload.get("prompt_detail_policy", {}).get("profile") == "legacy_fixture":
+        layout = copy.deepcopy(DEFAULT_CHARACTER_TURNAROUND_LAYOUT)
+    else:
+        layout = copy.deepcopy(DEFAULT_CHARACTER_VIEW_LAYOUT)
     result["view_layout"] = layout
-    if layout.get("type") == "four_view_character_turnaround":
+    if layout.get("type") == "single_character_identity_image":
+        need(layout.get("views", ["single_full_body_front"]) == ["single_full_body_front"], "single identity image must contain one front full-body view")
+        need(layout.get("order", "single") == "single", "single identity image cannot use a multi-panel layout")
+        need(not any(t in result.get("prompt", "").lower() for t in ("top left:", "top right:", "bottom left:", "bottom right:", "four-view", "four view")), "single identity prompt contains multi-panel instructions")
+        need("arranged left to right" not in result.get("prompt", "").lower(), "single identity prompt contains a legacy multi-view layout")
+        layout["views"] = ["single_full_body_front"]
+        layout["order"] = "single"
+        directive = (
+            f"Create one single-frame neutral full-body identity image of {result['character_name']} in the {result['state_label']} state. "
+            "Show exactly one person facing forward in a relaxed neutral stance, with face, full silhouette, both hands and both shoes clearly visible. "
+            "Use a plain neutral background and soft even light. This is one image, not a contact sheet, collage, turnaround, or multi-panel layout. "
+            "Keep the character's stated face, body proportions, hairstyle and clothing readable. Hands remain empty; include no scene, action, weapon, prop, text, label, logo, watermark or UI."
+        )
+        if "single-frame neutral full-body identity image" not in result.get("prompt", "").lower():
+            result["prompt"] = directive + " " + result.get("prompt", "")
+        if result.get("seven_steps"):
+            first = result["seven_steps"][0]
+            if "single-frame neutral full-body identity image" not in first.get("content", "").lower():
+                first["content"] = directive + " " + first.get("content", "")
+    elif layout.get("type") == "four_view_character_turnaround":
         views = layout.get("views")
-        need(views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
+        need(views == DEFAULT_CHARACTER_TURNAROUND_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
         need(layout.get("order", "grid_2x2") == "grid_2x2", "character layout must use grid_2x2")
         layout["order"] = "grid_2x2"
         need(layout.get("row_height_ratio", [1, 2]) == [1, 2], "character top/bottom row height ratio must be 1:2")
@@ -47,7 +79,7 @@ def prepare_asset_card(card, payload):
         if geometry not in result.get("prompt", ""):
             result["prompt"] = geometry + " " + result.get("prompt", "")
         need(not any(t in result.get("prompt", "").lower() for t in ("arranged left to right", "full-body side profile", "横排四栏", "正面全身、背面全身、左侧全身")), "conflicting legacy character layout in prompt")
-        if views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"]:
+        if views == DEFAULT_CHARACTER_TURNAROUND_LAYOUT["views"]:
             name = result["character_name"]
             state = result["state_label"]
             directive = (
@@ -56,7 +88,7 @@ def prepare_asset_card(card, payload):
                 "Top left: front face above the clavicle. Top right: right profile face above the clavicle. "
                 "Bottom left: headless front costume full body starting below the clavicle; completely crop out head and face, arms relaxed down, legs and shoes complete. "
                 "Bottom right: complete back full body from back of head to soles, showing all rear attachments actually defined for this character. "
-                "Neutral light-grey background, orthographic, no perspective distortion. "
+            "Neutral light-grey background, orthographic, no perspective distortion. "
                 "Identity references lock only specified character traits, never background or pose. Do not invent traits from another character. "
                 "Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background "
                 "across all four panels; preserve only the project's actual character features and visual style. "
@@ -68,6 +100,10 @@ def prepare_asset_card(card, payload):
                 first = result["seven_steps"][0]
                 if "four-view character turnaround" not in first.get("content", "").lower():
                     first["content"] = directive + " " + first.get("content", "")
+        if layout.get("stage") == "identity_based_turnaround":
+            need(any(ref.get("role") == "identity" and ref.get("asset_id") for ref in result.get("references", [])), "second-stage turnaround requires a bound identity-image reference")
+    else:
+        need(False, "unsupported character image stage/layout")
     return result
 
 

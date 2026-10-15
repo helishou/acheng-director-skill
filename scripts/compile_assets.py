@@ -17,9 +17,10 @@ from asset_delivery import copy_image_references, finish_asset_entry, missing_de
 def asset_display_name(card):
     """Return the only user-facing label used by the names-only asset index."""
     if card.get("asset_kind") == "character":
+        purpose = "单张人物形象图" if card.get("view_layout", {}).get("type") == "single_character_identity_image" else "四视图角色基准"
         base = " · ".join([str(card.get("character_name") or card.get("name") or card["id"]).strip(),
                            str(card.get("state_label") or "neutral_identity").strip(),
-                           "四视图角色身份基准"])
+                           purpose])
     else:
         base = str(card.get("name") or card["id"]).strip()
     versions = []
