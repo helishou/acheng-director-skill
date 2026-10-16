@@ -62,8 +62,15 @@
       "status": "DRAFT_MISSING_REFERENCES",
       "accepted": false,
       "blockers": [
-        "<Picture 1>: missing or empty reference media: PENDING-anime-phone-approved.png",
-        "h3_schema: missing reference file: media/PENDING-anime-phone-approved.png"
+        "<Picture 1>: missing or empty reference media: PENDING-anime-phone-approved.png"
+      ],
+      "quality_diagnostics": [
+        {
+          "code": "h3_schema",
+          "message": "missing reference file: media/PENDING-anime-phone-approved.png",
+          "path": "h3_schema",
+          "target_id": "ANIME_PHONE_SEG01"
+        }
       ],
       "platform_status": "NOT_UPLOADED",
       "binding_snapshot": {
@@ -206,7 +213,7 @@
       ],
       "upload_card": "ANIME_PHONE_SEG01.upload.md",
       "delivery_manifest": "ANIME_PHONE_SEG01.h3.draft.txt.delivery.json",
-      "upload_card_sha256": "ca60abc91849172114625c19d62e13b1a17b6ab2f0f5eae89699c804c4cdc329"
+      "upload_card_sha256": "d261a6fcd319ece421ef65e1eee593879a7bb887640a21ed7a9450137bc07d43"
     }
   ]
 }

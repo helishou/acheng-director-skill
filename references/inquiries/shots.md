@@ -132,7 +132,7 @@
 - 已有空隙：明确观看对象与保持范围。
 - 容量不足：在合法动作节点请求拆分，不为呼吸感机械加空镜。
 
-落点：/shots/*/visual、/shots/*/start_frame、/shots/*/end_frame。
+落点：/shots/*/visual 与局部 keyframes/事件锚点；Shot 总时长写入 duration_frames，由连续时间线派生绝对帧窗。
 完成即停：必要信息有可读时段且时间线闭合。
 不采用的原文硬规则：不强制每10秒插入1–2秒沉思。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第329–330行；原文只作出处。

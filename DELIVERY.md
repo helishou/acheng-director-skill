@@ -1,16 +1,13 @@
-# Acheng Director 4.3.8｜交付入口
+# Acheng Director 4.3.9｜交付入口
 
 这是导演规范与可运行生产工具包：七个专业子入口、多线叙事与知情合同、表演交接与因果灵动表演、全资产依赖、角色四视图身份基准、4–15秒分段、五模式H3编译、条件视效、红猴子能力整合、归档恢复，以及面向用户的双层交付视图和逐槽位参考图上传助手。八套样例覆盖不同媒介、题材、参考条件和表演机制，不包含付费模型实际出片。
 
-## 先看这里
+## 当前活动入口
 
-- [4.3.8资料库接入说明](UPGRADE-4.3.8.md)：36张局部问题卡、31个视觉条目、7种材质适配及原门禁保留。
-- [4.3.8功能消费链审查](reports/v4.3.8-functional-review.md)：三条参考链、各工序用途、已修复断点、真实验收与自动化边界。
+- [4.3.9 技能主入口](SKILL.md)：唯一活动合同；Director 源稿根字段 `version: 2` 是唯一格式版本标记。
+- [4.3.9 使用指南](使用指南.md)：当前格式、模块路由和实际媒体交付说明。
 - [视觉与材质资料手册](references/116-visual-reference-library.md)：按物件/媒介查库并写入资产、关键帧和H3的实际正文。
-- [4.3.7 优化说明](UPGRADE-4.3.7.md)：局部专业提问、原规范保留范围、参考图链路修复与验收边界。
 - [专业决策入口](references/115-directed-decisions.md)：七模块、32个具体决策场景；只运行当前命中的小节。
-- [使用指南](使用指南.md)：如何调用、何时上传参考图、如何复制图像与H3提示词。
-- [3.5.4简便操作指南](3.5.4简便操作指南.md)：从解压到首次复制提示词的最短路径。
 - [独立提示词交付规则](references/72-standalone-prompt-delivery.md)：GPT Image适配、逐段完整上下文和代号消解。
 - [STYLE MOTHER 风格锚定合同](references/62-style-anchor.md)：多资产默认必须使用的母版、用户明确豁免、依赖和验收边界。
 - [打戏方向与速度合同](references/40-action-choreography.md)：每镜轴线、速度曲线和慢动作触发规则。
@@ -23,7 +20,7 @@
 - [红猴子整合合同](references/93-red-monkey-integration.md)：可纳入能力、唯一 owner、触发、冲突裁决与自检。
 - [红猴子整合清单](data/red-monkey-integrations.json)：机器可读的纳入／顾问／门禁／拒绝矩阵。
 - [统一数据合同](references/90-production-contract.md)：剧本、镜头、A/B/C支路、资产与场记接口。
-- [最终包验收](reports/package-acceptance-v4.3.8-final.json)：当前资料路由、生产文件版本、引用映射与适用门分数；旧版报告仅作历史追溯。
+- [4.3.8 包验收记录](reports/package-acceptance-v4.3.8-final.json)：历史验收证据，不是当前格式或活动版本入口。
 - 包校验值：见新 ZIP 同目录的同名 .sha256 文件；包内旧版校验记录只对应它们标明的历史构建。
 - [132段实际媒体核验](reports/previs-media-acceptance.json)：逐文件SHA、1920×1080、24fps、96帧、4秒。
 

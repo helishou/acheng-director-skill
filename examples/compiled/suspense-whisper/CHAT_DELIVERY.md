@@ -69,7 +69,6 @@
 视频参考：未声明；不虚构 Video 标签。音频参考：未声明；不虚构 Audio 标签。
 
 - 阻塞：<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png
-- 阻塞：h3_schema: missing reference file: media/PENDING-suspense-archive-approved.png
 
 下一步：补齐上述素材、版本或合同缺项后重新编译到新目录；保留创作全文，不改名冒充正式稿，不切换 T2VA。
 平台上传：当前卡不证明云端已有素材。上传确认必须另附绑定本段、正文与素材哈希的入口回执。
@@ -91,7 +90,6 @@
 
 当前阻塞：
 - SUSPENSE_SEG01：<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png
-- SUSPENSE_SEG01：h3_schema: missing reference file: media/PENDING-suspense-archive-approved.png
 - SUSPENSE_SEG01：<Picture 1> 待真实素材绑定
 
 自动文件模式：长 H3 正文留在独立文件；本页保留创作摘要、资产提示词、分段地图和每段上传助手，不能用总清单链接代替操作卡。

@@ -1,6 +1,6 @@
 # 连续性：只追查当前冲突的来源
 
-执行方式见 [115](../115-directed-decisions.md)。输入为前镜完整尾态、当前初态、批准事件、所用素材版本与当前 revision。使用 [80](../80-continuity-ledger.md) 和 [114](../114-reference-binding-delivery-v4.3.6.md)，不另建平行账本。
+执行方式见 [115](../115-directed-decisions.md)。输入为前镜完整尾态、当前初态、批准事件、所用素材版本与当前 revision。使用 [80](../80-continuity-ledger.md) 和 [114](../114-reference-binding-delivery.md)，不另建平行账本。
 
 ## K1｜上一镜在桌上，下一镜已在空中
 

@@ -2,7 +2,7 @@
 
 ## 目的与边界
 
-动画资产不应分别猜测画风。任何多资产或完整制作任务默认要求 `style_policy: required`：先制作并人工批准一张受控的 `STYLE_MOTHER` 风格参考图，再制作角色、场景、道具、特效和关键帧。它是视觉渲染语言的锚，不是故事海报、角色设定图或场景母图。只有用户明确声明不要求跨资产风格一致时，才可使用 `style_policy: waived`；历史夹具必须显式使用 `legacy_unlocked` 和理由。
+动画资产可以共享画风，但 `STYLE_MOTHER` 是可选的质量工具，不是制作或编译门槛。用户选择使用时，可先制作受控的 `STYLE_MOTHER` 参考图，再用于角色、场景、道具、特效和关键帧。它是视觉渲染语言的锚，不是故事海报、角色设定图或场景母图。未配置锚点时保留风格诊断并继续编译；只有真实选择为生成输入的参考文件缺失或内容哈希不符时，才阻止对应目标。
 
 STYLE MOTHER 应包含一个不带剧情身份的通用主体（例如无脸中性模型或抽象人体比例体）、简单环境、一个代表性材料／道具和目标媒介。画面要能验收线条边缘、阴影分层、色板逻辑、材质响应、背景抽象、空气透视、轮廓可读性和动画关节可动性；禁止文字、标志、水印、网格、故事专属角色、复杂叙事构图、可识别脸部、品牌和场景地标。它必须有足够的主体、材质和空间层次来代表目标画风，但不能携带会污染后续身份、构图、动作或故事状态的内容。
 
@@ -40,9 +40,9 @@ STYLE MOTHER 应包含一个不带剧情身份的通用主体（例如无脸中�
 Create one clean style reference image for an animation production pipeline, not a story image and not a character design sheet. Show one neutral faceless mannequin-like subject with simple joints on a plain unbranded studio ground, plus one small material sample that represents the project's main surface response. Use the target medium: [2D cel / 3D cinematic / stop-motion / ink / other]. Demonstrate [line edge behavior], [shadow hierarchy], [palette roles], [surface response], [background abstraction], [air perspective] and [silhouette readability] with one broad motivated key light and restrained fill. Keep the composition quiet and centered so the rendering language can be judged clearly. No recognizable face, no named character, no costume identity, no story prop, no location landmark, no text, no logo, no watermark, no grid, no panel labels, no dramatic action, no complex narrative lighting, no branded object, no decorative visual noise.
 ```
 
-把这张图登记为 `STYLE_MOTHER`。**在纯提示词交付模式下，直接一次性输出全套高保真提示词交付包**：`STYLE_MOTHER.image.txt` 作为所有适用角色、场景、道具、特效和关键帧资产的强制风格参考槽位（通常为 Reference image 1 或最后一个槽位）。所有依赖它的提示词正文必须显式包含风格锚定指令（只继承媒介、线条、阴影、材质响应与色调，排除身份、构图与动作）。智能体不发起模型生图，真实出图由用户在外部完成。
+需要风格锚点时，把图登记为 `STYLE_MOTHER`。提示词交付可附 `STYLE_MOTHER.image.txt`，由作者选择是否将其作为角色、场景、道具、特效和关键帧的真实输入。使用时明确只继承媒介、线条、阴影、材质响应与色调，排除身份、构图与动作。智能体仅在用户授权媒体生成时调用相应模型。
 
-`STYLE_MOTHER` 必须是 `asset_plan` 中 `kind: style` 的节点，拥有同一版本和一个资产卡；锚点卡使用 `recipe: style`。`planned` 只表示风格参考图提示词已经准备好，不能证明图像存在；`approved` 必须有真实文件和匹配 SHA-256。批准后，所有 `apply_to_kinds` 内的资产节点都把该锚点列入 `depends_on`，资产卡以最后一个上传槽位登记 `role: style` 的参考图；角色身份、场景几何和构图参考仍各自保留，不能让风格图取代它们。未批准锚点时，依赖资产只能交草案，不能标 `READY_TO_SUBMIT`。
+用户选择 STYLE_MOTHER 时，它登记为 `asset_plan` 中 `kind: style` 的节点，锚点卡使用 `recipe: style`。`planned` 表示提示词已准备；`generated` 表示真实媒体已归档并通过文件/版本/哈希核验；`approved` 只在实际审核后使用。已选择的锚点可作为依赖并用 `role: style` 绑定；角色身份、场景几何和构图参考仍各自保留。未审核但技术有效的图可使用，且保持 `generated` 状态。
 
 ## 权威优先级
 
@@ -53,8 +53,8 @@ Create one clean style reference image for an animation production pipeline, not
 
 风格锚定不能覆盖角色身份、场景拓扑、相机布局、动作方向、状态损伤、道具所有权或故事中的精确光位。参考清单必须写明保留与排除范围；缺少批准锚点时只能交风格资产草案和缺图依赖，不能把后续资产标记为 ready。
 
-## 接受门
+## 可选视觉检查
 
-批准前逐项核对：无可见文字／标志／水印／网格；线宽、边缘软硬、阴影级数和高光滚降在主体、环境和代表性材料上稳定；远近细节有明确衰减；轮廓、手脚和关节在动画尺寸下可读；没有剧情身份、场景地标或英雄构图污染。机器门只检查字段、版本、文件和哈希；最终画风是否统一仍需生成图组的并排人工验收。
+需要视觉检查时，可核对文字／标志／水印／网格、线宽、阴影层次、色板、材质、景深、轮廓和构图污染。机器校验字段、版本、文件和哈希；视觉一致性由用户自行查看，默认不写入 approved，也不阻断其他制作。
 
-4.3.8连接校验：required 策略下，apply_to_kinds 必须覆盖当前实际计划/卡片中的适用类型，不能靠漏填 keyframe 或 scene 规避风格参考。style_lock 与锚点节点的批准状态、版本、文件路径和SHA-256必须一致。每个适用资产有且只有一个指定母版/版本的风格引用，位于最后槽位；正文编译也检查该引用，不能只写“使用最后一张风格图”而没有真实槽位。上传助手随后将这同一文件复制到交付包，并把编号、用途、保留/排除范围写入该资产的独立上传卡。
+显式选择 required 策略时，apply_to_kinds 覆盖当前资产类型，style_lock 与锚点的状态、版本、文件路径和 SHA-256 必须一致。实际使用该参考的素材才需绑定真实槽位；未选择 STYLE_MOTHER 时，该策略报告只作为质量诊断，不阻止提示词编译。

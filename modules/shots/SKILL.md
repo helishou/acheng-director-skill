@@ -7,9 +7,13 @@ metadata:
 
 # acheng-shots
 
+局部返修先把人物可见范围、空间隔离、道具归属和事件完成状态写成具体初态与尾态。每次观看对象或空间视角切换登记独立 Shot，再装入 Clip；画外角色不登记可见起始坐标。动作窗口必须容纳对白后的接触、释放和离场，不用模板表演说明代替具体对象。
+
+暂时停用编译器按说话人和台词帧窗自动插入近景、反打及听者反应切镜提示。编译保留作者明确写入的摄影设计、对白原文和时间轴；需要切镜时由作者在 Shot 摄影字段中明确设计。恢复规则前不得重新启用自动插入。
+
 确定可见事件、视轴、运镜或参考图用途时，按[局部决策指南](../../references/decisions/shots.md)对应节执行；先排除不适用选项再查库，不强制每镜双候选辩论。
 
-读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。在 reference_requirements 写本镜确需的对象/素材版本/用途，与 assets 复核，不能把整个资产库都上传。首帧、尾帧、中间关键帧和构图图分开；未来状态不能提前继承。标签由 model 分配，shots 不写第二套绑定真值。
+读[114 绑定合同](../../references/114-reference-binding-delivery.md)。在 reference_requirements 写本镜确需的对象/素材版本/用途，与 assets 复核，不能把整个资产库都上传。首帧、尾帧、中间关键帧和构图图分开；未来状态不能提前继承。标签由 model 分配，shots 不写第二套绑定真值。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 
@@ -17,6 +21,10 @@ metadata:
 
 先读确认剧本、场景地图、资产版本和必须可见事件。选择受限/全知视点、景别与路径；为每次切镜说明新增信息。绑定真实Previs家族并展开运动，静态构图不强行运动。按事件安全边界装箱，超窗或短尾不可行时返回边界问题。
 
-返回既有shots的visual/camera/时序/角色位置及segments的镜头覆盖。不得改台词与胜负；由主导演建新对象骨架。和表演动作模块核对可见性。
+返回正式源稿已有 `shots[]` 的 `visual`、`camera`、`duration_frames`、`subject_usages`、局部对白引用与 `segments[].shot_ids` 覆盖 patch。工作台编辑的 Shot/Segment 必须与 `source.shots[]`/`source.segments[]` 同形；不要生成 `director.shots/story/clipGroups` 或工作台镜像。不得用 `characters`、绝对 `start_frame/end_frame` 或 `shotIds` 投影字段代替当前 v2 字段；不得改台词与胜负；由主导演建新对象骨架。和表演动作模块核对可见性。
+
+每个 Shot 都要同时保存 `scene_id`（场景环境登记 ID）与 `source_scene_id`（所属剧本场次 occurrence ID）。同一环境若在剧本中多次出现，不能只靠环境 ID 推断场次；缺少 `source_scene_id` 会让 Clip 无法映射到唯一正式场次、不能准备 H3 节点。
+
+可见 Subject 若本镜有意采用文字身份而不上传身份图，须显式写 `pictureBindingMode: "explicit"` 和空 `pictureBindingIds`。省略选择模式或只留空 ID 数组仍会继承 identity 默认绑定，并把缺图误报为阻塞。
 
 字段写入白名单取[模块登记](../../data/module-registry.json)。回包包含request_id/input_revision/module/status/attempt/patch/evidence/unresolved；最多初次加一次有证据的修正。只改允许路径，不能把其他模块的建议直接写成已确认事实。

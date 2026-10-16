@@ -1,6 +1,6 @@
 # 资产：决定每张图给下游提供什么
 
-执行方式见 [115](../115-directed-decisions.md)。实际依赖与批准规则以 [60](../60-assets-and-keyframes.md)、[61](../61-asset-dependency-production.md)、[62](../62-style-anchor.md)、[114](../114-reference-binding-delivery-v4.3.6.md) 为准。
+执行方式见 [115](../115-directed-decisions.md)。实际依赖与批准规则以 [60](../60-assets-and-keyframes.md)、[61](../61-asset-dependency-production.md)、[62](../62-style-anchor.md)、[114](../114-reference-binding-delivery.md) 为准。
 
 ## A1｜先制作哪张，后续如何使用
 

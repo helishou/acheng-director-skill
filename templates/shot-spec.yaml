@@ -1,3 +1,5 @@
+# Historical ShotSpec sketch with legacy production fields. Do not use for new source or Canvas writes.
+# Current Shot/Segment fields are defined only by references/90-production-contract.md.
 {
   "id": "FILM-S01-SH002",
   "scene_id": "S01",

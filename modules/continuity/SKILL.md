@@ -15,7 +15,7 @@ coverage 是人工专业复核证据，不是机器语义发现：每个剧本 b
 
 跨镜状态、参考版本或恢复游标有冲突时，按[局部决策指南](../../references/decisions/continuity.md)对应节定位来源；只返回具体缺口，不新增事件来强行对齐。
 
-读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。相邻复核 model 的稳定对象身份、素材状态版本、Shot/帧窗和尾态；发现错误退给字段 owner，不自行改 H3 或素材。联合回执必须与当前 revision 一致，机器 PASS 不等于语义识图、平台上传或实际成片验收。
+读[114 绑定合同](../../references/114-reference-binding-delivery.md)。相邻复核 model 的稳定对象身份、素材状态版本、Shot/帧窗和尾态；发现错误退给字段 owner，不自行改 H3 或素材。联合回执必须与当前 revision 一致，机器 PASS 不等于语义识图、平台上传或实际成片验收。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 

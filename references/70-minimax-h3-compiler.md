@@ -119,7 +119,7 @@ overall_soundscape 用 1–4 句连续英文描述环境、物理拟音和非语
 
 ## 契约 B 与编译流程
 
-4.3.6 的实际文件与展示流程以[114 合同](114-reference-binding-delivery-v4.3.6.md)为准。缺参考可输出保留全部创作的 `.h3.draft.txt` 和逐段待素材卡，但不能正式通过；正式 `.h3.txt` 必须连同绑定、卡片和 manifest 联合验收。本地已核实文件可用于绑定，不要求先假装平台已经上传。
+4.3.6 的实际文件与展示流程以[114 合同](114-reference-binding-delivery.md)为准。缺参考可输出保留全部创作的 `.h3.draft.txt` 和逐段待素材卡，但不能正式通过；正式 `.h3.txt` 必须连同绑定、卡片和 manifest 联合验收。本地已核实文件可用于绑定，不要求先假装平台已经上传。
 
 ### Combat timing extension
 
