@@ -36,6 +36,8 @@ metadata:
 
 正式 Prompt、参考顺序与上传映射只由当前激活编译器从结构化源稿组装。Agent 只写结构字段，不在 `segments[].prompt` 或画布 Clip 中手工组装正式 Prompt。用户在画布明确编辑 Prompt 后，可要求反向同步；仅当本次编译回执提供的 SourceMap 能把全部修改唯一映射到单个 Shot 文本或对白字段时才写回，其他文本留在画布并报告歧义，不猜测修改摄影、身份、绑定或连续性。缺少 SourceMap 时保留手工 Prompt，不宣称同步完成。Canvas 工作台直接编辑唯一的 `draft.director.source`；v2 不另存 Shot/Segment 镜像。旧格式与现存 v2 双写稿只能由维护者用 `director-source-storage` 只读检查并显式迁移，不自动兼容或启动时清理。
 
+Infinite Canvas 的正式 H3 流程在编译应用成功后，必须把当前范围内所有 ready Clip 的编译 Prompt 交给已配置的翻译 LLM。描述与镜头指令译成英文并轻度润色；对白、歌词及明确引用的画面文字保留原语言，因此译文可包含中文。工作台与 MCP 跳过 SHA-256 缓存命中项，其余提示词按顺序每批最多 3 条请求 LLM，按 Clip ID 拆回结果后一次原子写回。保留 H3 字段名、引用标签、镜头编号、时间、数字、事实和所有约束；不得补剧情、删减、改镜头节奏或变更引用。人工工作台使用“翻译已编译提示词（英文）”；Agent/MCP 使用 `production_translate_compiled_prompts`。翻译读取当前有效正式编译产物；只要目标映射与编译基线有效即可覆盖 H3 中先前的手动 Prompt，若翻译期间目标正文又发生变化则整批拒绝写回。翻译失败或编译未就绪时保留原提示词并停止该批生成。Backend 按每条源提示词 SHA-256 跨 UI 与 MCP 缓存成功译文，相同内容不重复请求；写回译文不回写导演源稿或伪造新的编译产物。
+
 Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。当前写入只接受 Director 源稿 v2；旧版源稿需要按当前合同重新整理并重新提交，不迁移改写旧源稿。
 
 ### Infinite Canvas 集成：素材节点与共享资产
@@ -48,7 +50,7 @@ Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果
 
 ### Infinite Canvas 集成：制作内容语言
 
-制作工作台的可读描述默认使用简体中文：主体、角色、场景、道具、图片用途与保留/排除说明、镜头标题、动作、摄影理由、连续性事实名称、状态说明和事件原因。结构化源稿的 `display_summary`、`display_name`、`visual`、`state_description`、`prompt_description`、`value_descriptions` 等描述性正文也用中文，不能只留下给模型看的英文。字段键、稳定 ID、事实枚举、数值、引用标签及模型参数保持合同值；为机器枚举填写中文名称与中文说明，不用技术 ID 代替显示名称。对白、歌词与画面内文字保留确认原文。最终模型请求由编译器适配对应模型的格式与语言，不让人另行维护英文源稿。既有批准内容不自动改写；新增及用户明确要求修改的描述遵守中文规则。
+制作工作台的可读描述默认使用简体中文：主体、角色、场景、道具、图片用途与保留/排除说明、镜头标题、动作、摄影理由、连续性事实名称、状态说明和事件原因。结构化源稿的 `display_summary`、`display_name`、`visual`、`state_description`、`prompt_description`、`value_descriptions` 等描述性正文也用中文，不能只留下给模型看的英文。字段键、稳定 ID、事实枚举、数值、引用标签及模型参数保持合同值；为机器枚举填写中文名称与中文说明，不用技术 ID 代替显示名称。导演源稿中的对白、歌词与画面内文字保留确认原文；正式 H3 Clip 编译后，描述和指令由一次批量 LLM 请求译为英文并轻度润色，对白、歌词和明确引用的画面文字仍保留原语言（可含中文）。编译器先适配 H3 官方格式；随后 Infinite Canvas 正式 H3 Clip 必须再经 LLM 后处理，不要求作者维护英文源稿。既有批准内容不自动改写；新增及用户明确要求修改的描述遵守中文规则。
 
 描述性原字段直接用中文创作并供人和编译器共同消费，不另建英文正文＋中文显示副本，不要求用户补写第二份中文说明。既有 `display_*` 字段仅保留兼容，不作为新增的双语维护要求。剧情节点按具体叙事变化设计；`goal/obstacle/choice/cost/result` 必须对应本节点的具体人物、行动和变化，不得用同一套通用套话填满各节点，不能为满足结构校验而把每行对白机械变成剧情节点。未确定的剧情分析应明确列为待设计，不能伪装成已完成。
 
@@ -223,7 +225,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 | `/scene-design` 场景美术专业支路 | [105 场景设计适配](references/105-scene-design-adapter-v4.md)、[61 依赖](references/61-asset-dependency-production.md)、[62 风格锚定](references/62-style-anchor.md) | scene_art_direction 合同、场景图提示词、参考上传映射、多视图连续性与 QA；不直接写 production |
 
-| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 契约 B；基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，最后执行不减内容的格式门 |
+| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 契约 B；基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译才能生成 |
 
 | `/animation-terms` | [113 动画与原画术语库](references/113-animation-art-terminology-library-v4.3.md)、`scripts/animation_term_catalog.py` | 选择 3–12 个相关术语，检查互斥项，并将术语展开为可见事实、镜头路径、时间窗、声音与 QA 证据；不写生产字段 |
 
