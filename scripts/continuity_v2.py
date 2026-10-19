@@ -227,7 +227,10 @@ def audit(source, target_ids=None):
         scene, block = blocks[block_id]
         current_digest = digest({"scene_id": scene.get("scene_id") or scene.get("id"), "block": block})
         if row.get("source_digest") != current_digest:
-            issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}")
+            issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}",
+                  details={"coverageRowId": row.get("id"), "blockId": block_id, "evidenceKind": evidence_kind,
+                           "factIds": row.get("fact_ids") if isinstance(row.get("fact_ids"), list) else [],
+                           "eventIds": row.get("event_ids") if isinstance(row.get("event_ids"), list) else []})
         kinds = covered_kinds.setdefault(block_id, set())
         if evidence_kind in kinds:
             issue("CONTINUITY_COVERAGE_DUPLICATE", f"剧本块 {block_id} 的 {evidence_kind} 覆盖重复")

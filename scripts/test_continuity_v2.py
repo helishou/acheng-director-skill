@@ -44,7 +44,20 @@ class ContinuityV2Tests(unittest.TestCase):
         value = production()
         value["script_scenes"][0]["blocks"][0]["text"] = "A changes to the red coat."
         result = audit(value)
-        self.assertIn("CONTINUITY_COVERAGE_STALE", {item["code"] for item in result["diagnostics"]})
+        diagnostic = next(item for item in result["diagnostics"] if item["code"] == "CONTINUITY_COVERAGE_STALE")
+        self.assertEqual(diagnostic["coverageRowId"], "C_B01")
+        self.assertEqual(diagnostic["blockId"], "B01")
+        self.assertEqual(diagnostic["evidenceKind"], "explicit_hold")
+
+    def test_multiple_stale_rows_for_one_block_are_individually_addressable(self):
+        value = production()
+        source = value["ledger"]["coverage"][0]
+        value["ledger"]["coverage"].append({**source, "id": "C_B01_INHERITED", "evidence_kind": "inherited_fact", "fact_ids": ["F_COAT"]})
+        value["script_scenes"][0]["blocks"][0]["text"] = "A changes to the red coat."
+        result = audit(value)
+        stale = [item for item in result["diagnostics"] if item["code"] == "CONTINUITY_COVERAGE_STALE"]
+        self.assertEqual({item["coverageRowId"] for item in stale}, {"C_B01", "C_B01_INHERITED"})
+        self.assertTrue(all(item["blockId"] == "B01" for item in stale))
 
     def test_bad_before_state_blocks_the_consumer_segment(self):
         value = production()

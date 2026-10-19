@@ -76,8 +76,12 @@ def _section(text: str, name: str) -> str:
 def _sentence_count(value: str) -> int:
     # Decimal points in 35.0, 0.3x, 4.2 kHz and similar engineering values
     # are not sentence boundaries. Quoted punctuation still counts when it
-    # closes a natural-language sentence.
-    return len(re.findall(r"(?<!\d)[.!?](?!\d)(?=\s|$|[`\"'”’)])", value))
+    # closes a natural-language sentence. Chinese-authored drafts use full-width
+    # terminators and are counted the same way; the translation pass converts
+    # the delivered prompt to English later, so language is not a compile gate.
+    ascii_endings = re.findall(r"(?<!\d)[.!?](?!\d)(?=\s|$|[`\"'”’)])", value)
+    cjk_endings = re.findall(r"[。！？]+", value)
+    return len(ascii_endings) + len(cjk_endings)
 
 
 
@@ -249,10 +253,10 @@ def validate_h3_format(text: str, *, mode: str, shot_count: int,
     _need("<d>" not in soundscape + music, "dialogue belongs only in the shot timeline")
     if soundscape != "N/A":
         _need(1 <= _sentence_count(soundscape) <= 4,
-              "overall_soundscape must be one continuous paragraph of 1–4 English sentences")
+              "overall_soundscape must be one continuous paragraph of 1–4 sentences")
     if music != "N/A":
         _need(1 <= _sentence_count(music) <= 3,
-              "non_diegetic_music must contain 1–3 English sentences")
+              "non_diegetic_music must contain 1–3 sentences")
     return quality_diagnostics
 
 

@@ -225,7 +225,8 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 | `/scene-design` 场景美术专业支路 | [105 场景设计适配](references/105-scene-design-adapter-v4.md)、[61 依赖](references/61-asset-dependency-production.md)、[62 风格锚定](references/62-style-anchor.md) | scene_art_direction 合同、场景图提示词、参考上传映射、多视图连续性与 QA；不直接写 production |
 
-| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 契约 B；基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译才能生成 |
+| H3 编译前镜头复核 | [120 镜头画面与连续性事实复核](references/120-precompile-shot-visibility-audit.md) | 表演/动作与 Continuity 定稿后、H3 Prompt Assembly 前；逐 Shot 核对景别容量、画内主体/裁切/动作证据及可见事实勾选 |
+| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[120 编译前镜头复核](references/120-precompile-shot-visibility-audit.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 先完成 120 复核，再按契约 B 编译基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译才能生成 |
 
 | `/animation-terms` | [113 动画与原画术语库](references/113-animation-art-terminology-library-v4.3.md)、`scripts/animation_term_catalog.py` | 选择 3–12 个相关术语，检查互斥项，并将术语展开为可见事实、镜头路径、时间窗、声音与 QA 证据；不写生产字段 |
 

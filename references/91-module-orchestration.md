@@ -49,7 +49,13 @@ python scripts/director_dispatch.py accept production.json dispatch.json --respo
 
 主导演解决冲突时按当前用户修订、确认剧本、已批准视觉事实、ShotSpec、视觉默认、模型语法的顺序裁决。模型字数不足不能删决定性事件；应减冗余、分合法片段或报告不可满足。不要要求所有模块彼此审阅，也不要把同一模型换角色复述当作独立审查。
 
-H3 交付增加一条密度门：model 模块负责 Ref2VA 六字段、`mode_lock`、真实参考标签和按 `h3_contract.detail_policy()` 动态计算的 `detailed_description` 词数门；continuity 复核角色、场景、道具、伤势、朝向和尾态是否跨镜闭合；shots/performance/action/effects 只复核自己拥有的摄影、表演、受力和遮挡事实，不改写 H3 正文。任一相邻复核发现缺项，退回主导演定位字段后再编译，不能由门禁把正文改成摘要。
+### H3 编译前镜头画面与事实复核
+
+H3 执行顺序为：Shots 画面/摄影与表演/动作完成 → Continuity 完成事实重放 → 执行[120 镜头画面与连续性事实复核](120-precompile-shot-visibility-audit.md) → reference binding/model 编译。该复核读取本次目标 Shots、动作和 ledger，检查主体位置/裁切、动作必需身体部位与接触、道具和背景的入画范围，以及每镜 `continuityFactIds` 是否只勾选可见且相关的事实。它是只读整合步骤，不拥有 production 写字段、不产生第二份真值或审批；发现具体字段问题时交还 Shots 或 Continuity owner 修复，修订后复核受影响范围，再允许编译。
+
+本复核不清理跨镜账本：本镜不可见的事实仍可保留在 ledger 供邻镜重放，但不勾选进本镜 Subject Prompt。没有可靠来源的转变帧或相互冲突的状态列为 `unresolved`，不猜帧、不造事件、不以自动通过掩盖语义未知。
+
+H3 交付另有一条密度门：model 模块负责 Ref2VA 六字段、`mode_lock`、真实参考标签和按 `h3_contract.detail_policy()` 动态计算的 `detailed_description` 词数门；continuity 复核角色、场景、道具、伤势、朝向和尾态是否跨镜闭合；shots/performance/action/effects 只复核自己拥有的摄影、表演、受力和遮挡事实，不改写 H3 正文。任一相邻复核发现缺项，退回主导演定位字段后再编译，不能由门禁把正文改成摘要。
 
 STYLE_MOTHER 只属于资产生成链。model 编译 H3 时可以读取已批准的风格锚定结果，但 H3-only 请求不能因为缺少资产卡而自动启动 style-anchor；这样可以把宿主预算留给逐镜正文，同时保持资产与视频的职责边界。
 

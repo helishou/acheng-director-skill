@@ -26,7 +26,8 @@
         "references/decisions/shots.md",
         "references/20-storyboard-compiler.md",
         "references/21-genre-camera-capacity.md",
-        "references/114-reference-binding-delivery.md"
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/shots/*/camera",
@@ -53,7 +54,8 @@
         "references/30-performance-adapter.md",
         "references/40-action-choreography.md",
         "references/31-performance-handoff.md",
-        "references/32-liveliness-performance-framework.md"
+        "references/32-liveliness-performance-framework.md",
+        "references/91-module-orchestration.md"
       ],
       "owns": [
         "/shots/*/performance",
@@ -121,7 +123,8 @@
         "references/72-standalone-prompt-delivery.md",
         "references/32-liveliness-performance-framework.md",
         "references/113-animation-art-terminology-library-v4.3.md",
-        "references/114-reference-binding-delivery.md"
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/segments/*/style",
@@ -151,7 +154,8 @@
         "references/80-continuity-ledger.md",
         "scripts/continuity_v2.py",
         "references/95-quality-gates.md",
-        "references/114-reference-binding-delivery.md"
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/ledger/contract_version",
