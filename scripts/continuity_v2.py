@@ -22,6 +22,46 @@ def _rows(value):
     return value if isinstance(value, list) else []
 
 
+# 覆盖证据只绑定剧本块的叙事内容。纯展示字段、键顺序、缺失键与换行差异不参与
+# 摘要，避免排版或无关修订把已完成的覆盖误判为过期。
+DISPLAY_ONLY_BLOCK_KEYS = {"note", "notes", "color", "layout", "bounds", "collapsed", "hidden"}
+
+
+def _normalized_text(value):
+    if not isinstance(value, str):
+        return value
+    lines = value.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    return "\n".join(line.rstrip() for line in lines).strip()
+
+
+def _project_block(block):
+    if not isinstance(block, dict):
+        return block
+    projected = {}
+    for key in sorted(block):
+        if key.startswith("display_") or key in DISPLAY_ONLY_BLOCK_KEYS:
+            continue
+        value = block[key]
+        if key == "text":
+            value = _normalized_text(value)
+        elif key == "blocks" and isinstance(value, list):
+            value = [_project_block(child) for child in value]
+        projected[key] = value
+    projected.setdefault("text", "")
+    return projected
+
+
+def coverage_digest(scene, block):
+    """覆盖证据的规范化摘要：固定键序、补空文本、剔除纯展示字段。"""
+    scene_id = scene.get("scene_id") or scene.get("id")
+    return digest({"scene_id": "" if scene_id is None else str(scene_id), "block": _project_block(block)})
+
+
+def legacy_coverage_digest(scene, block):
+    """旧版摘要格式；只用于接受已写入的历史覆盖行，新登记使用 coverage_digest。"""
+    return digest({"scene_id": scene.get("scene_id") or scene.get("id"), "block": block})
+
+
 def audit(source, target_ids=None):
     """Return scope-labeled diagnostics and source-derived state trajectories."""
     ledger = source.get("ledger") if isinstance(source, dict) else None
@@ -225,8 +265,8 @@ def audit(source, target_ids=None):
             issue("CONTINUITY_COVERAGE_SOURCE", f"覆盖证据引用未知剧本块 {block_id}")
             continue
         scene, block = blocks[block_id]
-        current_digest = digest({"scene_id": scene.get("scene_id") or scene.get("id"), "block": block})
-        if row.get("source_digest") != current_digest:
+        current_digest = coverage_digest(scene, block)
+        if row.get("source_digest") not in {current_digest, legacy_coverage_digest(scene, block)}:
             issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}",
                   details={"coverageRowId": row.get("id"), "blockId": block_id, "evidenceKind": evidence_kind,
                            "factIds": row.get("fact_ids") if isinstance(row.get("fact_ids"), list) else [],
@@ -348,7 +388,8 @@ def contract():
             "shot": {"defaults": {"timeline_id": "main or first registered timeline", "story_order": "source order within the timeline"}},
             "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "source_anchor.block_id"],
                       "optional": ["reason"], "optional_note": "reason 为可选说明；填写后由编译器作为 Recorded cause 写入提示词。"},
-            "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"]}}
+            "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"],
+                         "source_digest_note": "使用 coverage_digest 的规范化块摘要（固定键序、补空 text、忽略 display_* 等展示字段与换行差异）；旧格式摘要继续接受。"}}
 
 
 if __name__ == "__main__":

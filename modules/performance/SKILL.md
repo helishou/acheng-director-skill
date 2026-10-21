@@ -7,6 +7,8 @@ metadata:
 
 # acheng-performance-action
 
+在 Infinite Canvas 制作稿中，`performance`、`acting_design` 及其子字段内供人阅读的描述、动作线索和排除项一律使用简体中文；只保留结构键、稳定 ID、数值和合同要求的枚举值。不要因字段名或示例使用英文而输出英文表演正文。H3 的英文译文由正式编译后的翻译流程生成，不要求源稿维护英文副本。
+
 情绪尚未外化、动作因果缺失或对白与动作抢节拍时，按[局部决策指南](../../references/decisions/performance.md)对应节执行，先筛可见部位和身体条件，再选适用配方。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。

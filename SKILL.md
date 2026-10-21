@@ -40,6 +40,29 @@ Infinite Canvas 的正式 H3 流程在编译应用成功后，必须把当前范
 
 Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。当前写入只接受 Director 源稿 v2；旧版源稿需要按当前合同重新整理并重新提交，不迁移改写旧源稿。
 
+### Infinite Canvas 集成：生成前编译门禁（只读、幂等）
+
+正式 Clip 生成前（工作台单段、批次候选、画布原生生成），先按同一 owner 调用 `production_get_readiness`，并逐段核对“产物有效 + Clip 已应用”。就绪不等于“提示词非空”：
+
+- 产物有效：当前作用域输入已编译，产物 `sha256` 与编译回执 `promptHash` 一致；
+- Clip 已应用：现场 Clip 的 `productionClipProjection.artifactId` 与 `promptHash` 指向该产物；
+- 该段没有未解决的依赖、参考缺图或其他执行阻塞；
+- 编译应用后已按上一节完成英文 LLM 翻译。
+
+判定只认上述派生身份，不比较正文：翻译和人工编辑会按设计改写 Clip 正文，正文不同是正常结果。存在任何 `blocked` 时不得提交生成，不创建任务、不占用付费队列。
+
+失败时按固定三段输出，便于直接处置：
+
+```text
+目标：SEG-EP3-030
+原因码：artifact_stale
+下一步：production_compile({ kind: "episode", id: "<episodeId>", operationId: "<new>", scope: { targetIds: ["SEG-EP3-030"] } })
+```
+
+禁止以下绕过：用快照、历史或聊天中的旧正文直接生成；跳过 `production_compile` 直接翻译或手改 Clip 后生成；把 `production_diagnose_clips` 的「不同」或 `inputOutdated` 当作放行依据；编译失败后用重复重试代替修改源稿。
+
+门禁只读且幂等：同一状态重复检查不写库、不重复编译、不追加确认。草稿保存、人工改正文、与目标无关的 Segment 编辑，以及没有 `productionClipProjection` 的旧 Clip 都不被拦截；诊断中的「不同」保持信息级。发布稿只与自身发布产物比较，不因草稿产物过期而阻塞。修复后从原入口重新提交，保留已有输入。
+
 ### Infinite Canvas 集成：素材节点与共享资产
 
 角色、场景、道具登记使用正式 `production_edit`：已有实体沿 `patch_director_source` 更新，新增素材沿 `create_manual_director_asset` 一次登记资产卡、实体与 Subject。Backend 在同一事务内创建对应的角色／场景／道具节点；稳定关联为 owner + kind + entity ID，不按名称匹配，不另造可独立维护的描述副本。当前格式源稿缺节点时用 `production_prepare_targets` 的 `entity:character:<实体ID>`、`entity:scene:<实体ID>` 或 `entity:prop:<资产ID>` 补齐，读取短回执中的 revision；需要定位时用 `production_get_workbench` 的 `subject_workbench` 定向回读 `entityNodeSource` 中的真实 projectId/nodeId，保留原布局与连线。风格不随此节点接入自动创建。
@@ -165,7 +188,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 3. **【上传参考助手说明】与槽位规范**：每个 H3 提示词正文上方必须配备规范的【上传参考助手说明】，列明每个槽位 `@图片几` 对应的真实文件名与职责；提示词正文中一律使用规范的 `@图片1`、`@图片2` 槽位代号，严禁使用模型无法理解的工程文件名。
 4. **逐镜展开与独立性**：每个镜头必须独立重建主体外观、空间位置、朝向、光线、起始状态、触发事实、动作因果、微动作／微表情、相机路径、声音时序和尾态。基础 FL2VA 与其他模式也必须保持同样的逐镜完整性；“同上”“沿用前段”不能替代正文。
 
-每个 Segment 必须显式写 `mode`、`mode_lock` 和 `mode_selection_reason`。已有模式未经用户授权不得在续写、重编或版本升级时切换；没有真实参考图不能伪造 Ref2VA 标签。H3 模式、风格锚定和资产生成是三个独立决策：H3-only 请求不自动启动 STYLE_MOTHER 或资产生产，只有明确生成资产时才启用资产前置节点。
+每个 Segment 必须显式写 `mode`、`mode_lock` 和 `mode_selection_reason`。已有模式未经用户授权不得在续写、重编或版本升级时切换；没有真实参考图不能伪造 Ref2VA 标签。H3 模式、风格锚定和资产生成是三个独立决策：H3-only 请求不自动启动 STYLE_MOTHER 或擅自生成资产，但续集进入 H3 分镜、编译前必须按目标 Shot 登记的场景核对可复用场景图及其实际引用；缺图时完成场景资产规划并停在生成授权边界，不得因用户只提出续做 H3 就跳过核对或假定纯文字环境。只有用户明确选择纯文字环境描述时才不要求场景图片；Shot 已声明 scene/environment 图片用途后，最终 H3 产物必须实际包含该图。
 
 达到宿主单次输出上限时必须分段续写，保存 `current_cursor`，下一次从上一个完整句子、Shot 或字段继续；不得用摘要、压缩版或降低详细度来适应上限。`scripts/animation_term_catalog.py` 与 `data/animation-art-terminology.json` 提供可选的原画／动画术语；每段默认选择 3–12 个与任务相关的术语，并把每个术语写入 `animation_term_evidence`，翻译为时间窗、可见事实、镜头／布局、声音或验收证据后才进入 H3。术语不能代替空间位置、朝向、动作因果和尾态，互斥曝光策略不能同时无条件启用；只有计划节点而没有展开证据的术语选择会被 H3 门禁阻塞。
 
@@ -226,7 +249,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 | `/scene-design` 场景美术专业支路 | [105 场景设计适配](references/105-scene-design-adapter-v4.md)、[61 依赖](references/61-asset-dependency-production.md)、[62 风格锚定](references/62-style-anchor.md) | scene_art_direction 合同、场景图提示词、参考上传映射、多视图连续性与 QA；不直接写 production |
 
 | H3 编译前镜头复核 | [120 镜头画面与连续性事实复核](references/120-precompile-shot-visibility-audit.md) | 表演/动作与 Continuity 定稿后、H3 Prompt Assembly 前；逐 Shot 核对景别容量、画内主体/裁切/动作证据及可见事实勾选 |
-| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[120 编译前镜头复核](references/120-precompile-shot-visibility-audit.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 先完成 120 复核，再按契约 B 编译基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译才能生成 |
+| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[120 编译前镜头复核](references/120-precompile-shot-visibility-audit.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 先完成 120 复核，再按契约 B 编译基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译；生成前先按“生成前编译门禁”核对就绪，未就绪不得提交生成 |
 
 | `/animation-terms` | [113 动画与原画术语库](references/113-animation-art-terminology-library-v4.3.md)、`scripts/animation_term_catalog.py` | 选择 3–12 个相关术语，检查互斥项，并将术语展开为可见事实、镜头路径、时间窗、声音与 QA 证据；不写生产字段 |
 
