@@ -17,9 +17,10 @@ from asset_delivery import copy_image_references, finish_asset_entry, missing_de
 def asset_display_name(card):
     """Return the only user-facing label used by the names-only asset index."""
     if card.get("asset_kind") == "character":
+        purpose = "单张人物形象图" if card.get("view_layout", {}).get("type") == "single_character_identity_image" else "四视图角色基准"
         base = " · ".join([str(card.get("character_name") or card.get("name") or card["id"]).strip(),
                            str(card.get("state_label") or "neutral_identity").strip(),
-                           "四视图角色身份基准"])
+                           purpose])
     else:
         base = str(card.get("name") or card["id"]).strip()
     versions = []
@@ -30,7 +31,7 @@ def asset_display_name(card):
     return " · ".join([base, *versions])
 
 
-def compile_assets(source, output, allow_missing=False):
+def compile_assets(source, output, allow_missing=False, asset_ids=None):
     source, output = Path(source), Path(output)
     payload = read_data(source)
     report = check_assets(payload, source.parent, allow_missing)
@@ -38,14 +39,19 @@ def compile_assets(source, output, allow_missing=False):
         raise ContractError(f"Output already exists; choose a new revision directory: {output}")
     prepared = []
     cards = {c["id"]: c for c in payload["asset_cards"]}
+    requested_ids = list(dict.fromkeys(asset_ids or []))
+    unknown_ids = [asset_id for asset_id in requested_ids if asset_id not in cards]
+    if unknown_ids:
+        raise ContractError("unknown Asset: " + ", ".join(unknown_ids))
+    selected_ids = set(requested_ids)
     order = report["asset_plan"]["production_order"] if report.get("asset_plan") else list(cards)
     for aid in order:
-        if aid not in cards:
+        if aid not in cards or selected_ids and aid not in selected_ids:
             continue
         card, missing = resolve_card(cards[aid], payload, source.parent, allow_missing)
         if not re.fullmatch(r"[A-Za-z0-9_-]+", card["id"]):
             raise ContractError("asset id must be a safe filename")
-        prepared.append((card, render_asset_prompt(card, payload.get("prompt_bindings"), payload.get("style_lock")), missing))
+        prepared.append((card, render_asset_prompt(card, payload.get("prompt_bindings"), report.get("style_lock")), missing))
     output.mkdir(parents=True)
     index, guide = [], ["# 资产图上传与使用清单", "", "默认展示请打开 ASSET_NAMES.txt；它只包含资产名称和可选状态/版本。完整提示词、参考图上传顺序和缺图处理仍记录在本清单与 index.json。", ""]
     for card, prompt, missing in prepared:
@@ -68,14 +74,17 @@ def compile_assets(source, output, allow_missing=False):
             guide.extend([f"- 缺少 Reference image {item['image']}：{item.get('asset_id', item.get('file'))}；版本 {item.get('version', '由输入确定')}；用途 {item['role']}。", ""])
         for ref in refs:
             guide.extend([f"{ref['image']}. [参考图 {ref['image']}]({ref['file']}) — {ref['role']}；{ref['subject']}；保留：{ref['preserve']}；不继承：{ref['exclude']}", ""])
-    style_pending = report.get("style_policy", {}).get("status") == "STYLE_ANCHOR_PENDING_APPROVAL"
-    package_status = "style-anchor-pending-approval" if style_pending else "draft-dependencies-pending" if report["missing_references"] else "ready-to-submit-not-generated"
-    (output / "index.json").write_text(json.dumps({"asset_reference_contract": "1.0", "status": package_status, "input_sha256": report["input_sha256"], "assets": index, "asset_plan": report.get("asset_plan"), "style_policy": report.get("style_policy"), "style_lock": report.get("style_lock")}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    package_status = "draft-dependencies-pending" if any(item["status"] == "draft-missing-references" for item in index) else "ready-to-submit-not-generated"
+    index_payload = {"asset_reference_contract": "1.0", "status": package_status, "input_sha256": report["input_sha256"], "assets": index, "asset_plan": report.get("asset_plan"), "style_policy": report.get("style_policy"), "style_lock": report.get("style_lock")}
+    if requested_ids:
+        index_payload["selected_asset_ids"] = [item["asset_id"] for item in index]
+    (output / "index.json").write_text(json.dumps(index_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (output / "UPLOAD.md").write_text("\n".join(guide), encoding="utf-8")
     (output / "ASSET_NAMES.txt").write_text("\n".join(item["display_name"] for item in index) + "\n", encoding="utf-8")
     (output / "audit.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (output / "DELIVERY_VIEW.md").write_text(render_assets(payload, output, {"assets": index}), encoding="utf-8")
-    acceptance = validate_asset_entries(output, index, production=payload, source_base=source.parent)
+    acceptance = validate_asset_entries(output, index, production=payload, source_base=source.parent,
+                                        selected_asset_ids=requested_ids if requested_ids else None)
     (output / "delivery.acceptance.json").write_text(json.dumps(acceptance, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return index
 
@@ -85,9 +94,10 @@ def main():
     parser.add_argument("assets", type=Path)
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--draft", action="store_true", help="Export clearly marked drafts for planned references; never claims they are ready")
+    parser.add_argument("--asset", action="append", help="Compile this Asset; repeat for a target-scoped batch")
     args = parser.parse_args()
     try:
-        result = compile_assets(args.assets, args.out, args.draft)
+        result = compile_assets(args.assets, args.out, args.draft, args.asset)
         print(f"Compiled {len(result)} standalone image prompts to {args.out}; no model calls made.")
         return 0
     except (ValueError, OSError, KeyError, TypeError) as exc:

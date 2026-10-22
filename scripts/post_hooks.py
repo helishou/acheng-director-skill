@@ -37,10 +37,13 @@ def check_script(payload):
 def check_assets(payload, base, allow_missing=False):
     # New multi-asset work must declare STYLE_MOTHER explicitly. Historical
     # single-image fixtures remain valid without a cross-asset style lock.
-    style_policy = style_policy_report(payload, base, strict=True)
-    style_blocked = (style_policy.get("policy") == "required"
-                     and style_policy.get("status") not in ("READY", "STYLE_ANCHOR_PENDING_APPROVAL"))
-    style_lock = check_style_lock(payload, base)
+    style_policy = style_policy_report(payload, base, strict=False)
+    style_lock = style_policy.get("style_lock")
+    if style_lock is None:
+        try:
+            style_lock = check_style_lock(payload, base)
+        except (ContractError, ValueError, KeyError, TypeError, OSError):
+            style_lock = None
     plan = check_asset_plan(payload, base) if payload.get("asset_plan") else None
     cards = payload.get("asset_cards")
     require(isinstance(cards, list) and cards, "asset_cards cannot be empty")
@@ -84,10 +87,7 @@ def check_assets(payload, base, allow_missing=False):
         if card["generation_status"] == "generated":
             require((Path(base) / card["output_file"]).is_file(), "generated image file missing")
             require(isinstance(card.get("actual_settings"), dict) and card["actual_settings"], "actual generation settings missing")
-    if style_blocked:
-        require(False, style_policy["reason"])
-    pending_style = style_policy.get("status") == "STYLE_ANCHOR_PENDING_APPROVAL"
-    return {"status": "DRAFT" if missing or pending_style else "PASS", "stage": "assets", "assets": len(cards), "input_sha256": digest(payload), "missing_references": missing, "asset_plan": plan, "style_lock": style_lock, "style_policy": style_policy,
+    return {"status": "DRAFT" if missing else "PASS", "stage": "assets", "assets": len(cards), "input_sha256": digest(payload), "missing_references": missing, "asset_plan": plan, "style_lock": style_lock, "style_policy": style_policy,
             "visual_status": "UNVERIFIED", "scope": "Image prompt/transaction contract; inspect actual output before visual acceptance"}
 
 

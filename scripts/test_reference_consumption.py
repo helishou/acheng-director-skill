@@ -9,6 +9,7 @@ from compile_h3 import export_asset_prompt_bundle
 from audit_storyboard_quality import audit, read_data
 from post_hooks import check_assets
 from style_anchor import style_policy_report
+from asset_plan import check_asset_plan
 from contract_core import file_hash
 
 
@@ -59,7 +60,33 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
             self.assertTrue(text.startswith("DRAFT —"))
             self.assertIn("Reference image 1 supplies style guidance", text)
 
-    def test_multi_asset_missing_style_policy_is_blocked(self):
+    def test_selected_result_is_a_valid_frozen_asset_media_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            media = base / "selected-result.png"
+            media.write_bytes(b"selected result bytes")
+            payload = {
+                "asset_plan": [{"id": "PROP", "kind": "prop", "version": "v1", "purpose": "Selected canvas result",
+                                "depends_on": [], "status": "selected_result", "file": media.name, "sha256": file_hash(media)}],
+                "asset_cards": [{"id": "PROP", "asset_kind": "prop", "asset_version": "v1", "references": []}],
+            }
+            report = check_asset_plan(payload, base)
+            self.assertEqual(report["status"], "PASS")
+            self.assertEqual(report["production_order"], ["PROP"])
+
+    def test_subject_prompt_v2_does_not_apply_legacy_shot_asset_requirements(self):
+        with tempfile.TemporaryDirectory() as directory:
+            payload = {
+                "prompt_assembly": {"version": 2},
+                "asset_plan": [{"id": "PROP", "kind": "prop", "version": "v1", "purpose": "Subject Prompt v2 prop",
+                                "depends_on": [], "status": "planned"}],
+                "asset_cards": [{"id": "PROP", "asset_kind": "prop", "asset_version": "v1", "references": []}],
+                "shots": [{"id": "SHOT", "subject_usages": [{"subjectId": "SUBJECT", "presentation": "visible"}]}],
+            }
+            report = check_asset_plan(payload, Path(directory))
+            self.assertEqual(report["status"], "PASS")
+
+    def test_multi_asset_missing_style_policy_is_a_warning_not_a_compile_block(self):
         payload = self._payload()
         payload.pop("style_policy")
         report = style_policy_report(payload, Path("."), strict=True)
@@ -67,8 +94,10 @@ class ReferenceConsumptionAcceptance(unittest.TestCase):
         self.assertEqual(style_policy_report(payload, Path("."), strict=True)["status"], "BLOCKED")
         pending = self._payload(False)
         pending.pop('style_policy')
-        with self.assertRaisesRegex(ValueError, 'must declare style_policy'):
-            check_assets(pending, Path('.'), allow_missing=True)
+        assets = check_assets(pending, Path('.'), allow_missing=True)
+        self.assertEqual(assets["status"], "DRAFT")
+        self.assertTrue(assets["missing_references"], "only the absent selected image remains a technical input blocker")
+        self.assertEqual(assets["style_policy"]["status"], "STYLE_ANCHOR_PENDING_APPROVAL")
 
     def test_animation_term_selection_requires_evidence_and_reaches_h3(self):
         production = read_data(Path(__file__).resolve().parents[1] / "examples/02-drama.production.json")

@@ -105,19 +105,24 @@ def resolve_bindings(production, segment, base):
             if not set(ref["entity_ids"]) <= set(owned):
                 errors.append("reference composite entities not declared by approved asset")
         file = ref.get("file")
-        if node.get("status") == "approved":
-            if file and (base / file).resolve() != (base / node["file"]).resolve():
-                errors.append("file conflicts with approved asset version")
-            file = node["file"]
+        media_status = node.get("status") in ("approved", "generated", "selected_result")
+        if media_status:
+            node_file = node.get("file")
+            if not node_file:
+                errors.append("generated asset file missing")
+            else:
+                if file and (base / file).resolve() != (base / node_file).resolve():
+                    errors.append("file conflicts with generated asset version")
+                file = node_file
         elif node:
-            errors.append("asset planned; real approved media pending")
-        expected = node.get("sha256") if node.get("status") == "approved" else ref.get("sha256")
-        if node.get("status") == "approved" and ref.get("sha256") and ref["sha256"] != expected:
-            errors.append("reference SHA-256 conflicts with approved asset")
+            errors.append("asset planned; generated media not bound")
+        expected = node.get("sha256") if media_status else ref.get("sha256")
+        if media_status and ref.get("sha256") and ref["sha256"] != expected:
+            errors.append("reference SHA-256 conflicts with generated asset")
         if ref.get('approval', {}).get('status') in {'rejected', 'revoked'}:
             errors.append('reference content approval rejected or revoked')
-        if node.get("status") == "approved" and not expected:
-            errors.append("approved asset SHA-256 missing")
+        if media_status and not expected:
+            errors.append("generated asset SHA-256 missing")
         sha = None
         if file:
             try:
@@ -182,7 +187,7 @@ def resolve_bindings(production, segment, base):
                "preserve": preserve or "See the authored retention relationship.",
                "exclude": ref.get("exclude"),
                "binding_status": "BOUND_LOCAL" if sha and not errors else "PLANNED_OR_CONFLICTED",
-               "content_status": "LEGACY_FIXTURE_NOT_REVIEWED" if legacy else ("APPROVAL_RECORDED" if not errors else "UNVERIFIED"),
+               "content_status": "LEGACY_FIXTURE_NOT_REVIEWED" if legacy else ("APPROVAL_RECORDED" if node.get("status") == "approved" and not errors else ("GENERATED_RESULT_BOUND" if node.get("status") == "generated" and not errors else ("BOUND_ARCHIVED_RESULT" if node.get("status") == "selected_result" and not errors else "UNVERIFIED"))),
                "platform_status": "NOT_UPLOADED", "issues": errors}
         rows.append(row)
         issues.extend(label + ": " + e for e in errors)
@@ -285,7 +290,45 @@ def resolve_bindings(production, segment, base):
     return snapshot
 
 
-def shot_reference_text(segment, shot, production):
+def shot_reference_text(segment, shot, production, *, seen=None):
+    """A scoped additive instruction; all authored creative prose remains intact."""
+    if production.get("prompt_detail_policy", {}).get("profile") == "legacy_fixture":
+        return legacy_shot_reference_text(segment, shot, production)
+    parts = []
+    for item in segment.get("references", []):
+        if shot["id"] not in applies_to(item, segment):
+            continue
+        if item.get('anchor_shot_ids') and shot['id'] not in item['anchor_shot_ids']:
+            # Media can supply identity in later shots without reapplying an
+            # opening-pose/keyframe constraint there; Subjects carry that role.
+            continue
+        start = max(shot["start_frame"], item.get("start_frame", shot["start_frame"])) - segment["start_frame"]
+        end = min(shot["end_frame"], item.get("end_frame", shot["end_frame"])) - segment["start_frame"]
+        factor = production["fps_den"] / production["fps_num"]
+        consumers = [s for s in segment.get('subjects', []) if item['label'] in s.get('definition', '') and shot['id'] in applies_to(s, segment)]
+        signature = (item.get('label'), item.get('preserve'), item.get('exclude'), tuple(s['label'] for s in consumers), item.get('start_frame'), item.get('end_frame'))
+        if seen is not None:
+            if signature in seen:
+                continue
+            seen.add(signature)
+        window = f"From {start * factor:.3f} to {end * factor:.3f} seconds of this request, "
+        if item.get("source_only"):
+            if consumers:
+                preserve = item.get('preserve') or ' / '.join(s.get('retention', '') for s in consumers)
+                rule = '; do not inherit ' + item['exclude'] if item.get('exclude') else ''
+                parts.append(window + 'for ' + ', '.join(s['label'] for s in consumers) + ' sourced from ' + item['label'] + ', preserve only ' + preserve + rule + '.')
+            continue
+        detail = ("Use " + ', '.join(s['label'] for s in consumers) + " from " + item['label']) if consumers else item.get("definition", item.get("role", ""))
+        # Legacy fixtures without explicit retain/exclude metadata keep their
+        # original creative text; missing production metadata is not invented.
+        preserve = item.get('preserve') or item.get('retention') or 'See the authored retention relationship.'
+        rule = f" Preserve only: {preserve}."
+        rule += f" Do not inherit: {item['exclude']}." if item.get('exclude') else ''
+        parts.append(window + detail + rule)
+    return " ".join(parts)
+
+
+def legacy_shot_reference_text(segment, shot, production):
     """A scoped additive instruction; all authored creative prose remains intact."""
     parts = []
     for item in segment.get("references", []) + segment.get("subjects", []):

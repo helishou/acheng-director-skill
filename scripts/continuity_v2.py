@@ -22,13 +22,79 @@ def _rows(value):
     return value if isinstance(value, list) else []
 
 
+# 覆盖证据只绑定剧本块的叙事内容。纯展示字段、键顺序、缺失键与换行差异不参与
+# 摘要，避免排版或无关修订把已完成的覆盖误判为过期。
+DISPLAY_ONLY_BLOCK_KEYS = {"note", "notes", "color", "layout", "bounds", "collapsed", "hidden"}
+
+
+def _normalized_text(value):
+    if not isinstance(value, str):
+        return value
+    lines = value.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    return "\n".join(line.rstrip() for line in lines).strip()
+
+
+def _project_block(block):
+    if not isinstance(block, dict):
+        return block
+    projected = {}
+    for key in sorted(block):
+        if key.startswith("display_") or key in DISPLAY_ONLY_BLOCK_KEYS:
+            continue
+        value = block[key]
+        if key == "text":
+            value = _normalized_text(value)
+        elif key == "blocks" and isinstance(value, list):
+            value = [_project_block(child) for child in value]
+        projected[key] = value
+    projected.setdefault("text", "")
+    return projected
+
+
+def coverage_digest(scene, block):
+    """覆盖证据的规范化摘要：固定键序、补空文本、剔除纯展示字段。"""
+    scene_id = scene.get("scene_id") or scene.get("id")
+    return digest({"scene_id": "" if scene_id is None else str(scene_id), "block": _project_block(block)})
+
+
+def legacy_coverage_digest(scene, block):
+    """旧版摘要格式；只用于接受已写入的历史覆盖行，新登记使用 coverage_digest。"""
+    return digest({"scene_id": scene.get("scene_id") or scene.get("id"), "block": block})
+
+
 def audit(source, target_ids=None):
     """Return scope-labeled diagnostics and source-derived state trajectories."""
     ledger = source.get("ledger") if isinstance(source, dict) else None
-    shots = _rows(source.get("shots"))
+    raw_shots = _rows(source.get("shots"))
     segments = _rows(source.get("segments"))
     issues = []
     trajectories = {}
+    timeline_rows = _rows(ledger.get("timelines")) if isinstance(ledger, dict) else []
+    timelines = {str(row.get("id")): row for row in timeline_rows if isinstance(row, dict) and row.get("id")}
+    timeline_ids = list(timelines)
+    default_timeline_id = "main" if "main" in timelines else (timeline_ids[0] if timeline_ids else "main")
+    if not timelines:
+        timelines[default_timeline_id] = {"id": default_timeline_id, "start_frame": 0}
+    shots = []
+    next_order = {}
+    occupied_orders = {}
+    for raw in raw_shots:
+        if not isinstance(raw, dict):
+            shots.append(raw)
+            continue
+        shot = dict(raw)
+        timeline_id = str(shot.get("timeline_id") or default_timeline_id)
+        shot["timeline_id"] = timeline_id
+        used = occupied_orders.setdefault(timeline_id, set())
+        order = shot.get("story_order")
+        if type(order) is not int or order < 0:
+            order = next_order.get(timeline_id, 0)
+            while order in used:
+                order += 1
+            shot["story_order"] = order
+        used.add(order)
+        next_order[timeline_id] = max(next_order.get(timeline_id, 0), order + 1)
+        shots.append(shot)
     full_shots = {str(row.get("id")): row for row in shots if row.get("id")}
     segment_by_shot = {}
     for segment in segments:
@@ -67,7 +133,6 @@ def audit(source, target_ids=None):
                 "limits": ["旧版结构重放结果仅供诊断，不评估剧本覆盖，不作为新版生产回执。"]}
 
     facts = {str(item.get("id")): item for item in _rows(ledger.get("facts")) if isinstance(item, dict) and item.get("id")}
-    timelines = {str(item.get("id")): item for item in _rows(ledger.get("timelines")) if isinstance(item, dict) and item.get("id")}
     initial_rows = _rows(ledger.get("initial"))
     events = _rows(ledger.get("events"))
     requirements = _rows(ledger.get("requirements"))
@@ -75,7 +140,10 @@ def audit(source, target_ids=None):
     source_scenes = _rows(source.get("script_scenes"))
     blocks = {}
     for scene in source_scenes:
-        for block in _rows(scene.get("blocks")):
+        scene_blocks = _rows(scene.get("blocks"))
+        if not scene_blocks and isinstance(scene.get("text"), str) and scene.get("id"):
+            scene_blocks = [scene]
+        for block in scene_blocks:
             if block.get("id"):
                 blocks[str(block["id"])] = (scene, block)
 
@@ -157,8 +225,6 @@ def audit(source, target_ids=None):
         anchor = event.get("source_anchor")
         if not isinstance(anchor, dict) or str(anchor.get("block_id", "")) not in blocks:
             issue("CONTINUITY_EVENT_SOURCE", f"事件 {event_id} 缺少有效剧本块来源", shot_id, fact_id)
-        if len(str(event.get("reason", "")).strip()) < 8:
-            issue("CONTINUITY_EVENT_REASON", f"事件 {event_id} 缺少具体原因", shot_id, fact_id)
         ordered_events.setdefault(timeline_id, []).append(event)
 
     req_by_shot_fact = {}
@@ -199,9 +265,12 @@ def audit(source, target_ids=None):
             issue("CONTINUITY_COVERAGE_SOURCE", f"覆盖证据引用未知剧本块 {block_id}")
             continue
         scene, block = blocks[block_id]
-        current_digest = digest({"scene_id": scene.get("scene_id"), "block": block})
-        if row.get("source_digest") != current_digest:
-            issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}")
+        current_digest = coverage_digest(scene, block)
+        if row.get("source_digest") not in {current_digest, legacy_coverage_digest(scene, block)}:
+            issue("CONTINUITY_COVERAGE_STALE", f"覆盖证据 {block_id} 的原文已变化", path=f"source.script_scenes.{scene.get('id')}.blocks.{block_id}",
+                  details={"coverageRowId": row.get("id"), "blockId": block_id, "evidenceKind": evidence_kind,
+                           "factIds": row.get("fact_ids") if isinstance(row.get("fact_ids"), list) else [],
+                           "eventIds": row.get("event_ids") if isinstance(row.get("event_ids"), list) else []})
         kinds = covered_kinds.setdefault(block_id, set())
         if evidence_kind in kinds:
             issue("CONTINUITY_COVERAGE_DUPLICATE", f"剧本块 {block_id} 的 {evidence_kind} 覆盖重复")
@@ -316,9 +385,11 @@ def contract():
     return {"contract_version": 2, "evidence_kinds": sorted(EVIDENCE), "not_applicable_rules": sorted(NOT_APPLICABLE_RULES),
             "fact": {"required": ["id", "object_kind", "object_id", "allowed_values"]},
             "timeline": {"required": ["id"]},
-            "shot": {"required": ["timeline_id", "story_order"]},
-            "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "reason", "source_anchor.block_id"]},
-            "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"]}}
+            "shot": {"defaults": {"timeline_id": "main or first registered timeline", "story_order": "source order within the timeline"}},
+            "event": {"required": ["id", "timeline_id", "fact_id", "shot_id", "frame", "before", "after", "source_anchor.block_id"],
+                      "optional": ["reason"], "optional_note": "reason 为可选说明；填写后由编译器作为 Recorded cause 写入提示词。"},
+            "coverage": {"required": ["id", "source_anchor.block_id", "source_digest", "evidence_kind", "fact_ids", "event_ids"],
+                         "source_digest_note": "使用 coverage_digest 的规范化块摘要（固定键序、补空 text、忽略 display_* 等展示字段与换行差异）；旧格式摘要继续接受。"}}
 
 
 if __name__ == "__main__":

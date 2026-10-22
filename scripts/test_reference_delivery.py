@@ -196,7 +196,8 @@ class ReferenceDeliveryAcceptance(unittest.TestCase):
             node['depends_on'] = []
             state['nodes'] = [node]
             dispatch = plan_dispatch(p, {"request_id": "ROUTE436", "stage": "h3-compile"})
-            self.assertIn("continuity", [n["module"] for n in dispatch["steps"][0]["neighbor_checks"]])
+            model_step = next(n for n in dispatch["steps"] if n["module"] == "model")
+            self.assertIn("continuity", [n["module"] for n in model_step["neighbor_checks"]])
             entry = compile_package(source, base / "out")[0]
             state_path = base / "state.json"
             save_state(state_path, state)

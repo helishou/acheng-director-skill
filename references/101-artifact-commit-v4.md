@@ -12,4 +12,4 @@ H3 产物还有一道持久化质量门：声明 Ref2VA 六字段的 `.h3.txt` �
 
 在 `interactive_segment` 模式中，完整产物提交后也要停在当前交互回合，等待用户发送 `继续`、`1` 或 `下一段`；不能因为还有后续节点就把多个 Segment 拼进同一轮。`autonomous_file_batch` 模式可以在宿主确实提供工作区写入和连续工具循环时逐段提交独立文件，聊天直接展示逐段简洁上传操作卡、manifest、状态和阻塞项，长正文留文件；工具循环、执行时长或权限不足时必须保存已提交产物并暂停，不能声称后台无限运行。
 
-4.3.6 的新 H3 complete 提交必须通过[114 联合门](114-reference-binding-delivery-v4.3.6.md)：正文、上传卡、绑定快照、素材、格式合同和回执保存为同一 bundle。旧 COMMITTED 记录可读取，但不能冒充新版联合验收。partial 保存游标，不走伪通过路径。
+4.3.6 的新 H3 complete 提交必须通过[114 联合门](114-reference-binding-delivery.md)：正文、上传卡、绑定快照、素材、格式合同和回执保存为同一 bundle。旧 COMMITTED 记录可读取，但不能冒充新版联合验收。partial 保存游标，不走伪通过路径。

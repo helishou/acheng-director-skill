@@ -5,7 +5,7 @@
   "assets": [
     {
       "asset_id": "ART_MEI",
-      "display_name": "Meilin · neutral_identity · 四视图角色身份基准 · v1.0",
+      "display_name": "Meilin · neutral_identity · 四视图角色基准 · v1.0",
       "prompt_file": "ART_MEI.image.txt",
       "mode": "GENERATE",
       "asset_kind": "character",
@@ -42,11 +42,11 @@
       "upload_card": "ART_MEI.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "2bd29480e0a7e22637ef7e63650b1a436d1a4e9ba2d314c4669c31219660b986"
+      "upload_card_sha256": "ec5f3f544371e4a5a7865eaaeeedf3688b8cf190c87bc7e2b5e0ef03760e7313"
     },
     {
       "asset_id": "ART_BO",
-      "display_name": "Bo · neutral_identity · 四视图角色身份基准 · v1.0",
+      "display_name": "Bo · neutral_identity · 四视图角色基准 · v1.0",
       "prompt_file": "ART_BO.image.txt",
       "mode": "GENERATE",
       "asset_kind": "character",
@@ -83,7 +83,7 @@
       "upload_card": "ART_BO.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "3247a413806ead69e9558b17681c7282d550de24d69798f18a70a911f987d44e"
+      "upload_card_sha256": "8f4a71a12301deb92b7cd772d65fb5baf202e947d103b0ab6295e799b0f44e82"
     },
     {
       "asset_id": "ART_ARCHIVE",

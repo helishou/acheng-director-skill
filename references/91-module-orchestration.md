@@ -18,11 +18,13 @@
 
 专业问题与视觉资料按指南的局部链接按需读取，不加入全量必读列表。提交前只核对所采纳决定是否进入本模块原字段；evidence 可记录来源 Q/视觉条目、采用结果、字段位置与必要取舍，未采用的题无需交答卷。检索工具只读资料；有跨 owner 影响时交具体建议由主导演合并。原身份、状态、时长、详细度、恢复和哈希门保持优先。
 
-请求含request_id、stage、execution_mode、可选features、completed_modules、shot_ids、frozen_paths。执行模式先由用户选择；1 为自动文件与逐段操作卡，2 为每轮一个完整 Segment。stage为script/storyboard/perform/action/vfx/assets/h3-compile/continue/audit/full。completed_modules 需要实际产物，不能仅凭字符串跳过。引用衔接遵守[114 合同](114-reference-binding-delivery-v4.3.6.md)，相邻互检即使不在生产写入步骤中也可按只读入口加载。
+请求含request_id、stage、execution_mode、可选features、completed_modules、shot_ids、frozen_paths。执行模式先由用户选择；1 为自动文件与逐段操作卡，2 为每轮一个完整 Segment。stage为script/storyboard/perform/action/vfx/assets/h3-compile/continue/audit/full。completed_modules 需要实际产物，不能仅凭字符串跳过。引用衔接遵守[114 合同](114-reference-binding-delivery.md)，相邻互检即使不在生产写入步骤中也可按只读入口加载。
 
 plan回包含input_revision、steps、integration_steps、required_reads、external_reads、shot_ids、frozen_paths、max_corrections。H3步骤要求找到已安装h3-prompt-writing及两个指南，否则BLOCKED并列出路径；不能静默使用泛化格式。普通资产阶段不强制载入H3。整合步骤必须注明触发理由、owner、输出类型和自检项；`superseded` 记录不得进入计划。
 
 专业回包含request_id、input_revision、module、status、attempt、patch、evidence、unresolved。patch是[{path,value}]，path使用JSON指针形式，只支持替换允许字段；禁止删除、越权、重叠写入与离开本次shot_ids。新镜头、角色、场景、片段由主导演建骨架，专业模块不通过替换整个shots数组抢走他人字段。
+
+patch 路径以 `production.json` 的正式源稿根对象为根，不含 API 信封或画布存储包装。story 模块的 `/story`、`/script_scenes` 合并到正式源稿；镜头和段落 patch 写入 `/shots`、`/segments`。写入 Canvas 后，`draft.director.source` 仍是唯一制作源，工作台直接编辑这些字段；不得持久化或返回 `draft.scenes/shots/clipGroups` 镜像，也不得改写为 `draft.director.story/shots/clipGroups`。Canvas 节点、任务与结果是只读运行上下文，按 owner 和稳定 Segment ID 派生；缺失或重复匹配时阻塞对应目标，不猜测或补建。
 
 READY且没有unresolved才可合并。NEEDS_DIRECTOR_REVISION或EXECUTION_BLOCKED交回主导演；attempt最多2，即初次与一次有证据的修正。每次成功合并后SHA改变，下一模块必须基于新版本重新生成请求。独立分支只能返回建议，不能拿过期基线覆盖当前文件。
 
@@ -33,7 +35,7 @@ python scripts/director_dispatch.py accept production.json dispatch.json --respo
 
 输出必须新文件；输入不覆盖。接受回包时执行已具备数据的合同检查并保存dispatch_log回执。回执的result_revision描述加入回执前的数据摘要，避免摘要自引用；完整最终文件摘要由下一请求计算。
 
-4.3.8明确阶段边界：story/assets/performance/shots/effects回包只接受当前负责人所管合同，回执列 checked_gates、deferred_gates 和 final_delivery_accepted:false。下游H3尚未写完不能阻止已合格的上游事实回包；model/continuity具备整份数据时执行完整生产合同，最终还必须通过磁盘正文与绑定联合验收。阶段通过不是全片通过。
+当前合同明确阶段边界：story/assets/performance/shots/effects回包只接受当前负责人所管合同，回执列 checked_gates、deferred_gates 和 final_delivery_accepted:false。下游H3尚未写完不能阻止已合格的上游事实回包；model/continuity具备整份数据时执行完整生产合同，最终还必须通过磁盘正文与绑定联合验收。阶段通过不是全片通过。
 
 资产模块负责 style_policy/style_policy_reason/style_lock 的数据回包，仍遵守用户风格批准与冻结字段；shots负责 required_assets/required_prop_ids 和 reference_requirements；model负责所选 animation_term_ids 及展开证据。读取某资料库不自动授予它写真值的权限。
 
@@ -47,7 +49,13 @@ python scripts/director_dispatch.py accept production.json dispatch.json --respo
 
 主导演解决冲突时按当前用户修订、确认剧本、已批准视觉事实、ShotSpec、视觉默认、模型语法的顺序裁决。模型字数不足不能删决定性事件；应减冗余、分合法片段或报告不可满足。不要要求所有模块彼此审阅，也不要把同一模型换角色复述当作独立审查。
 
-H3 交付增加一条密度门：model 模块负责 Ref2VA 六字段、`mode_lock`、真实参考标签和按 `h3_contract.detail_policy()` 动态计算的 `detailed_description` 词数门；continuity 复核角色、场景、道具、伤势、朝向和尾态是否跨镜闭合；shots/performance/action/effects 只复核自己拥有的摄影、表演、受力和遮挡事实，不改写 H3 正文。任一相邻复核发现缺项，退回主导演定位字段后再编译，不能由门禁把正文改成摘要。
+### H3 编译前镜头画面与事实复核
+
+H3 执行顺序为：Shots 画面/摄影与表演/动作完成 → Continuity 完成事实重放 → 执行[120 镜头画面与连续性事实复核](120-precompile-shot-visibility-audit.md) → reference binding/model 编译。该复核读取本次目标 Shots、动作和 ledger，检查主体位置/裁切、动作必需身体部位与接触、道具和背景的入画范围，以及每镜 `continuityFactIds` 是否只勾选可见且相关的事实。它是只读整合步骤，不拥有 production 写字段、不产生第二份真值或审批；发现具体字段问题时交还 Shots 或 Continuity owner 修复，修订后复核受影响范围，再允许编译。
+
+本复核不清理跨镜账本：本镜不可见的事实仍可保留在 ledger 供邻镜重放，但不勾选进本镜 Subject Prompt。没有可靠来源的转变帧或相互冲突的状态列为 `unresolved`，不猜帧、不造事件、不以自动通过掩盖语义未知。
+
+H3 交付另有一条密度门：model 模块负责 Ref2VA 六字段、`mode_lock`、真实参考标签和按 `h3_contract.detail_policy()` 动态计算的 `detailed_description` 词数门；continuity 复核角色、场景、道具、伤势、朝向和尾态是否跨镜闭合；shots/performance/action/effects 只复核自己拥有的摄影、表演、受力和遮挡事实，不改写 H3 正文。任一相邻复核发现缺项，退回主导演定位字段后再编译，不能由门禁把正文改成摘要。
 
 STYLE_MOTHER 只属于资产生成链。model 编译 H3 时可以读取已批准的风格锚定结果，但 H3-only 请求不能因为缺少资产卡而自动启动 style-anchor；这样可以把宿主预算留给逐镜正文，同时保持资产与视频的职责边界。
 

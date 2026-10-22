@@ -21,7 +21,7 @@ H3 正文先由 Acheng Director 按剧本、ShotSpec、表演、动作、视效�
 
 ## 磁盘最终文件回读门
 
-`scripts/h3_final_format.py validate_h3_file` 仍是最终文件结构门；4.3.6 另由[114 联合交付门](114-reference-binding-delivery-v4.3.6.md)检查正文、同源绑定、逐段卡与 manifest。最终字节、素材哈希、标签、切点、对白与声音检查不变。无真实媒体只能保存阻塞草案；未经用户明确授权不得换成基础模式。结构 PASS 不单独代表上传交付完整。
+`scripts/h3_final_format.py validate_h3_file` 仍是最终文件结构门；4.3.6 另由[114 联合交付门](114-reference-binding-delivery.md)检查正文、同源绑定、逐段卡与 manifest。最终字节、素材哈希、标签、切点、对白与声音检查不变。无真实媒体只能保存阻塞草案；未经用户明确授权不得换成基础模式。结构 PASS 不单独代表上传交付完整。
 
 标准编译器会为每个文件同时写出同名 `.check.json` 和 `.acceptance.json`。手工或外部生成器必须先建立同样的 revision-bound contract，再运行：
 

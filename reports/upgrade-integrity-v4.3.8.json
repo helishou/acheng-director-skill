@@ -2209,7 +2209,7 @@
       "after_sha256": "8c7e8a4a621703ac998b2f40a16b53a71cb6e2e7f5353a04f514bdf51ba01330"
     },
     {
-      "file": "references/114-reference-binding-delivery-v4.3.6.md",
+      "file": "references/114-reference-binding-delivery.md",
       "category": "instructions_and_documentation",
       "before_sha256": "8d3826132b517297771c0e41e9445f58f52e1748fbd90bc332e286901f475f44",
       "after_sha256": "4892e538ebe074b679bcb1dbac6e95ab5f868518a9962dc19597967045e811a9"

@@ -9,8 +9,8 @@ from contract_core import content_hash, indexed, need, prose
 ROOT = Path(__file__).resolve().parents[1]
 STAGES = {"script": ["story"], "storyboard": ["shots"], "perform": ["performance"],
           "action": ["performance"], "vfx": ["effects"], "assets": ["assets"],
-          "h3-compile": ["model"], "continue": ["continuity"], "audit": ["continuity"],
-          "full": ["story", "shots", "performance", "assets", "model", "continuity"]}
+          "h3-compile": ["continuity", "model"], "continue": ["continuity"], "audit": ["continuity"],
+          "full": ["story", "shots", "performance", "assets", "continuity", "model"]}
 INTEGRATION_STATUSES = {"internalized", "selective", "advisory", "guardrail", "maintenance_only", "superseded"}
 
 

@@ -1,6 +1,6 @@
 # 资产：决定每张图给下游提供什么
 
-执行方式见 [115](../115-directed-decisions.md)。实际依赖与批准规则以 [60](../60-assets-and-keyframes.md)、[61](../61-asset-dependency-production.md)、[62](../62-style-anchor.md)、[114](../114-reference-binding-delivery-v4.3.6.md) 为准。
+执行方式见 [115](../115-directed-decisions.md)。实际依赖与批准规则以 [60](../60-assets-and-keyframes.md)、[61](../61-asset-dependency-production.md)、[62](../62-style-anchor.md)、[114](../114-reference-binding-delivery.md) 为准。
 
 ## A1｜先制作哪张，后续如何使用
 
@@ -42,7 +42,7 @@
 
 ## A4｜向 H3 交接前
 
-提供每份资产的真实文件、版本、对象、状态和用途；model 决定本段哪些作为直接输入、哪些只用于上游制作。对单帧、四视图、整张接触表明确说明区别。最终以每条资产提示词的上传卡核对实际文件和编号，再以每个 H3 Segment 的上传卡核对该段独立编号；两套编号不互相套用。
+提供每份资产的真实文件、版本、对象、状态和用途；model 决定本段哪些作为直接输入、哪些只用于上游制作。对单帧、四视图、整张接触表明确说明区别。最终以每条资产提示词的上传卡核对实际文件和编号，再以每个 H3 Segment 的上传卡核对该段独立编号；两套编号不互相套用。素材用途和编号证据复核见[Q31](../inquiries/assets.md#q31)。
 
 交接前检查新材质描述是否同时出现在七步第4/6步和完整 prompt，适用的身份/场景描述是否已提供给下游。文字资料条目不是图片；没有真实素材不能凭选中了库条目填入 references 或宣布风格锁通过。
 
