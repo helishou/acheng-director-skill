@@ -13,7 +13,7 @@ metadata:
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 
-写入前先读取本文件和 `data/module-registry.json` 中 performance 登记的全部 `reads`；该登记是依赖清单，不以父入口提到“performance 模块”代替实际加载。动作任务至少核对[表演适配](../../references/30-performance-adapter.md)、[本分支核心合同](../../references/31-performance-handoff.md)、[灵动表演合同](../../references/32-liveliness-performance-framework.md)、[专门规则](../../references/40-action-choreography.md)与[模块回包合同](../../references/91-module-orchestration.md)，并按当前命中的局部决策指南执行。只读取本任务依赖，保留上游来源与冻结项。
+写入前先读取本文件和当前激活 Acheng 引擎目录下 `data/module-registry.json` 中 performance 登记的全部 `reads`；登记中的相对路径均以该引擎目录为基准。该登记是依赖清单，不以父入口提到“performance 模块”代替实际加载。动作任务至少核对[表演适配](../../references/30-performance-adapter.md)、[本分支核心合同](../../references/31-performance-handoff.md)、[灵动表演合同](../../references/32-liveliness-performance-framework.md)、[专门规则](../../references/40-action-choreography.md)与[模块回包合同](../../references/91-module-orchestration.md)，并按当前命中的局部决策指南执行。只读取本任务依赖，保留上游来源与冻结项。
 
 武打/攻防写入前检查：每个动作 Shot 都有结构化 `combat`，含七层受力、`chain` 攻应果续和 `timing` 的五阶段、`direction_facts`、`speed_profile`；`phases` 使用本镜局部整数帧并闭合到 Shot 时长。`characters` 只列画内角色并标明位置、朝向、视线、持械手和武器方向。若镜头是明确落空，写最近距离、制动支点、惯性结果和尾态，不虚构接触。H3 的 `visual` 要落实同一攻防事实，不能用自由文本替代这些结构化字段。
 
