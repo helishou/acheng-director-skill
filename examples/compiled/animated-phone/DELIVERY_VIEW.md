@@ -79,7 +79,6 @@ Create a clean 2D cel-animation character-and-environment keyframe of Chen Qiany
 
 Subject 是内容对象，不是新增上传槽位；一份素材可承载多个对象，同一对象可用多个来源。
 - 阻塞：<Picture 1>: missing or empty reference media: PENDING-anime-phone-approved.png
-- 阻塞：h3_schema: missing reference file: media/PENDING-anime-phone-approved.png
 
 下一步：补齐上述素材、版本或合同缺项后重新编译到新目录；保留创作全文，不改名冒充正式稿，不切换 T2VA。
 平台上传：当前卡不证明云端已有素材。上传确认必须另附绑定本段、正文与素材哈希的入口回执。
@@ -101,7 +100,6 @@ Subject 是内容对象，不是新增上传槽位；一份素材可承载多个
 
 当前阻塞：
 - ANIME_PHONE_SEG01：<Picture 1>: missing or empty reference media: PENDING-anime-phone-approved.png
-- ANIME_PHONE_SEG01：h3_schema: missing reference file: media/PENDING-anime-phone-approved.png
 - ANIME_PHONE_SEG01：<Picture 1> 待真实素材绑定
 
 自动文件模式：长 H3 正文留在独立文件；本页保留创作摘要、资产提示词、分段地图和每段上传助手，不能用总清单链接代替操作卡。

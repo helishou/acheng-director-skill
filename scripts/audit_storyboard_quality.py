@@ -103,7 +103,6 @@ def require(condition, message):
 
 def shape(p):
     require(isinstance(p, dict), "production must be an object")
-    require(p.get("version") == "2.0", "version must be 2.0")
     require(p.get("delivery_scope", "prompt_only") in ("prompt_only", "full_production"), "invalid delivery_scope")
     require(substantive(p.get("project_id")), "project_id required")
     for field in ("fps_num", "fps_den"):
@@ -147,9 +146,24 @@ def timecode(frame, p):
 def shot_text(shot, production=None, speakers=None, speech_parts=None, referenced_subjects=None):
     """Compile substantive structured fields into visible/audible English prose."""
     c = shot["camera"]
-    chunks = [shot["visual"], c["description"],
+    modern = (production or {}).get("prompt_detail_policy", {}).get("profile") != "legacy_fixture"
+    from storyboard_policy import render
+    # 暂时停用自动对白切镜编译规则；保留源码里作者明确写入的摄影描述。
+    # from dialogue_editing import compile_dialogue_camera_guidance
+    chunks = [c["description"],
               f"The camera uses a {c['lens_mm']} mm lens under the {c['sensor_basis']} convention, with a {c['shutter_angle']}-degree shutter-angle convention; movement: {c['movement']}; path: {c['path']}; target: {c['target']}."
               ]
+    chunks.append(shot["visual"])
+    if not modern:
+        chunks = [shot["visual"], *chunks[:-1]]
+    if production:
+        framing = render(shot, production)
+        if framing:
+            chunks.insert(0, framing)
+        # Temporarily disabled: do not synthesize dialogue-driven camera cuts.
+        # dialogue_camera = compile_dialogue_camera_guidance(shot, production, referenced_subjects)
+        # if dialogue_camera:
+        #     chunks.insert(0, dialogue_camera)
     bindings = (production or {}).get('prompt_bindings', {})
     names = {item['id']: bindings.get(item['id'], item['name']) for item in (production or {}).get('character_registry', [])}
     for character in shot.get('characters', []):
@@ -208,6 +222,14 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
         chunks.append(f"The designed low-frequency cue is {audio['low_frequency_hz']} Hz, sourced from {audio['source']}.")
     for line in sorted(shot["dialogues"], key=lambda x: x["start"]):
         delivery = "says in an off-screen voiceover" if line.get("voiceover", False) else "says"
+        if modern and line.get("voiceover", False) and line.get("sound_source"):
+            delivery = "speaks from " + line['sound_source'] + ", entirely offscreen"
+        offscreen_actor = False
+        if production and production.get("prompt_detail_policy", {}).get("profile") != "legacy_fixture" and not line.get("voiceover", False):
+            speaker_character = line.get("character_id") or next((c["id"] for c in production.get("character_registry", []) if line["speaker_name"] in (c.get("name"), production.get("prompt_bindings", {}).get(c["id"]))), None)
+            offscreen_actor = speaker_character is not None and speaker_character not in {c["id"] for c in shot["characters"]}
+            if offscreen_actor:
+                delivery = "speaks from the established off-screen scene position, not as narration"
         speaker = speakers[line.get("character_id", line["speaker_name"])] if speakers is not None else line["speaker_id"]
         spoken = line["text"]
         if line.get("utterance_id") and speech_parts:
@@ -220,10 +242,15 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
             spoken += "<cutoff>"
         subject = (referenced_subjects or {}).get(line.get('character_id')) or (referenced_subjects or {}).get(line['speaker_name'])
         voice_identity = line['speaker_name'] + (' ' + subject if subject else '')
-        text = f"During {window(line['start'], line['end'])}, {voice_identity} ({speaker}), {line['delivery']}, {delivery}: <d>[{line['language']}] {spoken}</d>"
+        voice_delivery = line['delivery']
+        if modern and (line.get("voiceover", False) or offscreen_actor):
+            voice_delivery = re.sub(r",?\s*(?:with )?(?:synchronized mouth movement|mouth shapes synchronized|synchronized lip motion|mouth shapes synchronized|mouth movements synchronized)", "", voice_delivery, flags=re.I)
+        text = f"During {window(line['start'], line['end'])}, {voice_identity} ({speaker}), {voice_delivery}, {delivery}: <d>[{line['language']}] {spoken}</d>"
         if line.get("voiceover", False):
-            text += " while the corresponding on-screen character's lips remain completely closed."
+            text += (" The speaker remains offscreen for this utterance. Visible listeners remain silent; the voice comes from its authored scene position." if modern else " while the corresponding on-screen character's lips remain completely closed.")
             text += " Keep this utterance intelligible and front-prioritized over room tone and incidental action noise, with the named voice as the only speaker for this line."
+        elif offscreen_actor:
+            text += " Preserve the original voice, spatial direction and speech timing across this listener view. The visible listener stays silent; do not synchronize the listener's lips to the off-screen speaker's words."
         else:
             text += " Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap."
         if line.get("utterance_id"):
@@ -303,6 +330,9 @@ def animation_term_text(seg):
 
 
 def compile_segment(p, seg, *, draft=False):
+    from storyboard_policy import check
+    if not draft:
+        check(p, set(seg.get("shot_ids", [])))
     by_id = {s["id"]: s for s in p["shots"]}
     shots = [by_id[x] for x in seg["shot_ids"]]
     mode = seg["mode"]
@@ -312,6 +342,9 @@ def compile_segment(p, seg, *, draft=False):
     scenes = {s["id"]: s for s in p["scene_registry"]}
     speakers = speech_map(p, seg)
     speech_parts = {}
+    seen_context = set()
+    seen_references = set()
+    modern = p.get("prompt_detail_policy", {}).get("profile") != "legacy_fixture"
     for shot in shots:
         for line in shot["dialogues"]:
             if line.get("utterance_id"):
@@ -322,6 +355,8 @@ def compile_segment(p, seg, *, draft=False):
             prefix += f"At {timecode(s['start_frame'] - seg['start_frame'], p)}, the camera cuts to the following view. "
         elif mode != "Ref2VA":
             prefix += opening + " "
+        if modern:
+            prefix += f"Local time window {timecode(s['start_frame'] - seg['start_frame'], p)} to {timecode(s['end_frame'] - seg['start_frame'], p)}. "
         panels = [x for x in seg.get("panels", []) if x["shot_id"] == s["id"]]
         panel_text = ""
         if panels:
@@ -332,11 +367,18 @@ def compile_segment(p, seg, *, draft=False):
         # Repeat the complete visible context in every shot. A later shot in
         # the same segment must remain intelligible when copied on its own.
         context = [SHOT_DETAIL_DIRECTIVE]
-        context.extend(characters[ch["id"]]["prompt_description"] for ch in s["characters"])
-        context.append(scenes[s["scene_id"]]["prompt_description"])
-        context.append("At the start of this shot: " + s["state_description"])
+        if modern:
+            context.append("At the start of this shot: " + s["state_description"])
+        descriptions = [s.get("identity_context", {}).get(ch["id"], characters[ch["id"]]["prompt_description"]) for ch in s["characters"]]
+        descriptions.append(scenes[s["scene_id"]]["prompt_description"])
+        for description in descriptions:
+            if not modern or description not in seen_context:
+                context.append(description)
+                seen_context.add(description)
+        if not modern:
+            context.append("At the start of this shot: " + s["state_description"])
         from reference_bindings import shot_reference_text, applies_to
-        reference_text = shot_reference_text(seg, s, p)
+        reference_text = shot_reference_text(seg, s, p, seen=seen_references)
         if reference_text:
             context.append(reference_text)
         if s.get("performance", {}).get("acting_design"):
@@ -547,6 +589,9 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
             require(type(c.get("lens_mm")) in (int, float) and c["lens_mm"] > 0, "lens_mm invalid")
             require(type(c.get("shutter_angle")) in (int, float) and 0 < c["shutter_angle"] <= 360, "shutter_angle invalid")
     gate(GATES[1], previs)
+    from storyboard_policy import check as check_storyboard, diagnostics as storyboard_diagnostics
+    if p.get("storyboard_policy") is not None:
+        gate("storyboard_structure", lambda: check_storyboard(p))
 
     def buzzwords():
         for s in shots:
@@ -725,7 +770,7 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
                 shot = next(item for item in shots if item["id"] == shot_id)
                 require(shot["state_description"] in text, f"{shot_id}: current state not consumed by H3")
                 for character in shot["characters"]:
-                    require(characters[character["id"]]["prompt_description"] in text, f"{shot_id}: character context not consumed by H3")
+                    require(shot.get("identity_context", {}).get(character["id"], characters[character["id"]]["prompt_description"]) in text, f"{shot_id}: character context not consumed by H3")
                     require(scenes[shot["scene_id"]]["prompt_description"] in text, f"{shot_id}: scene context not consumed by H3")
             term_ids = list(seg.get("animation_term_ids", []))
             term_evidence = list(seg.get("animation_term_evidence", []))
@@ -774,6 +819,7 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
     return {"project_id": p["project_id"], "status": "PASS" if all(r["status"] != "FAIL" for r in results) else "FAIL",
             "score": score, "applicable_gates": len(applicable), "scope": "structural-contract-only",
             "production_sha256": digest(p), "gates": results, "visual_status": "UNVERIFIED",
+            **({"storyboard_diagnostics": storyboard_diagnostics(p)} if p.get("storyboard_policy") is not None else {}),
             "limitations": ["Semantic truth, natural acting, visual identity and acoustic spectrum require generated-media inspection.",
                             "Feature declarations and descriptive evidence remain author assertions, not automatic visual proof."]}
 

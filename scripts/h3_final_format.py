@@ -76,8 +76,12 @@ def _section(text: str, name: str) -> str:
 def _sentence_count(value: str) -> int:
     # Decimal points in 35.0, 0.3x, 4.2 kHz and similar engineering values
     # are not sentence boundaries. Quoted punctuation still counts when it
-    # closes a natural-language sentence.
-    return len(re.findall(r"(?<!\d)[.!?](?!\d)(?=\s|$|[`\"'”’)])", value))
+    # closes a natural-language sentence. Chinese-authored drafts use full-width
+    # terminators and are counted the same way; the translation pass converts
+    # the delivered prompt to English later, so language is not a compile gate.
+    ascii_endings = re.findall(r"(?<!\d)[.!?](?!\d)(?=\s|$|[`\"'”’)])", value)
+    cjk_endings = re.findall(r"[。！？]+", value)
+    return len(ascii_endings) + len(cjk_endings)
 
 
 
@@ -197,7 +201,7 @@ def _check_dialogue_events(body, expectations):
 def validate_h3_format(text: str, *, mode: str, shot_count: int,
                        reference_labels=(), subject_labels=(),
                        speech_expectations=None, minimum_words: int = 0,
-                       duration_seconds=None) -> None:
+                       duration_seconds=None) -> list[dict]:
     """Validate a compiled prompt without changing any creative content."""
     # Validate a local view of Windows/Unix line endings; receipt hashes still
     # bind the caller's original bytes and no saved prompt is rewritten here.
@@ -212,6 +216,7 @@ def validate_h3_format(text: str, *, mode: str, shot_count: int,
     _need(all(_section(text, field).strip() for field in fields), "H3 fields must not be empty")
     body_name = "detailed_description" if mode == "Ref2VA" else "integrated_multimodal_description"
     body = _section(text, body_name)
+    quality_diagnostics = []
     _check_shots(body, shot_count, duration_seconds)
     allowed = set(reference_labels) | set(subject_labels)
     labels = set(re.findall(r"<(?:Subject|Picture|Video|Audio) [1-9]\d*>", text))
@@ -224,8 +229,14 @@ def validate_h3_format(text: str, *, mode: str, shot_count: int,
         tasks = match.group(1).split(" + ")
         _need(tasks and len(tasks) == len(set(tasks)) and set(tasks) <= TASKS,
               "Ref2VA summary contains an unsupported or duplicate task prefix")
-        _need(english_word_count(body) >= minimum_words,
-              f"Ref2VA detailed_description is below the minimum of {minimum_words} English words")
+        word_count = english_word_count(body)
+        if word_count < minimum_words:
+            quality_diagnostics.append({
+                "code": "REF2VA_DETAIL_BELOW_RECOMMENDED_MINIMUM",
+                "severity": "warning",
+                "message": f"Ref2VA detailed_description is {word_count} words; recommended minimum is {minimum_words}",
+                "path": "detailed_description",
+            })
         _check_reference_structure(text, reference_labels, subject_labels, shot_count)
         for task, kind in (("keyframe completion", "<Picture"), ("video editing", "<Video"),
                            ("video continuation", "<Video"), ("audio reuse", "<Audio"), ("audio reference", "<Audio")):
@@ -242,10 +253,11 @@ def validate_h3_format(text: str, *, mode: str, shot_count: int,
     _need("<d>" not in soundscape + music, "dialogue belongs only in the shot timeline")
     if soundscape != "N/A":
         _need(1 <= _sentence_count(soundscape) <= 4,
-              "overall_soundscape must be one continuous paragraph of 1–4 English sentences")
+              "overall_soundscape must be one continuous paragraph of 1–4 sentences")
     if music != "N/A":
         _need(1 <= _sentence_count(music) <= 3,
-              "non_diegetic_music must contain 1–3 English sentences")
+              "non_diegetic_music must contain 1–3 sentences")
+    return quality_diagnostics
 
 
 def finalize_h3_prompt(text: str, **kwargs) -> str:
@@ -294,15 +306,21 @@ def validate_h3_file(path, contract, base_dir=None, *, allow_legacy_fixture=Fals
         labels.append(label)
         evidence.append({"label": label, "file": ref["file"], "sha256": digest, "role": ref["role"]})
     minimum = int(contract.get("minimum_words", 0))
+    quality_diagnostics = []
     if mode == "Ref2VA":
         from math import ceil
         floor = max(2000, ceil(duration * 200))
-        legacy = allow_legacy_fixture and contract.get("profile") == "legacy_fixture"
-        _need(legacy or minimum >= floor, f"Ref2VA manifest minimum must be at least {floor}")
-    validate_h3_format(text, mode=mode, shot_count=contract["shot_count"],
+        if minimum < floor and not (allow_legacy_fixture and contract.get("profile") == "legacy_fixture"):
+            quality_diagnostics.append({
+                "code": "REF2VA_MINIMUM_BELOW_RECOMMENDED_DENSITY",
+                "severity": "warning",
+                "message": f"Configured Ref2VA detail minimum is {minimum}; recommended minimum is {floor}",
+                "path": "prompt_detail_policy.ref2va_min_words",
+            })
+    quality_diagnostics.extend(validate_h3_format(text, mode=mode, shot_count=contract["shot_count"],
                        reference_labels=labels, subject_labels=contract.get("subject_labels", []),
                        speech_expectations=contract["speech_expectations"], minimum_words=minimum,
-                       duration_seconds=duration)
+                       duration_seconds=duration))
     for field, expected in contract.get("reference_sections", {}).items():
         _need(_section(text, field) == expected.rstrip(), "reference meaning differs from binding snapshot: " + field)
     body = _section(text, "detailed_description" if mode == "Ref2VA" else "integrated_multimodal_description")
@@ -312,6 +330,7 @@ def validate_h3_file(path, contract, base_dir=None, *, allow_legacy_fixture=Fals
             "mode": mode, "duration_seconds": duration, "shot_count": contract["shot_count"],
             "english_words": english_word_count(body), "minimum_words": minimum,
             "dialogue_count": len(contract["speech_expectations"]), "references": evidence,
+            **({"quality_diagnostics": quality_diagnostics} if quality_diagnostics else {}),
             "input_revision": contract.get("input_revision"), "visual_status": "UNVERIFIED",
             "scope": "final-file structural validation; not creative, visual or audio acceptance"}
 

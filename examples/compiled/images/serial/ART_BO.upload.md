@@ -1,4 +1,4 @@
-### Bo · neutral_identity · 四视图角色身份基准 · v1.0 · 资产图上传卡
+### Bo · neutral_identity · 四视图角色基准 · v1.0 · 资产图上传卡
 
 状态：ready-to-submit-not-generated · NOT_UPLOADED · visual_status=UNVERIFIED
 

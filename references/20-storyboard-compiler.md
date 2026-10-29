@@ -1,8 +1,10 @@
 # 20｜分镜编译、132 运镜与双时长装箱
 
+新制作采用 storyboard_policy.version=1，景别、观看对象、剪辑理由和对白正反打按[对白摄影与剪辑](decisions/shots.md#对白摄影与剪辑)执行；结构字段由 scripts/storyboard_policy.py 检查，审美提示不代替真实画面验收。
+
 ## 时间模型
 
-`production_total_duration` 是作品总秒数；`generation_clip_duration` 是每一 Segment 的实际秒数；`generation_clip_limit` 是本次目标入口的计划上限。全部精确计算用 `fps_num/fps_den` 与整数 `start_frame/end_frame`，区间左闭右开。秒数是帧数乘 fps_den/fps_num 的显示值，不能用四舍五入后的字符串累加。
+`production_total_duration` 是作品总秒数；`generation_clip_duration` 是每一 Segment 的实际秒数；`generation_clip_limit` 是本次目标入口的计划上限。规划时可用 `start_frame/end_frame` 派生绝对时间窗，区间左闭右开；当前 v2 源稿不保存这些全局 Shot 窗口，而保存整数 `duration_frames`、`timeline_id`、`story_order` 和局部帧锚点。秒数是帧数乘 fps_den/fps_num 的显示值，不能用四舍五入后的字符串累加。
 
 全局镜头 ID 不因装箱改变；H3 `[Shot 1]` 是切片局部编号，在每段重置。帧号不重置。一个镜头跨生成窗必须导演明确拆成两个有承接的镜头或连续片段，并登记父镜头，不由 pack 偷切动作。
 

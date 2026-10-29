@@ -2,6 +2,8 @@
 
 状态：完整生产卡及提示词已编译；图像仅有随包灰模构图示意，未调用影视生成模型。
 
+> 历史格式示例，仅供叙事与提示词参考，不可复制其 Shot 时间字段；新稿遵循 [90 生产合同](../references/90-production-contract.md) 的局部帧 v2 格式。
+
 - 总时长：20 秒；最大生成窗：10 秒；24 fps。
 - 数据真值源：[02-drama.production.json](02-drama.production.json)。
 - 声音：现场音；非叙事配乐 N/A。

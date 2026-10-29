@@ -56,7 +56,7 @@
 - 有事件：按实际时点修正尾态、初态或适用参考，保持 owner 分工。
 - 没有事件：报出对象与冲突字段；不发明一次转移，也不声称算出了未记录的动量。
 
-落点：/ledger/facts、/ledger/requirements、/shots/*/continuity_facts、/unresolved_threads。
+落点：/ledger/facts、/ledger/requirements、/unresolved_threads。
 完成即停：承接有事件依据，完整描述和可计算账本各自一致。
 不采用的原文硬规则：尾态不强制包含伪精确动量；叙事省略可合法存在。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第338–339行；原文只作出处。

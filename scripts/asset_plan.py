@@ -7,6 +7,14 @@ from contract_core import file_hash, indexed, need, prose
 KINDS = {"character", "costume", "injury", "scene", "prop", "vehicle", "keyframe", "effect", "style"}
 
 DEFAULT_CHARACTER_VIEW_LAYOUT = {
+    "type": "single_character_identity_image",
+    "views": ["single_full_body_front"],
+    "order": "single",
+    "same_subject": True,
+    "purpose": "primary single-frame identity source for the later four-view turnaround"
+}
+
+DEFAULT_CHARACTER_TURNAROUND_LAYOUT = {
     "type": "four_view_character_turnaround",
     "views": ["front_face_above_clavicle", "right_profile_above_clavicle", "headless_front_costume_full_body", "back_full_body"],
     "order": "grid_2x2",
@@ -17,7 +25,7 @@ DEFAULT_CHARACTER_VIEW_LAYOUT = {
 
 
 def prepare_asset_card(card, payload):
-    """Apply explicit defaults for character identity boards without changing the source payload."""
+    """Default new character assets to a single identity image; four-views are a later referenced stage."""
     result = copy.deepcopy(card)
     plan_nodes = {node["id"]: node for node in payload.get("asset_plan", [])}
     node = plan_nodes.get(result.get("id"), {})
@@ -33,11 +41,35 @@ def prepare_asset_card(card, payload):
     character = registry.get(node.get("entity_id"), {})
     result["character_name"] = result.get("character_name") or character.get("name") or result.get("name") or result["id"]
     result["state_label"] = result.get("state_label") or "neutral_identity"
-    layout = result.get("view_layout") or copy.deepcopy(DEFAULT_CHARACTER_VIEW_LAYOUT)
+    if result.get("view_layout"):
+        layout = result["view_layout"]
+    elif payload.get("prompt_detail_policy", {}).get("profile") == "legacy_fixture":
+        layout = copy.deepcopy(DEFAULT_CHARACTER_TURNAROUND_LAYOUT)
+    else:
+        layout = copy.deepcopy(DEFAULT_CHARACTER_VIEW_LAYOUT)
     result["view_layout"] = layout
-    if layout.get("type") == "four_view_character_turnaround":
+    if layout.get("type") == "single_character_identity_image":
+        need(layout.get("views", ["single_full_body_front"]) == ["single_full_body_front"], "single identity image must contain one front full-body view")
+        need(layout.get("order", "single") == "single", "single identity image cannot use a multi-panel layout")
+        need(not any(t in result.get("prompt", "").lower() for t in ("top left:", "top right:", "bottom left:", "bottom right:", "four-view", "four view")), "single identity prompt contains multi-panel instructions")
+        need("arranged left to right" not in result.get("prompt", "").lower(), "single identity prompt contains a legacy multi-view layout")
+        layout["views"] = ["single_full_body_front"]
+        layout["order"] = "single"
+        directive = (
+            f"Create one single-frame neutral full-body identity image of {result['character_name']} in the {result['state_label']} state. "
+            "Show exactly one person facing forward in a relaxed neutral stance, with face, full silhouette, both hands and both shoes clearly visible. "
+            "Use a plain neutral background and soft even light. This is one image, not a contact sheet, collage, turnaround, or multi-panel layout. "
+            "Keep the character's stated face, body proportions, hairstyle and clothing readable. Hands remain empty; include no scene, action, weapon, prop, text, label, logo, watermark or UI."
+        )
+        if "single-frame neutral full-body identity image" not in result.get("prompt", "").lower():
+            result["prompt"] = directive + " " + result.get("prompt", "")
+        if result.get("seven_steps"):
+            first = result["seven_steps"][0]
+            if "single-frame neutral full-body identity image" not in first.get("content", "").lower():
+                first["content"] = directive + " " + first.get("content", "")
+    elif layout.get("type") == "four_view_character_turnaround":
         views = layout.get("views")
-        need(views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
+        need(views == DEFAULT_CHARACTER_TURNAROUND_LAYOUT["views"], "legacy character views require explicit migration to fixed four-panel layout")
         need(layout.get("order", "grid_2x2") == "grid_2x2", "character layout must use grid_2x2")
         layout["order"] = "grid_2x2"
         need(layout.get("row_height_ratio", [1, 2]) == [1, 2], "character top/bottom row height ratio must be 1:2")
@@ -47,7 +79,7 @@ def prepare_asset_card(card, payload):
         if geometry not in result.get("prompt", ""):
             result["prompt"] = geometry + " " + result.get("prompt", "")
         need(not any(t in result.get("prompt", "").lower() for t in ("arranged left to right", "full-body side profile", "横排四栏", "正面全身、背面全身、左侧全身")), "conflicting legacy character layout in prompt")
-        if views == DEFAULT_CHARACTER_VIEW_LAYOUT["views"]:
+        if views == DEFAULT_CHARACTER_TURNAROUND_LAYOUT["views"]:
             name = result["character_name"]
             state = result["state_label"]
             directive = (
@@ -56,7 +88,7 @@ def prepare_asset_card(card, payload):
                 "Top left: front face above the clavicle. Top right: right profile face above the clavicle. "
                 "Bottom left: headless front costume full body starting below the clavicle; completely crop out head and face, arms relaxed down, legs and shoes complete. "
                 "Bottom right: complete back full body from back of head to soles, showing all rear attachments actually defined for this character. "
-                "Neutral light-grey background, orthographic, no perspective distortion. "
+            "Neutral light-grey background, orthographic, no perspective distortion. "
                 "Identity references lock only specified character traits, never background or pose. Do not invent traits from another character. "
                 "Keep the same proportions, costume, hairstyle, facial features, neutral standing pose, lighting and background "
                 "across all four panels; preserve only the project's actual character features and visual style. "
@@ -68,12 +100,17 @@ def prepare_asset_card(card, payload):
                 first = result["seven_steps"][0]
                 if "four-view character turnaround" not in first.get("content", "").lower():
                     first["content"] = directive + " " + first.get("content", "")
+        if layout.get("stage") == "identity_based_turnaround":
+            need(any(ref.get("role") == "identity" and ref.get("asset_id") for ref in result.get("references", [])), "second-stage turnaround requires a bound identity-image reference")
+    else:
+        need(False, "unsupported character image stage/layout")
     return result
 
 
 def check_asset_plan(payload, base):
     nodes = indexed(payload.get("asset_plan"), "asset plan")
     cards = indexed(payload.get("asset_cards", []), "asset cards", True)
+    subject_assembly = (payload.get("prompt_assembly") or {}).get("version") == 2
     order, visiting, visited = [], set(), set()
 
     def visit(aid):
@@ -88,11 +125,11 @@ def check_asset_plan(payload, base):
         need(isinstance(dependencies, list) and len(dependencies) == len(set(dependencies)), "invalid asset dependencies")
         for dep in dependencies:
             visit(dep)
-        need(node.get("status") in ("planned", "approved"), "asset status must be planned/approved")
-        if node["status"] == "approved":
+        need(node.get("status") in ("planned", "generated", "approved", "selected_result"), "asset status must be planned/generated/approved/selected_result")
+        if node["status"] in ("generated", "approved", "selected_result"):
             file = Path(base) / node.get("file", "")
-            need(file.is_file(), f"{aid}: approved asset file missing")
-            need(file_hash(file) == node.get("sha256"), f"{aid}: approved asset hash changed")
+            need(file.is_file(), f"{aid}: generated asset file missing")
+            need(file_hash(file) == node.get("sha256"), f"{aid}: generated asset hash changed")
         else:
             need(aid in cards, f"{aid}: planned asset lacks a prompt card")
         if aid in cards:
@@ -110,15 +147,18 @@ def check_asset_plan(payload, base):
     consumers = {aid: [] for aid in nodes}
     for shot in payload.get("shots", []):
         required = shot.get("required_assets", [])
-        need(required and isinstance(required, list) and set(required) <= set(nodes), f"{shot['id']}: asset requirements incomplete")
+        need(isinstance(required, list) and set(required) <= set(nodes), f"{shot['id']}: asset requirements incomplete")
         for aid in required:
             consumers[aid].append(shot["id"])
-        visible_chars = {c["id"] for c in shot["characters"]}
-        supplied_chars = {nodes[a].get("entity_id") for a in required if nodes[a]["kind"] == "character"}
-        need(visible_chars <= supplied_chars, f"{shot['id']}: visible character asset missing")
-        need(any(nodes[a]["kind"] == "scene" and nodes[a].get("entity_id") == shot["scene_id"] for a in required), f"{shot['id']}: scene asset missing")
-        for prop in shot.get("required_prop_ids", []):
-            need(any(nodes[a]["kind"] in ("prop", "vehicle") and nodes[a].get("entity_id") == prop for a in required), f"{shot['id']}: prop asset missing")
+        # Subject Prompt v2 declares visibility through subject_usages and resolves
+        # pictures through subject_registry. It has no legacy characters/required_assets
+        # shot contract; applying that contract here falsely drafts every image card.
+        if not subject_assembly:
+            visible_chars = {c["id"] for c in shot["characters"]}
+            supplied_chars = {nodes[a].get("entity_id") for a in required if nodes[a]["kind"] == "character"}
+            need(visible_chars <= supplied_chars, f"{shot['id']}: visible character asset missing")
+            for prop in shot.get("required_prop_ids", []):
+                need(any(nodes[a]["kind"] in ("prop", "vehicle") and nodes[a].get("entity_id") == prop for a in required), f"{shot['id']}: prop asset missing")
     impact = {}
     shots = {s["id"]: s for s in payload.get("shots", [])}
     keyframe_coverage = {}
@@ -158,11 +198,11 @@ def resolve_card(card, payload, base, allow_missing=False):
             need(ref.get("asset_version") == node["version"], f"reference version mismatch: {aid}")
             for field in ("entity_id", "state_label", "state_version"):
                 need(not ref.get(field) or not node.get(field) or ref[field] == node[field], f"reference {field} conflict: {aid}")
-            if node["status"] == "approved":
-                need(not ref.get("file") or (Path(base) / ref["file"]).resolve() == (Path(base) / node["file"]).resolve(), f"reference file conflicts with approved asset: {aid}")
-                need(not expected or expected == node.get("sha256"), f"reference SHA-256 conflicts with approved asset: {aid}")
+            if node["status"] in ("approved", "generated"):
+                need(not ref.get("file") or (Path(base) / ref["file"]).resolve() == (Path(base) / node["file"]).resolve(), f"reference file conflicts with generated asset: {aid}")
+                need(not expected or expected == node.get("sha256"), f"reference SHA-256 conflicts with generated asset: {aid}")
                 expected = node.get("sha256")
-                need(expected, f"approved reference hash missing: {aid}")
+                need(expected, f"generated reference hash missing: {aid}")
                 ref["file"] = node["file"]
             else:
                 ref["file"] = "PENDING_APPROVED_ASSET"

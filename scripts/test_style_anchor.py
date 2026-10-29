@@ -24,9 +24,9 @@ class StyleAnchorAcceptance(unittest.TestCase):
         report = style_policy_report(payload, ROOT / "templates", strict=True)
         self.assertEqual(report["status"], "BLOCKED")
 
-    def test_planned_anchor_blocks_dependent_readiness(self):
+    def test_planned_anchor_is_reported_without_blocking_prompt_readiness(self):
         report = check_assets(self.template, ROOT / "templates")
-        self.assertEqual(report["status"], "DRAFT")
+        self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["style_policy"]["status"], "STYLE_ANCHOR_PENDING_APPROVAL")
 
     def test_approved_anchor_requires_matching_file_hash(self):

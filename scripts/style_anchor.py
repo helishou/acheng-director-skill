@@ -9,7 +9,7 @@ from pathlib import Path
 
 from contract_core import file_hash
 
-from audit_storyboard_quality import require, substantive
+from audit_storyboard_quality import ContractError, require, substantive
 
 
 STYLE_KINDS = {"character", "costume", "injury", "scene", "prop", "vehicle", "keyframe", "effect"}
@@ -24,7 +24,7 @@ def check_style_lock(payload, base):
     require(isinstance(lock, dict), "style_lock must be an object")
     for key in ("anchor_asset_id", "anchor_version", "status", "medium"):
         require(isinstance(lock.get(key), str) and lock[key].strip(), f"style_lock.{key} required")
-    require(lock["status"] in ("planned", "approved"), "style_lock.status must be planned/approved")
+    require(lock["status"] in ("planned", "generated", "approved"), "style_lock.status must be planned/generated/approved")
     require(isinstance(lock.get("preserve_scope"), list) and lock["preserve_scope"] and all(substantive(x) for x in lock["preserve_scope"]), "style_lock.preserve_scope required")
     require(isinstance(lock.get("exclude_scope"), list) and lock["exclude_scope"] and all(substantive(x) for x in lock["exclude_scope"]), "style_lock.exclude_scope required")
     apply_to = lock.get("apply_to_kinds")
@@ -40,7 +40,7 @@ def check_style_lock(payload, base):
     require(used_kinds.intersection(STYLE_KINDS) <= set(apply_to), "style_lock.apply_to_kinds omits an asset kind in this production")
     anchor_card = cards.get(anchor_id)
     require(anchor_card is not None and anchor_card.get("recipe") == "style", "STYLE_MOTHER requires a style recipe card")
-    if lock["status"] == "approved":
+    if lock["status"] in ("generated", "approved"):
         approved_file = lock.get("approved_file") or anchor.get("file")
         approved_sha = lock.get("approved_sha256") or anchor.get("sha256")
         require(isinstance(approved_file, str) and approved_file.strip(), "approved style_lock requires approved_file")
@@ -88,14 +88,24 @@ def style_policy_report(payload, base, strict=True):
         if strict:
             return {"status": "BLOCKED", "policy": "required", "reason": "new asset runs must declare style_policy=required and create STYLE_MOTHER before dependent assets"}
         if payload.get("style_lock") is not None:
-            lock = check_style_lock(payload, base)
+            try:
+                lock = check_style_lock(payload, base)
+            except (ContractError, ValueError, TypeError, KeyError, OSError) as error:
+                if strict:
+                    raise
+                return {"status": "BLOCKED", "policy": "required", "reason": str(error)}
             return {"status": "READY" if lock["status"] == "approved" else "STYLE_ANCHOR_PENDING_APPROVAL", "policy": "required", "style_lock": lock, "reason": "legacy payload with explicit style_lock"}
         return {"status": "LEGACY_UNCHECKED", "policy": None, "reason": "historical payload omitted the style policy"}
     require(policy in STYLE_POLICIES, "style_policy must be required, waived, or legacy_unlocked")
     if policy in ("waived", "legacy_unlocked"):
         require(substantive(payload.get("style_policy_reason")), "style_policy_reason required for an unlocked style policy")
         return {"status": "STYLE_CONSISTENCY_WAIVED", "policy": policy, "reason": payload["style_policy_reason"]}
-    lock = check_style_lock(payload, base)
+    try:
+        lock = check_style_lock(payload, base)
+    except (ContractError, ValueError, TypeError, KeyError, OSError) as error:
+        if strict:
+            raise
+        return {"status": "BLOCKED", "policy": policy, "reason": str(error)}
     if lock is None:
         if strict:
             return {"status": "BLOCKED", "policy": policy, "reason": "style_policy=required but style_lock/STYLE_MOTHER is missing"}

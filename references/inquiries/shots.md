@@ -37,7 +37,7 @@
 - 实际连续动作：区分世界位置与屏幕位置，保留可读的运动或视线连接。
 - 有意换边或省略：明确重新建立方位的事件；无依据的冲突回到 owner 修正。
 
-落点：/shots/*/camera、/shots/*/visual、/shots/*/characters。
+落点：/shots/*/camera、/shots/*/visual、/shots/*/subject_usages。
 完成即停：切点目标与方位可追踪，坐标只标为布局设计。
 不采用的原文硬规则：不把180度规则当绝对禁令，不伪称规划坐标来自实测。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第119–125行；原文只作出处。
@@ -94,7 +94,7 @@
 - 第三人的反应必要：给出可见位置和观看顺序，不让他只是凑三角。
 - 反应无关：保留空间存在但降低细节，让当前关系可读。
 
-落点：/shots/*/visual、/shots/*/characters、/shots/*/camera。
+落点：/shots/*/visual、/shots/*/subject_usages、/shots/*/camera。
 完成即停：行动发起者、对象和重要观察者在画面中各有明确作用。
 不采用的原文硬规则：三角顶点不自动等于权力中心，群戏不必总排成三角形。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第147–152行；原文只作出处。
@@ -113,7 +113,7 @@
 - 对象变化已有提示：围绕当前关系记录视线与机位侧。
 - 提示缺失：向表演 owner 提出具体转向需求，或用已有宽景重建，不篡改台词。
 
-落点：/shots/*/camera、/shots/*/characters、/shots/*/visual。
+落点：/shots/*/camera、/shots/*/subject_usages、/shots/*/visual。
 完成即停：每个注视/发言对象可辨，轴线随实际关系解释。
 不采用的原文硬规则：不强制固定视线角度，不让一条全场轴线覆盖所有群戏关系。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第154–159行；原文只作出处。
@@ -132,7 +132,7 @@
 - 已有空隙：明确观看对象与保持范围。
 - 容量不足：在合法动作节点请求拆分，不为呼吸感机械加空镜。
 
-落点：/shots/*/visual、/shots/*/start_frame、/shots/*/end_frame。
+落点：/shots/*/visual、/shots/*/duration_frames。
 完成即停：必要信息有可读时段且时间线闭合。
 不采用的原文硬规则：不强制每10秒插入1–2秒沉思。
 来源：[用户提问原文](../sources/user-director-libraries/15-master-director-inquiries.md)，第329–330行；原文只作出处。

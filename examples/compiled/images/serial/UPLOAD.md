@@ -2,7 +2,7 @@
 
 默认展示请打开 ASSET_NAMES.txt；它只包含资产名称和可选状态/版本。完整提示词、参考图上传顺序和缺图处理仍记录在本清单与 index.json。
 
-## Meilin · neutral_identity · 四视图角色身份基准 · v1.0
+## Meilin · neutral_identity · 四视图角色基准 · v1.0
 
 完整提示词文件：[ART_MEI.image.txt](ART_MEI.image.txt)
 
@@ -10,7 +10,7 @@
 
 参考图：不需要，可纯文字生成。
 
-## Bo · neutral_identity · 四视图角色身份基准 · v1.0
+## Bo · neutral_identity · 四视图角色基准 · v1.0
 
 完整提示词文件：[ART_BO.image.txt](ART_BO.image.txt)
 
