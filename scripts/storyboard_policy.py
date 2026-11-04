@@ -38,7 +38,7 @@ def diagnostics(source, shot_ids=None):
             issue("STORYBOARD_EDITORIAL_REASON_REQUIRED", path + ".camera.editorial_reason", "Explain why this shot cuts in or holds and what information/reaction it carries", sid)
         spoken = [d for d in rows(shot.get("dialogues")) if isinstance(d, dict) and not d.get("voiceover")]
         if spoken and camera.get("framing") in ("EWS", "WS", "FS", "MS") and len(rows(shot.get("characters"))) > 1:
-            issue("DIALOGUE_WIDE_COVERAGE", path + ".camera.framing", "Review whether shared framing makes the speaking/listening reactions readable", sid, "warning")
+            issue("DIALOGUE_WIDE_COVERAGE", path + ".camera.framing", "Shared framing over dialogue: state in editorial_reason what this composition preserves (space, blocking, power, or simultaneous reactions), otherwise change the angle or cut the shot", sid, "warning")
         if len({d.get("character_id") or d.get("speaker_id") for d in spoken}) > 1:
             issue("DIALOGUE_ATTENTION_REVIEW", path + ".camera.attention_subject_ids", "Multiple speakers share one shot; review attention changes and the reason for holding", sid, "warning")
         visual = str(shot.get("visual", ""))
