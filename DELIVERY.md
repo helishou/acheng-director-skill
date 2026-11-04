@@ -7,6 +7,7 @@
 - [4.3.9 技能主入口](SKILL.md)：唯一活动合同；Director 源稿根字段 `version: 2` 是唯一格式版本标记。
 - [4.3.9 使用指南](使用指南.md)：当前格式、模块路由和实际媒体交付说明。
 - [视觉与材质资料手册](references/116-visual-reference-library.md)：按物件/媒介查库并写入资产、关键帧和H3的实际正文。
+- [场景丰富度五层法](references/117-scene-density-five-layer-v4.md)：前景框景/承托环境/大面细节/远景地标/光影空气五层密度、空洞面片规则、视频环境动态与场景资产／镜头专属拆分。
 - [专业决策入口](references/115-directed-decisions.md)：七模块、32个具体决策场景；只运行当前命中的小节。
 - [独立提示词交付规则](references/72-standalone-prompt-delivery.md)：GPT Image适配、逐段完整上下文和代号消解。
 - [STYLE MOTHER 风格锚定合同](references/62-style-anchor.md)：多资产默认必须使用的母版、用户明确豁免、依赖和验收边界。

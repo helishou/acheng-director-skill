@@ -64,4 +64,5 @@
 
 - 外部专业 skill：`scene-concept-art-director/SKILL.md` 与其 `references/scene-contract-v1.md`、`model-adapters.md`、`multi-view-continuity.md`、`acheng-handoff.md`。
 - Acheng 资产合同：`references/61-asset-dependency-production.md`、`references/72-standalone-prompt-delivery.md`、`references/62-style-anchor.md`。
+- 环境密度标准：`references/117-scene-density-five-layer-v4.md`（五层环境设计法、密度验收、场景资产／镜头专属拆分、视频环境动态）。场景正文的写法与验收以它为准；本文件只管权属、回包与交付门。
 - 协作合同：`references/91-module-orchestration.md`、`data/module-registry.json`、`data/red-monkey-integrations.json`。

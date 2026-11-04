@@ -15,6 +15,8 @@ This nested specialist belongs to the assets branch. Load it only when the reque
 
 Read `references/105-scene-design-adapter-v4.md` first, then load the external `scene-concept-art-director` skill and only the route-specific references it names. In the bundled package its preserved specialist entry is under `modules/assets/scene-design/external/SKILL.md`; an installed external copy may be used when that path is absent. If the external skill or its `scene-art-v1` contract is unavailable, return `EXECUTION_BLOCKED` with the missing path; do not silently fall back to an unstructured prompt.
 
+Scene prose itself is written and graded against [the five-layer environment density standard](../../../references/117-scene-density-five-layer-v4.md): foreground framing, subject-bearing environment, large-surface detail, far landmark and depth bands, light and air. Freeze layout, landmarks, vegetation family and base materials into the scene asset; keep camera, shot size, concrete framing elements, light direction and motion assignment shot-specific. A scene called empty, flat or pasted-on is rewritten by layer, not padded with adjectives or more objects in the same plane.
+
 The adapter accepts brief/moodboard/scene facts and returns a hashed `scene_art_direction.json`, standalone image prompt artifacts, upload mapping, and evidence. `write_paths` stays empty. The assets owner validates references, versions and geometry, then may merge approved facts into asset cards and `scene_registry`. Shots, effects, model and continuity retain their own owners.
 
 The adapter does not call paid media models, edit `production.json`, create a second STYLE_MOTHER, or write H3 fields. It keeps `visual_status=UNVERIFIED` until a real image is manually reviewed.

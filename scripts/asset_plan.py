@@ -168,7 +168,7 @@ def check_asset_plan(payload, base):
         targets = node.get("shot_ids") or consumers[aid] or ([node["entity_id"]] if node.get("entity_id") in shots else [])
         need(isinstance(targets, list) and targets and set(targets) <= set(shots), f"{aid}: keyframe target shots missing or unknown")
         need(set(consumers[aid]) <= set(targets), f"{aid}: keyframe target scope omits a consuming shot")
-        required = {a for sid in targets for a in shots[sid]["required_assets"] if nodes[a]["kind"] not in {"keyframe", "style"}}
+        required = {a for sid in targets for a in shots[sid].get("required_assets", []) if nodes[a]["kind"] not in {"keyframe", "style"}}
         need(required <= set(node.get("depends_on", [])), f"{aid}: keyframe missing target-shot references: {sorted(required - set(node.get('depends_on', [])))}")
         keyframe_coverage[aid] = {"shot_ids": targets, "required_asset_ids": sorted(required)}
     for aid in nodes:
