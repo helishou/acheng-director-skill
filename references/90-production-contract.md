@@ -1,5 +1,9 @@
 # 90｜统一生产数据与 A/B/C 总线
 
+
+> **字段定义以机器源为准**：`schema/production.schema.json` → 生成 `references/90-fields.generated.md`
+> （Python 元数据 `scripts/production_schema.py`、前端类型与表单 `web/src/pages/drama/production-schema.generated.ts`）。
+> 本文档只解释“为什么”，不再逐字段抄写；改字段请改 schema 后运行 `node scripts/gen-production-schema.mjs`。
 ## 版本与基本类型
 
 当前唯一画布生产格式使用 UTF-8 JSON 或 YAML，必须同时声明根 `version: 2`、`prompt_assembly.version: 2` 与 `ledger.contract_version: 2`。Shot 使用整数 `duration_frames`、`timeline_id`、`story_order` 和局部帧，不保存全局 `start_frame/end_frame`。角色、场景、道具引用走 `subject_registry`、`subject_usages`；关键帧走 `shots[].keyframes`；对白通过 `utterances` 与 `utterance_refs` 绑定；Clip 图片由 Subject/关键帧编译派生，归档声音由 `audio_bindings` 显式绑定。旧格式、未知标记、全局帧 Shot 与 `segments[].references` 均不再解析或回写，需由当前 Acheng Director 显式升级。秒数可用整数、十进制或有理数字符串，所有时间运算由 Fraction 完成；帧号为整数，不接受 bool、NaN 或重复 JSON/YAML key。区间左闭右开。路径相对 production 文件目录，不相对当前 shell 工作目录。

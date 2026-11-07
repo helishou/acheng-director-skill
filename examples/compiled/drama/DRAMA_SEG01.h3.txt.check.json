@@ -13,7 +13,7 @@
   ],
   "minimum_words": 0,
   "profile": "legacy_fixture",
-  "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
-  "binding_sha256": "bcb31862ae9d5cf759a3e71b2babf1c00ce86dcb5d5b115f3cb12d90cf421b96",
-  "expected_prompt_sha256": "1bfa4004ddb68e328ef81b2f155dcbccd823ef9bee2bbaef78e0aa1fa054731d"
+  "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
+  "binding_sha256": "8697dd07b3b15e16e729719cce9fb59b2f4d56263875916d2ef79ebb0fbb91d1",
+  "expected_prompt_sha256": "c75ab444d032291f3ae531bf08f276196c8ebc5a22bfe1bfd38937836ff39ca1"
 }

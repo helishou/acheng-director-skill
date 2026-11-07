@@ -12,6 +12,6 @@
 
 | 槽位 | 实际图片/缺项 | 用途/对象 | 版本 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|
-| 1 | [6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png](<references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png>) | composition / the confrontation between Forge and Ward | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png](<references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png>) | composition / the confrontation between Forge and Ward | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 下一步：核对模式和本卡槽位，在实际入口上传图片并复制完整提示词；生成后记录真实文件、版本和人工批准。

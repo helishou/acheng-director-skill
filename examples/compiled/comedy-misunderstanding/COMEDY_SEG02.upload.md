@@ -4,7 +4,7 @@
 
 [完整正文/草案](COMEDY_SEG02.h3.txt) · [独立上传卡](COMEDY_SEG02.upload.md)
 
-绑定版本：`2341d1ce927d4821ac88439d32ab0a49284b20bca9d7a17804b1b8615d5851cc` · 正文 SHA-256：`0adb6d40199b418987f6cf6c9baf4b61363073ef2c36745591a7665317a74e29`
+绑定版本：`2341d1ce927d4821ac88439d32ab0a49284b20bca9d7a17804b1b8615d5851cc` · 正文 SHA-256：`1b061c1ad450adc3ebca30566838c008dd5d0adf23f9a0badc458a822fa6dd51`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

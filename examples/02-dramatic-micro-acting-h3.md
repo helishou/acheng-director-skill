@@ -2,8 +2,6 @@
 
 状态：完整生产卡及提示词已编译；图像仅有随包灰模构图示意，未调用影视生成模型。
 
-> 历史格式示例，仅供叙事与提示词参考，不可复制其 Shot 时间字段；新稿遵循 [90 生产合同](../references/90-production-contract.md) 的局部帧 v2 格式。
-
 - 总时长：20 秒；最大生成窗：10 秒；24 fps。
 - 数据真值源：[02-drama.production.json](02-drama.production.json)。
 - 声音：现场音；非叙事配乐 N/A。
@@ -64,7 +62,7 @@ C：前次事故仅由明确台词提出，本段不擅自补回忆。
 
 ### FILM-S01-SH001｜0.000–10.000 秒
 
-Lu Chuan, an adult operator with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk. Cen He, an adult technician with tied dark hair and an olive coat, holds her empty palm near the brass key in his hand. The single east window lights their cheek planes and the key; the dark wall behind them stays quiet. His previously bandaged right wrist rests on the desk, so his left hand carries the key.
+Lu Chuan, an adult men with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk with his bandaged right wrist supported on a folded cloth and the brass key held in his left hand at the edge of the desk. Cen He, an adult technician with tied dark hair and a pale workshop coat, sits on the right with both forearms on the desk and her receiving palm open between them, empty, a hand's width from the key. The east window throws soft gray daylight across the desk from behind Cen's shoulder, so Lu's face carries the shadow side and Cen's hands stay lit; the brass key picks up one small highlight along its ring. The wooden desk, the window, the west doorway and the brass hook on the rear wall hold fixed positions, and the room's only sound is ventilation under distant rain. The camera advances twenty centimeters in a medium close two-shot, keeping Lu's eyes, both shoulder lines and his left hand visible without a cut, and it never crosses the desk edge. Framing holds Lu on the left and Cen on the right with the open palm between them. Nothing passes in front of the lens. Lu's first change is a movement of attention, not of body: his gaze leaves the key, travels to Cen's open palm, rests there long enough to register that the palm is not reaching, and then rises to her eyes. He interrupts one inhale halfway, swallows once, and releases a longer breath than the one he took. His left shoulder settles downward by a small visible amount, and the fingers of his left hand loosen on the key ring without letting go. His jaw stays tense until the breath finishes and only then eases, which is the first moment his face stops bracing against the room. Cen does not answer the movement with a movement of her own. She keeps her eyes on his rather than on the key, her shoulders stay level, and her open palm remains exactly where it was, close enough to receive and far enough to leave him room to decline. Her breath stays quiet, with one small inhale before she speaks. Nothing in her posture asks him to hurry. When Lu speaks, he speaks slowly in a low, slightly rough voice, with the admission landing before the offer: he says the previous refusal was his own, and then tells her to take it now. His left thumb slides off the key ring as the last clause ends, so the hand movement finishes after the words instead of anticipating them. Fabric shifts softly at his elbow, the brass key rings once against the desk, and the ventilation continues underneath. At the end of the shot the key is still in Lu's left hand but no longer gripped, his thumb is off the ring, the bandaged right wrist stays on the cloth, and Cen's palm is still open with nothing in it.
 
 ```json
 {
@@ -72,7 +70,7 @@ Lu Chuan, an adult operator with a short scar over the right eyebrow and a gray 
   "scene_id": "S01",
   "start_frame": 0,
   "end_frame": 240,
-  "visual": "Lu Chuan, an adult operator with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk. Cen He, an adult technician with tied dark hair and an olive coat, holds her empty palm near the brass key in his hand. The single east window lights their cheek planes and the key; the dark wall behind them stays quiet. His previously bandaged right wrist rests on the desk, so his left hand carries the key.",
+  "visual": "Lu Chuan, an adult men with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk with his bandaged right wrist supported on a folded cloth and the brass key held in his left hand at the edge of the desk. Cen He, an adult technician with tied dark hair and a pale workshop coat, sits on the right with both forearms on the desk and her receiving palm open between them, empty, a hand's width from the key. The east window throws soft gray daylight across the desk from behind Cen's shoulder, so Lu's face carries the shadow side and Cen's hands stay lit; the brass key picks up one small highlight along its ring. The wooden desk, the window, the west doorway and the brass hook on the rear wall hold fixed positions, and the room's only sound is ventilation under distant rain. The camera advances twenty centimeters in a medium close two-shot, keeping Lu's eyes, both shoulder lines and his left hand visible without a cut, and it never crosses the desk edge. Framing holds Lu on the left and Cen on the right with the open palm between them. Nothing passes in front of the lens. Lu's first change is a movement of attention, not of body: his gaze leaves the key, travels to Cen's open palm, rests there long enough to register that the palm is not reaching, and then rises to her eyes. He interrupts one inhale halfway, swallows once, and releases a longer breath than the one he took. His left shoulder settles downward by a small visible amount, and the fingers of his left hand loosen on the key ring without letting go. His jaw stays tense until the breath finishes and only then eases, which is the first moment his face stops bracing against the room. Cen does not answer the movement with a movement of her own. She keeps her eyes on his rather than on the key, her shoulders stay level, and her open palm remains exactly where it was, close enough to receive and far enough to leave him room to decline. Her breath stays quiet, with one small inhale before she speaks. Nothing in her posture asks him to hurry. When Lu speaks, he speaks slowly in a low, slightly rough voice, with the admission landing before the offer: he says the previous refusal was his own, and then tells her to take it now. His left thumb slides off the key ring as the last clause ends, so the hand movement finishes after the words instead of anticipating them. Fabric shifts softly at his elbow, the brass key rings once against the desk, and the ventilation continues underneath. At the end of the shot the key is still in Lu's left hand but no longer gripped, his thumb is off the ring, the bandaged right wrist stays on the cloth, and Cen's palm is still open with nothing in it.",
   "camera": {
     "previs_id": "103",
     "lens_mm": 65,
@@ -170,121 +168,13 @@ Lu Chuan, an adult operator with a short scar over the right eyebrow and a gray 
       "BRASS_KEY": "CHAR_LU"
     }
   },
-  "performance": {
-    "beat_id": "EX-S01-B01",
-    "dominant_track": "gaze",
-    "tracks": {
-      "gaze": {
-        "start": 0,
-        "end": 66,
-        "cue": "Lu's gaze moves from the key to Cen's open hand and then settles on her eyes.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "breath": {
-        "start": 36,
-        "end": 100,
-        "cue": "He interrupts one inhale, swallows once, and releases a longer breath.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "shoulder": {
-        "start": 72,
-        "end": 132,
-        "cue": "His left shoulder slowly drops while the injured right wrist stays supported.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "body_hands": {
-        "start": 108,
-        "end": 220,
-        "cue": "His left thumb releases pressure on the key ring without yet handing it over.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "dialogue": {
-        "start": 144,
-        "end": 236,
-        "cue": "His lips stay closed until the agreed line, then close again after the final word.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      }
-    },
-    "acting_design": {
-      "version": "1.0",
-      "mode": "restrained",
-      "character_id": "CHAR_LU",
-      "objective": "decide whether to transfer responsibility without losing dignity",
-      "tactic": "admit the previous refusal, then offer the key as a concrete concession",
-      "subtext": "he wants cooperation but tests whether Cen will accept it without taking control by force",
-      "trigger": "Cen leaves an empty palm between them instead of reaching for the key",
-      "personality_signature": "he lets a practical hand movement speak before he allows his voice to soften",
-      "action_units": [
-        {
-          "start": 0,
-          "end": 66,
-          "cause": "the empty palm stays available without pressure",
-          "action": "moves his gaze from the key to Cen's palm and then to her eyes",
-          "gaze": "key, palm, then her eyes",
-          "face": "alert at first, then less guarded",
-          "follow_through": "keeps the key in the left hand while the injured right wrist remains supported",
-          "speech_anchor": "silent",
-          "delivery": "hold the first breath for one beat",
-          "prop": "the brass key remains in the left hand",
-          "camera": "keep the eyes, shoulder line and key in one readable plane",
-          "sound": "a small fabric shift follows the gaze change"
-        },
-        {
-          "start": 108,
-          "end": 220,
-          "cause": "the admission reaches its final clause",
-          "action": "loosens the left thumb on the key ring and lets the shoulder drop before speaking",
-          "gaze": "steady on Cen's eyes",
-          "face": "mouth controlled, jaw no longer clenched",
-          "follow_through": "the key stays offered rather than snatched back after the line",
-          "speech_anchor": "现在你来",
-          "delivery": "low rough voice, slow pace, a short pause before the final clause",
-          "prop": "the right wrist remains supported on the desk",
-          "camera": "advance twenty centimeters without cutting away from the hand",
-          "sound": "the ring gives one small metal click"
-        }
-      ],
-      "motion_arc": {
-        "anticipation": "the gaze and thumb prepare the transfer before the voice changes",
-        "accent": "the shoulder drops on the offer of responsibility",
-        "follow_through": "the key remains visible after the line instead of returning to the fist",
-        "settle": "the left hand rests open enough for Cen to receive the key"
-      },
-      "speech_delivery": {
-        "voice_timbre": "a low, slightly rough adult male voice",
-        "pace": "slow and deliberate",
-        "pitch": "slightly lower on the admission",
-        "volume": "quiet indoor conversational volume",
-        "pauses": [
-          {
-            "after_text": "没听。",
-            "duration_ms": 220
-          }
-        ],
-        "emphasis": [
-          {
-            "text": "你来",
-            "delivery": "give the pronoun and verb a restrained release"
-          }
-        ]
-      },
-      "cut_behavior": [],
-      "continuity_in": "the key remains in Lu's left hand and the bandaged right wrist stays supported",
-      "continuity_out": "the key is still offered and the left thumb has released pressure",
-      "exclusions": [
-        "added dialogue",
-        "a forceful grab with the injured right wrist",
-        "a smile that turns the admission into a joke"
-      ]
-    }
-  },
   "state_description": "Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty."
 }
 ```
 
 ### FILM-S01-SH002｜10.000–20.000 秒
 
-A medium-close view favors Cen on the right of the wooden desk, with Lu on the left. Cen leaves her open palm between them, with enough distance for Lu to decline. East-window light produces a narrow highlight on the key and a broad shadow across her olive coat.
+A medium-close view favors Cen on the right of the wooden desk, with Lu on the left, his hand at the desk edge and the key now resting across his open fingers. Cen leaves her open palm between them with enough distance for Lu to decline, and her eyes stay on his face. East-window light still lands on her hands and the near half of the desk, the west doorway stays unlit, and the brass hook on the rear wall keeps its position, so the room has not changed around them. The camera drifts ten centimeters toward Cen while retaining Lu's hand at the lower edge of frame; the desk and the window preserve the same spatial axis, and the move stops before the framing loses his fingers. Lu's hand moves first. He turns the key once between thumb and forefinger so the ring faces Cen, then pushes it across the wood with the flat of his fingers rather than dropping it, and withdraws his hand only after the key has left his skin. His shoulders stay dropped and his jaw stays loose through the transfer, and he keeps his eyes on the key until it reaches the center of her palm and then lifts them to her face. Cen holds eye contact without widening her eyes or looking down at the key, keeps her fingers open until the metal actually touches her palm, and closes them only after contact, one finger at a time, so the receiving hand does the emotional work instead of her face. Her shoulders relax once the key is closed, her neck stays straight, and her breath is quiet until she answers. She speaks softly with clear consonants, offering to open the door together rather than thanking him, which keeps the exchange practical. The brass key rings once as it settles in her palm and again, softer, when her fingers close; fabric shifts at both elbows; the ventilation and the distant rain continue without a break. At the end of the shot the key rests in Cen's closed hand, both mouths are closed after the line, Lu's left hand is empty and flat on the desk, and the room holds the same axis, light and furniture positions it started with.
 
 ```json
 {
@@ -292,7 +182,7 @@ A medium-close view favors Cen on the right of the wooden desk, with Lu on the l
   "scene_id": "S01",
   "start_frame": 240,
   "end_frame": 480,
-  "visual": "A medium-close view favors Cen on the right of the wooden desk, with Lu on the left. Cen leaves her open palm between them, with enough distance for Lu to decline. East-window light produces a narrow highlight on the key and a broad shadow across her olive coat.",
+  "visual": "A medium-close view favors Cen on the right of the wooden desk, with Lu on the left, his hand at the desk edge and the key now resting across his open fingers. Cen leaves her open palm between them with enough distance for Lu to decline, and her eyes stay on his face. East-window light still lands on her hands and the near half of the desk, the west doorway stays unlit, and the brass hook on the rear wall keeps its position, so the room has not changed around them. The camera drifts ten centimeters toward Cen while retaining Lu's hand at the lower edge of frame; the desk and the window preserve the same spatial axis, and the move stops before the framing loses his fingers. Lu's hand moves first. He turns the key once between thumb and forefinger so the ring faces Cen, then pushes it across the wood with the flat of his fingers rather than dropping it, and withdraws his hand only after the key has left his skin. His shoulders stay dropped and his jaw stays loose through the transfer, and he keeps his eyes on the key until it reaches the center of her palm and then lifts them to her face. Cen holds eye contact without widening her eyes or looking down at the key, keeps her fingers open until the metal actually touches her palm, and closes them only after contact, one finger at a time, so the receiving hand does the emotional work instead of her face. Her shoulders relax once the key is closed, her neck stays straight, and her breath is quiet until she answers. She speaks softly with clear consonants, offering to open the door together rather than thanking him, which keeps the exchange practical. The brass key rings once as it settles in her palm and again, softer, when her fingers close; fabric shifts at both elbows; the ventilation and the distant rain continue without a break. At the end of the shot the key rests in Cen's closed hand, both mouths are closed after the line, Lu's left hand is empty and flat on the desk, and the room holds the same axis, light and furniture positions it started with.",
   "camera": {
     "previs_id": "106",
     "lens_mm": 85,
@@ -392,114 +282,6 @@ A medium-close view favors Cen on the right of the wooden desk, with Lu on the l
       "BRASS_KEY": "CHAR_CEN"
     }
   },
-  "performance": {
-    "beat_id": "EX-S01-B02",
-    "dominant_track": "body_hands",
-    "tracks": {
-      "gaze": {
-        "start": 0,
-        "end": 66,
-        "cue": "Cen holds eye contact without widening her eyes or looking at the key.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "breath": {
-        "start": 36,
-        "end": 100,
-        "cue": "Her breath remains quiet, with a small inhale before replying.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "shoulder": {
-        "start": 72,
-        "end": 132,
-        "cue": "Her shoulders relax while her neck remains upright and still.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "body_hands": {
-        "start": 108,
-        "end": 220,
-        "cue": "She keeps the palm open; Lu places the key into it, and she closes her fingers only after contact.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      },
-      "dialogue": {
-        "start": 144,
-        "end": 236,
-        "cue": "Her voice stays low and clear; both mouths remain closed after her short answer.",
-        "visibility": "medium-close framing includes the face, shoulder line and hands"
-      }
-    },
-    "acting_design": {
-      "version": "1.0",
-      "mode": "observational",
-      "character_id": "CHAR_CEN",
-      "objective": "accept the offered responsibility while protecting the shared task",
-      "tactic": "keep the palm open until contact, then close it only after the key arrives",
-      "subtext": "she accepts the apology without rewarding it with a dramatic reaction",
-      "trigger": "Lu's thumb releases the key ring",
-      "personality_signature": "she holds eye contact, lets the receiving hand do the emotional work, and answers with a practical invitation",
-      "action_units": [
-        {
-          "start": 0,
-          "end": 72,
-          "cause": "the key is offered but has not touched her hand",
-          "action": "keeps the receiving palm open and her shoulders level",
-          "gaze": "on Lu's eyes rather than the key",
-          "face": "steady eyes with a small release around the mouth",
-          "follow_through": "does not close the fingers before contact",
-          "speech_anchor": "silent",
-          "delivery": "take one quiet inhale before replying",
-          "prop": "the open palm stays between the two people",
-          "camera": "retain Lu's hand at the lower edge of frame",
-          "sound": "cloth settles at the elbow"
-        },
-        {
-          "start": 72,
-          "end": 224,
-          "cause": "the brass key reaches the center of the open palm",
-          "action": "allows the fingers to close around the key and turns the answer toward cooperation",
-          "gaze": "briefly checks the key, then returns to Lu's eyes",
-          "face": "calm acceptance without a triumphant smile",
-          "follow_through": "keeps the closed hand between them instead of hiding it",
-          "speech_anchor": "一起",
-          "delivery": "soft clear consonants at an even pace",
-          "prop": "the key changes hands only after visible contact",
-          "camera": "drift ten centimeters toward her while preserving the desk axis",
-          "sound": "one small key ring after the fingers close"
-        }
-      ],
-      "motion_arc": {
-        "anticipation": "the empty palm establishes a boundary without reaching",
-        "accent": "the fingers close on physical contact with the key",
-        "follow_through": "the closed hand stays visible as proof of shared action",
-        "settle": "the shoulders relax while the neck remains upright"
-      },
-      "speech_delivery": {
-        "voice_timbre": "a clear adult female voice with an even center",
-        "pace": "soft and measured",
-        "pitch": "level, with a slight lift on the invitation",
-        "volume": "quiet indoor conversational volume",
-        "pauses": [
-          {
-            "after_text": "就",
-            "duration_ms": 120
-          }
-        ],
-        "emphasis": [
-          {
-            "text": "一起",
-            "delivery": "make the shared-action word warm but practical"
-          }
-        ]
-      },
-      "cut_behavior": [],
-      "continuity_in": "the empty palm remains open and the brass key is still held by Lu",
-      "continuity_out": "the key rests in Cen's hand and both mouths close after the line",
-      "exclusions": [
-        "a second phone voice",
-        "closing the hand before contact",
-        "a triumphant pose that breaks the quiet negotiation"
-      ]
-    }
-  },
   "state_description": "Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty."
 }
 ```
@@ -521,7 +303,7 @@ Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions
 integrated_multimodal_description:
 Motion language: live_action at 24 fps, exposed on ones. Timing principle: let a small preparatory change precede the decisive hand action and hold the resulting state. Camera principle: keep the eye-line, receiving hand and prop contact readable before drifting closer. Staging principle: preserve the desk axis, left-right positions and the injured wrist limitation. Sound principle: keep room tone continuous and make each key contact a local foley event. Cut language: continuous.
 This is a self-contained production instruction and must be readable without the production file, an earlier segment, or a hidden character bible. For every shot, explicitly state: the medium and visible subject appearance, screen position and facing; the current environment, landmarks and light direction; the exact starting pose, prop ownership, contact points and state; the factual trigger for each change; the chronological action, reaction and physical consequence; the camera framing, lens, movement type, direction, path, amplitude, speed and target; the source and timing of dialogue, foley, room tone and breath; the exact held state at the end and what can continue into the next shot. Render objective, social strategy and subtext as observable gaze, breath, posture, hand, facial and voice behavior. Keep cause and effect physically, spatially, temporally and socially coherent. Do not replace a visible action with a vague adjective, skip the transition between beats, collapse preparation, accent, follow-through or settle into one verb, or invent dialogue, objects, voices, cuts or state changes that are not written below.
-[Shot 1] Live-action cinematic staging uses restrained facial movement and natural cloth response. Write this shot as a complete independent instruction: restate who is visible and where they are, the environment and light, the start state, the trigger, the ordered action and reaction, the camera path and speed, synchronized sound, and the resulting held state. Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions, naturally broad shoulders, a square jaw, short dark hair and a short scar above his right eyebrow. He wears a gray woven work jacket over a gray shirt and a functional waist belt. Cen He is a 32-year-old woman, 1.70 meters tall, with a lean adult build, oval face, dark almond-shaped eyes and dark hair tied low behind her head. She wears an olive canvas coat over a cream work shirt and dark straight trousers. The maintenance room contains one wooden desk, an east-facing window, a west doorway and a brass-key hook on the rear dark wall. Soft east-window light crosses the desk and falls off toward the west wall. At the start of this shot: Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty. The acting design's continuity-out is visible before the shot ends: the key is still offered and the left thumb has released pressure Lu Chuan, an adult operator with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk. Cen He, an adult technician with tied dark hair and an olive coat, holds her empty palm near the brass key in his hand. The single east window lights their cheek planes and the key; the dark wall behind them stays quiet. His previously bandaged right wrist rests on the desk, so his left hand carries the key. The camera advances twenty centimeters in a medium close two-shot, keeping Lu's eyes, both shoulder lines and his left hand visible without a cut. The camera uses a 65 mm lens under the full-frame equivalent convention, with a 180-degree shutter-angle convention; movement: slow controlled push; path: twenty-centimeter slow push toward the shared desk plane; target: the visible action and contact plane. At shot entry, Lu Chuan has normalized screen anchor x=0.35, y=0.55 (left-to-right and top-to-bottom); facing toward screen right; gaze toward Cen He; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. At shot entry, Cen He has normalized screen anchor x=0.7, y=0.55 (left-to-right and top-to-bottom); facing toward screen left; gaze toward Lu Chuan; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. During 0.000–2.750 seconds within this shot: Lu's gaze moves from the key to Cen's open hand and then settles on her eyes. Visibility: medium-close framing includes the face, shoulder line and hands During 1.500–4.167 seconds within this shot: He interrupts one inhale, swallows once, and releases a longer breath. Visibility: medium-close framing includes the face, shoulder line and hands During 3.000–5.500 seconds within this shot: His left shoulder slowly drops while the injured right wrist stays supported. Visibility: medium-close framing includes the face, shoulder line and hands During 4.500–9.167 seconds within this shot: His left thumb releases pressure on the key ring without yet handing it over. Visibility: medium-close framing includes the face, shoulder line and hands During 6.000–9.833 seconds within this shot: His lips stay closed until the agreed line, then close again after the final word. Visibility: medium-close framing includes the face, shoulder line and hands The performance uses restrained acting. Immediate objective: decide whether to transfer responsibility without losing dignity. Tactic: admit the previous refusal, then offer the key as a concrete concession. Social subtext: he wants cooperation but tests whether Cen will accept it without taking control by force. Trigger: Cen leaves an empty palm between them instead of reaching for the key. Visible personality signature: he lets a practical hand movement speak before he allows his voice to soften. During 0.000–2.750 seconds within this shot, because the empty palm stays available without pressure, the character moves his gaze from the key to Cen's palm and then to her eyes. Gaze: key, palm, then her eyes. Face: alert at first, then less guarded. Follow-through: keeps the key in the left hand while the injured right wrist remains supported. Delivery: hold the first breath for one beat. Prop continuity: the brass key remains in the left hand. Camera: keep the eyes, shoulder line and key in one readable plane. Coupled sound: a small fabric shift follows the gaze change. During 4.500–9.167 seconds within this shot, because the admission reaches its final clause, the character loosens the left thumb on the key ring and lets the shoulder drop before speaking. Gaze: steady on Cen's eyes. Face: mouth controlled, jaw no longer clenched. Follow-through: the key stays offered rather than snatched back after the line. Delivery: low rough voice, slow pace, a short pause before the final clause. The movement punctuates the source phrase at characters 8 through 11 of spoken line 1 in this shot (a performance cue, not an additional utterance). Prop continuity: the right wrist remains supported on the desk. Camera: advance twenty centimeters without cutting away from the hand. Coupled sound: the ring gives one small metal click. The motion phrase has this arc: anticipation—the gaze and thumb prepare the transfer before the voice changes; accent—the shoulder drops on the offer of responsibility; follow-through—the key remains visible after the line instead of returning to the fist; settle—the left hand rests open enough for Cen to receive the key. Voice delivery uses a low, slightly rough adult male voice, slow and deliberate, slightly lower on the admission and quiet indoor conversational volume. Pause after the source phrase at characters 5 through 7 of spoken line 1 in this shot (a performance cue, not an additional utterance) for 220 milliseconds. Emphasize the source phrase at characters 10 through 11 of spoken line 1 in this shot (a performance cue, not an additional utterance) with give the pronoun and verb a restrained release. Continuity in: the key remains in Lu's left hand and the bandaged right wrist stays supported. Continuity out: the key is still offered and the left thumb has released pressure. Avoid added dialogue. Avoid a forceful grab with the injured right wrist. Avoid a smile that turns the admission into a joke. Fabric shifts softly at the elbow and the brass key makes one small ring. During 6.000–9.250 seconds within this shot, Lu Chuan (S1), speaking slowly in a low, slightly rough voice, says: <d>[Chinese] 上次是我没听。现在你来。</d> Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap. At the end of this shot, carry forward these recorded constraints: Lu Chuan remains in the stabilized or treated injury state; preserve the described functional limitations; the brass key remains with Lu Chuan.
+[Shot 1] Live-action cinematic staging uses restrained facial movement and natural cloth response. Write this shot as a complete independent instruction: restate who is visible and where they are, the environment and light, the start state, the trigger, the ordered action and reaction, the camera path and speed, synchronized sound, and the resulting held state. Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions, naturally broad shoulders, a square jaw, short dark hair and a short scar above his right eyebrow. He wears a gray woven work jacket over a gray shirt and a functional waist belt. Cen He is a 32-year-old woman, 1.70 meters tall, with a lean adult build, oval face, dark almond-shaped eyes and dark hair tied low behind her head. She wears an olive canvas coat over a cream work shirt and dark straight trousers. The maintenance room contains one wooden desk, an east-facing window, a west doorway and a brass-key hook on the rear dark wall. Soft east-window light crosses the desk and falls off toward the west wall. At the start of this shot: Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty. Lu Chuan, an adult men with a short scar over the right eyebrow and a gray work jacket, sits on the left side of the maintenance desk with his bandaged right wrist supported on a folded cloth and the brass key held in his left hand at the edge of the desk. Cen He, an adult technician with tied dark hair and a pale workshop coat, sits on the right with both forearms on the desk and her receiving palm open between them, empty, a hand's width from the key. The east window throws soft gray daylight across the desk from behind Cen's shoulder, so Lu's face carries the shadow side and Cen's hands stay lit; the brass key picks up one small highlight along its ring. The wooden desk, the window, the west doorway and the brass hook on the rear wall hold fixed positions, and the room's only sound is ventilation under distant rain. The camera advances twenty centimeters in a medium close two-shot, keeping Lu's eyes, both shoulder lines and his left hand visible without a cut, and it never crosses the desk edge. Framing holds Lu on the left and Cen on the right with the open palm between them. Nothing passes in front of the lens. Lu's first change is a movement of attention, not of body: his gaze leaves the key, travels to Cen's open palm, rests there long enough to register that the palm is not reaching, and then rises to her eyes. He interrupts one inhale halfway, swallows once, and releases a longer breath than the one he took. His left shoulder settles downward by a small visible amount, and the fingers of his left hand loosen on the key ring without letting go. His jaw stays tense until the breath finishes and only then eases, which is the first moment his face stops bracing against the room. Cen does not answer the movement with a movement of her own. She keeps her eyes on his rather than on the key, her shoulders stay level, and her open palm remains exactly where it was, close enough to receive and far enough to leave him room to decline. Her breath stays quiet, with one small inhale before she speaks. Nothing in her posture asks him to hurry. When Lu speaks, he speaks slowly in a low, slightly rough voice, with the admission landing before the offer: he says the previous refusal was his own, and then tells her to take it now. His left thumb slides off the key ring as the last clause ends, so the hand movement finishes after the words instead of anticipating them. Fabric shifts softly at his elbow, the brass key rings once against the desk, and the ventilation continues underneath. At the end of the shot the key is still in Lu's left hand but no longer gripped, his thumb is off the ring, the bandaged right wrist stays on the cloth, and Cen's palm is still open with nothing in it. The camera advances twenty centimeters in a medium close two-shot, keeping Lu's eyes, both shoulder lines and his left hand visible without a cut. The camera uses a 65 mm lens under the full-frame equivalent convention, with a 180-degree shutter-angle convention; movement: slow controlled push; path: twenty-centimeter slow push toward the shared desk plane; target: the visible action and contact plane. At shot entry, Lu Chuan has normalized screen anchor x=0.35, y=0.55 (left-to-right and top-to-bottom); facing toward screen right; gaze toward Cen He; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. At shot entry, Cen He has normalized screen anchor x=0.7, y=0.55 (left-to-right and top-to-bottom); facing toward screen left; gaze toward Lu Chuan; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. Fabric shifts softly at the elbow and the brass key makes one small ring. During 6.000–9.250 seconds within this shot, Lu Chuan (S1), speaking slowly in a low, slightly rough voice, says: <d>[Chinese] 上次是我没听。现在你来。</d> Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap. At the end of this shot, carry forward these recorded constraints: Lu Chuan remains in the stabilized or treated injury state; preserve the described functional limitations; the brass key remains with Lu Chuan.
 
 overall_soundscape:
 Quiet ventilation and distant rain remain under breathing, a sleeve brushing the desk and the small ring of a brass key.
@@ -537,7 +319,7 @@ N/A
 integrated_multimodal_description:
 Motion language: live_action at 24 fps, exposed on ones. Timing principle: let a small preparatory change precede the decisive hand action and hold the resulting state. Camera principle: keep the eye-line, receiving hand and prop contact readable before drifting closer. Staging principle: preserve the desk axis, left-right positions and the injured wrist limitation. Sound principle: keep room tone continuous and make each key contact a local foley event. Cut language: continuous.
 This is a self-contained production instruction and must be readable without the production file, an earlier segment, or a hidden character bible. For every shot, explicitly state: the medium and visible subject appearance, screen position and facing; the current environment, landmarks and light direction; the exact starting pose, prop ownership, contact points and state; the factual trigger for each change; the chronological action, reaction and physical consequence; the camera framing, lens, movement type, direction, path, amplitude, speed and target; the source and timing of dialogue, foley, room tone and breath; the exact held state at the end and what can continue into the next shot. Render objective, social strategy and subtext as observable gaze, breath, posture, hand, facial and voice behavior. Keep cause and effect physically, spatially, temporally and socially coherent. Do not replace a visible action with a vague adjective, skip the transition between beats, collapse preparation, accent, follow-through or settle into one verb, or invent dialogue, objects, voices, cuts or state changes that are not written below.
-[Shot 1] Live-action cinematic staging uses restrained facial movement and natural cloth response. Write this shot as a complete independent instruction: restate who is visible and where they are, the environment and light, the start state, the trigger, the ordered action and reaction, the camera path and speed, synchronized sound, and the resulting held state. Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions, naturally broad shoulders, a square jaw, short dark hair and a short scar above his right eyebrow. He wears a gray woven work jacket over a gray shirt and a functional waist belt. Cen He is a 32-year-old woman, 1.70 meters tall, with a lean adult build, oval face, dark almond-shaped eyes and dark hair tied low behind her head. She wears an olive canvas coat over a cream work shirt and dark straight trousers. The maintenance room contains one wooden desk, an east-facing window, a west doorway and a brass-key hook on the rear dark wall. Soft east-window light crosses the desk and falls off toward the west wall. At the start of this shot: Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty. The acting design's continuity-out is visible before the shot ends: the key rests in Cen's hand and both mouths close after the line A medium-close view favors Cen on the right of the wooden desk, with Lu on the left. Cen leaves her open palm between them, with enough distance for Lu to decline. East-window light produces a narrow highlight on the key and a broad shadow across her olive coat. The camera drifts ten centimeters toward Cen while retaining Lu's hand at the lower edge; the desk and window preserve the same spatial axis. The camera uses a 85 mm lens under the full-frame equivalent convention, with a 180-degree shutter-angle convention; movement: slow controlled lateral translation; path: ten-centimeter drift on the south side of the desk; target: the visible action and contact plane. At shot entry, Lu Chuan has normalized screen anchor x=0.35, y=0.55 (left-to-right and top-to-bottom); facing toward screen right; gaze toward Cen He; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. At shot entry, Cen He has normalized screen anchor x=0.7, y=0.55 (left-to-right and top-to-bottom); facing toward screen left; gaze toward Lu Chuan; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. During 0.000–2.750 seconds within this shot: Cen holds eye contact without widening her eyes or looking at the key. Visibility: medium-close framing includes the face, shoulder line and hands During 1.500–4.167 seconds within this shot: Her breath remains quiet, with a small inhale before replying. Visibility: medium-close framing includes the face, shoulder line and hands During 3.000–5.500 seconds within this shot: Her shoulders relax while her neck remains upright and still. Visibility: medium-close framing includes the face, shoulder line and hands During 4.500–9.167 seconds within this shot: She keeps the palm open; Lu places the key into it, and she closes her fingers only after contact. Visibility: medium-close framing includes the face, shoulder line and hands During 6.000–9.833 seconds within this shot: Her voice stays low and clear; both mouths remain closed after her short answer. Visibility: medium-close framing includes the face, shoulder line and hands The performance uses observational acting. Immediate objective: accept the offered responsibility while protecting the shared task. Tactic: keep the palm open until contact, then close it only after the key arrives. Social subtext: she accepts the apology without rewarding it with a dramatic reaction. Trigger: Lu's thumb releases the key ring. Visible personality signature: she holds eye contact, lets the receiving hand do the emotional work, and answers with a practical invitation. During 0.000–3.000 seconds within this shot, because the key is offered but has not touched her hand, the character keeps the receiving palm open and her shoulders level. Gaze: on Lu's eyes rather than the key. Face: steady eyes with a small release around the mouth. Follow-through: does not close the fingers before contact. Delivery: take one quiet inhale before replying. Prop continuity: the open palm stays between the two people. Camera: retain Lu's hand at the lower edge of frame. Coupled sound: cloth settles at the elbow. During 3.000–9.333 seconds within this shot, because the brass key reaches the center of the open palm, the character allows the fingers to close around the key and turns the answer toward cooperation. Gaze: briefly checks the key, then returns to Lu's eyes. Face: calm acceptance without a triumphant smile. Follow-through: keeps the closed hand between them instead of hiding it. Delivery: soft clear consonants at an even pace. The movement punctuates the source phrase at characters 3 through 4 of spoken line 1 in this shot (a performance cue, not an additional utterance). Prop continuity: the key changes hands only after visible contact. Camera: drift ten centimeters toward her while preserving the desk axis. Coupled sound: one small key ring after the fingers close. The motion phrase has this arc: anticipation—the empty palm establishes a boundary without reaching; accent—the fingers close on physical contact with the key; follow-through—the closed hand stays visible as proof of shared action; settle—the shoulders relax while the neck remains upright. Voice delivery uses a clear adult female voice with an even center, soft and measured, level, with a slight lift on the invitation and quiet indoor conversational volume. Pause after the source phrase at characters 2 through 2 of spoken line 1 in this shot (a performance cue, not an additional utterance) for 120 milliseconds. Emphasize the source phrase at characters 3 through 4 of spoken line 1 in this shot (a performance cue, not an additional utterance) with make the shared-action word warm but practical. Continuity in: the empty palm remains open and the brass key is still held by Lu. Continuity out: the key rests in Cen's hand and both mouths close after the line. Avoid a second phone voice. Avoid closing the hand before contact. Avoid a triumphant pose that breaks the quiet negotiation. Fabric shifts softly at the elbow and the brass key makes one small ring. During 6.667–9.333 seconds within this shot, Cen He (S1), speaking softly with clear consonants and an even pace, says: <d>[Chinese] 那就一起把门打开。</d> Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap. At local shot time 00:07.917, the recorded state change is: Lu visibly places the brass key in Cen's open palm. At the end of this shot, carry forward these recorded constraints: Lu Chuan remains in the stabilized or treated injury state; preserve the described functional limitations; the brass key remains with Cen He.
+[Shot 1] Live-action cinematic staging uses restrained facial movement and natural cloth response. Write this shot as a complete independent instruction: restate who is visible and where they are, the environment and light, the start state, the trigger, the ordered action and reaction, the camera path and speed, synchronized sound, and the resulting held state. Lu Chuan is a 34-year-old man, 1.80 meters tall, with balanced adult proportions, naturally broad shoulders, a square jaw, short dark hair and a short scar above his right eyebrow. He wears a gray woven work jacket over a gray shirt and a functional waist belt. Cen He is a 32-year-old woman, 1.70 meters tall, with a lean adult build, oval face, dark almond-shaped eyes and dark hair tied low behind her head. She wears an olive canvas coat over a cream work shirt and dark straight trousers. The maintenance room contains one wooden desk, an east-facing window, a west doorway and a brass-key hook on the rear dark wall. Soft east-window light crosses the desk and falls off toward the west wall. At the start of this shot: Lu's bandaged right wrist is supported on the desk. The brass key is in his left hand; Cen's receiving palm is empty. A medium-close view favors Cen on the right of the wooden desk, with Lu on the left, his hand at the desk edge and the key now resting across his open fingers. Cen leaves her open palm between them with enough distance for Lu to decline, and her eyes stay on his face. East-window light still lands on her hands and the near half of the desk, the west doorway stays unlit, and the brass hook on the rear wall keeps its position, so the room has not changed around them. The camera drifts ten centimeters toward Cen while retaining Lu's hand at the lower edge of frame; the desk and the window preserve the same spatial axis, and the move stops before the framing loses his fingers. Lu's hand moves first. He turns the key once between thumb and forefinger so the ring faces Cen, then pushes it across the wood with the flat of his fingers rather than dropping it, and withdraws his hand only after the key has left his skin. His shoulders stay dropped and his jaw stays loose through the transfer, and he keeps his eyes on the key until it reaches the center of her palm and then lifts them to her face. Cen holds eye contact without widening her eyes or looking down at the key, keeps her fingers open until the metal actually touches her palm, and closes them only after contact, one finger at a time, so the receiving hand does the emotional work instead of her face. Her shoulders relax once the key is closed, her neck stays straight, and her breath is quiet until she answers. She speaks softly with clear consonants, offering to open the door together rather than thanking him, which keeps the exchange practical. The brass key rings once as it settles in her palm and again, softer, when her fingers close; fabric shifts at both elbows; the ventilation and the distant rain continue without a break. At the end of the shot the key rests in Cen's closed hand, both mouths are closed after the line, Lu's left hand is empty and flat on the desk, and the room holds the same axis, light and furniture positions it started with. The camera drifts ten centimeters toward Cen while retaining Lu's hand at the lower edge; the desk and window preserve the same spatial axis. The camera uses a 85 mm lens under the full-frame equivalent convention, with a 180-degree shutter-angle convention; movement: slow controlled lateral translation; path: ten-centimeter drift on the south side of the desk; target: the visible action and contact plane. At shot entry, Lu Chuan has normalized screen anchor x=0.35, y=0.55 (left-to-right and top-to-bottom); facing toward screen right; gaze toward Cen He; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. At shot entry, Cen He has normalized screen anchor x=0.7, y=0.55 (left-to-right and top-to-bottom); facing toward screen left; gaze toward Lu Chuan; hand or weapon state: both hands visible and unarmed; weapon direction or absence: no weapon present in this scene. Fabric shifts softly at the elbow and the brass key makes one small ring. During 6.667–9.333 seconds within this shot, Cen He (S1), speaking softly with clear consonants and an even pace, says: <d>[Chinese] 那就一起把门打开。</d> Keep every word intelligible: synchronize visible mouth shapes to the original words, preserve the written pauses and emphasis, and keep competing action noise below the voice unless the production data explicitly requires overlap. At local shot time 00:07.917, the recorded state change is: Lu visibly places the brass key in Cen's open palm. At the end of this shot, carry forward these recorded constraints: Lu Chuan remains in the stabilized or treated injury state; preserve the described functional limitations; the brass key remains with Cen He.
 
 overall_soundscape:
 Quiet ventilation and distant rain remain under breathing, a sleeve brushing the desk and the small ring of a brass key.

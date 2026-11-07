@@ -46,7 +46,7 @@ Forge试图穿过维修沟，Ward用盾面导走能量。护盾守住通路，Fo
 
 | 槽位 | 实际图片/缺项 | 用途/对象 | 版本 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|
-| 1 | [6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png](<references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png>) | composition / the confrontation between Forge and Ward | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png](<references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png>) | composition / the confrontation between Forge and Ward | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 下一步：核对模式和本卡槽位，在实际入口上传图片并复制完整提示词；生成后记录真实文件、版本和人工批准。
 
@@ -69,13 +69,13 @@ Forge试图穿过维修沟，Ward用盾面导走能量。护盾守住通路，Fo
 
 [完整正文/草案](MECHA_SEG01.h3.txt) · [独立上传卡](MECHA_SEG01.upload.md)
 
-绑定版本：`d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd` · 正文 SHA-256：`acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c`
+绑定版本：`9ce67b1dd93c41dd94d8e7a33b42b8a18ead861e00e26e917fd00827f8a2bfb4` · 正文 SHA-256：`1fd00edf7efa57ea8151e49ca920ff6eb80a45a6faa947d9c189d58f3b3582e2`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 
 | 顺序/标签 | 实际上传文件/状态 | 资产与版本 | 内容对象/说话人 | 用途与生效范围 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|---|
-| 1 / `<Picture 1>` | [mecha-contact.png](<references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png>); BOUND_LOCAL; NOT_UPLOADED | 未绑定 / sha256:6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2 | 未绑定 | storyboard blocking and ordering only; FILM-S01-SH001 · 全局帧 0–168（末帧不含）; FILM-S01-SH002 · 全局帧 168–336（末帧不含） | <Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view. | 未绑定 |
+| 1 / `<Picture 1>` | [mecha-contact.png](<references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png>); BOUND_LOCAL; NOT_UPLOADED | 未绑定 / sha256:595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540 | 未绑定 | storyboard blocking and ordering only; FILM-S01-SH001 · 全局帧 0–168（末帧不含）; FILM-S01-SH002 · 全局帧 168–336（末帧不含） | <Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view. | 未绑定 |
 
 视频参考：未声明；不虚构 Video 标签。音频参考：未声明；不虚构 Audio 标签。
 

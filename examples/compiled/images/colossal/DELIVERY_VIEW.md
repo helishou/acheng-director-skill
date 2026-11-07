@@ -22,13 +22,13 @@
 用途：Create one opening keyframe before the exchange.
 生成模式：GENERATE
 提交状态：ready-to-submit-not-generated
-上传：图1 references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png（composition）
+上传：图1 references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png（composition）
 
 参考图上传助手：严格按下表顺序上传；文件名不能替代实际文件，说明文字不要粘进图像提示词。
 
 | 槽位 | 实际上传文件 | 用途 | 必须保留 | 禁止继承 |
 |---:|---|---|---|---|
-| 1 | [references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png](references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png) | composition | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png](references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png) | composition | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 上传顺序：先上传槽位 1，再按 2、3……递增；上传完成后确认提示词中的 `Reference image N` 与槽位一一对应。
 提交前检查：所有文件可打开、顺序正确、只继承表中“必须保留”内容，并把姿态/构图/光线按本次正文重建。

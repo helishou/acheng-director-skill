@@ -66,18 +66,18 @@ class WorkflowV4Acceptance(unittest.TestCase):
                   'shots':[{'id':'S1','features':{}}],
                   'segments':[{'id':'A','shot_ids':['S1'],'generation_clip_duration':10}]}
         base = detail_policy(simple, simple['segments'][0])
-        self.assertEqual((base['minimum_words'], base['target_words']), (2000, 2400))
+        self.assertEqual((base['minimum_words'], base['target_words']), (1200, 2400))
         simple['segments'][0]['generation_clip_duration'] = 12
         longer = detail_policy(simple, simple['segments'][0])
-        self.assertEqual((longer['minimum_words'], longer['target_words']), (2400, 2880))
+        self.assertEqual((longer['minimum_words'], longer['target_words']), (1200, 2880))
         simple['shots'][0]['features']['combat'] = True
         complex_policy = detail_policy(simple, simple['segments'][0])
-        self.assertEqual(complex_policy['minimum_words'], 2600)
+        self.assertEqual(complex_policy['minimum_words'], 1400)
         self.assertEqual(english_word_count('English words 24 中文 123'), 2)
         simple['prompt_detail_policy'] = {'ref2va_min_words': 2000}
         lower_recommendation = detail_policy(simple, simple['segments'][0])
         self.assertEqual(lower_recommendation['minimum_words'], 2000)
-        self.assertEqual(lower_recommendation['derived_minimum_words'], 2600)
+        self.assertEqual(lower_recommendation['derived_minimum_words'], 1400)
 
     def test_automatic_terms_are_candidates_and_explicit_conflicts_fail(self):
         auto = plan({'request_id':'REQ_TERMS','intent':'h3-compile'}, self.production)
@@ -99,7 +99,7 @@ class WorkflowV4Acceptance(unittest.TestCase):
             d=Path(d); sp=d/'state.json'; node=next(n for n in state['nodes'] if n['phase']=='model'); node['depends_on']=[]; state['nodes']=[node]; save_state(sp,state)
             short=d/'short.h3.txt'
             short.write_text('subject_definitions:\n<Picture 1> is a reference.\n\nsummary:\n[reference generation] test.\n\nretention_analysis:\n<Picture 1>: weak_reference - test.\n\ndetailed_description:\n' + ('short body ' * 100) + '\n\noverall_soundscape:\nN/A\n\nnon_diegetic_music:\nN/A\n', encoding='utf8')
-            with self.assertRaisesRegex(ValueError,'minimum is 2000'):
+            with self.assertRaisesRegex(ValueError,'minimum is 1200'):
                 commit_artifact(state,sp,node,short,rev,artifact_root=d/'artifacts',artifact_id='short-ref')
     def test_adapter_pause_and_execution_boundary(self):
         adapter=OrchestratorAdapter()

@@ -1,7 +1,7 @@
 {
   "version": "4.3.6",
   "status": "compiled-not-generated",
-  "production_sha256": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
+  "production_sha256": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
   "execution_mode": "autonomous_file_batch",
   "asset_reference_contract": "1.0",
   "display_context": {
@@ -22,12 +22,12 @@
       "references": [
         {
           "image": 1,
-          "file": "references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png",
+          "file": "references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png",
           "role": "composition",
           "subject": "the confrontation between Aer and Stone Sentinel",
           "preserve": "only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel",
           "exclude": "the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image",
-          "sha256": "028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
+          "sha256": "22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
           "source_file": "media/colossal-contact.png",
           "binding_status": "BOUND_LOCAL",
           "platform_status": "NOT_UPLOADED"
@@ -37,8 +37,8 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create one opening keyframe before the exchange.",
-      "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
-      "resolved_card_sha256": "d5005f895543716bc333bc0cc4c245471c32e8e35486d116e50325b5031c4924",
+      "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
+      "resolved_card_sha256": "3a9899b8bba2fca665b7c67abde2fd687c56a1fcaa0aa5b25a525129937a20e6",
       "reference_policy": "required",
       "mode": "GENERATE",
       "asset_kind": null,
@@ -49,7 +49,7 @@
       "upload_card": "ASSET_03_COLOSSAL.asset-upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "702e7d0b5190ee1b05cce051c50e0aab678c11906416aa15a02ab562671c1838"
+      "upload_card_sha256": "5a26b5b1268483eb04a324564f353d14d60fec71c845e5b42daf98e59218f6d0"
     }
   ],
   "segments": [
@@ -62,12 +62,12 @@
       "end_frame": 336,
       "summary": "[reference generation] The target video follows the blocking and order in <Picture 1>, first establishing the confrontation and then showing the attack, defense, material response and continuing recovery.",
       "speaker_map": {},
-      "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
+      "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
       "reference_labels": [
         "<Picture 1>"
       ],
       "format_pass": "PASSED",
-      "sha256": "65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d",
+      "sha256": "6266affa070eea4c6b6dcd29cab3f59d00522555c5af4b331191ecd6b869bd9c",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -77,17 +77,17 @@
         "schema_version": "4.3.6",
         "segment_id": "COLOSSAL_SEG01",
         "mode": "Ref2VA",
-        "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
+        "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
         "references": [
           {
             "label": "<Picture 1>",
-            "file": "references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png",
+            "file": "references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png",
             "role": "storyboard blocking and ordering only",
             "definition": "<Picture 1> is the sixteen-panel gray blocking diagram for [Shot 1] and [Shot 2], providing left-right placement and event order; its schematic figures and flat shading are not appearance or material references.",
             "retention": "<Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view.",
             "upload_order": 1,
-            "sha256": "028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
-            "asset_version": "sha256:028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
+            "sha256": "22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
+            "asset_version": "sha256:22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
             "entity_id": null,
             "shot_ids": [
               "FILM-S01-SH001",
@@ -118,26 +118,26 @@
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837"
+        "binding_sha256": "fa675c6b3d94b9700ce7260b35f511c688279d07830b49fea7a3a221cf861a83"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
         "minimum_words": 0,
         "target_words": 0
       },
-      "detailed_description_english_words": 3384,
+      "detailed_description_english_words": 3003,
       "execution_capabilities": "UNVERIFIED: confirm actual platform mode, duration and slots",
       "visual_status": "UNVERIFIED",
       "references": [
         {
           "label": "<Picture 1>",
-          "file": "references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png",
+          "file": "references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png",
           "role": "storyboard blocking and ordering only",
           "definition": "<Picture 1> is the sixteen-panel gray blocking diagram for [Shot 1] and [Shot 2], providing left-right placement and event order; its schematic figures and flat shading are not appearance or material references.",
           "retention": "<Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view.",
           "upload_order": 1,
-          "sha256": "028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
-          "asset_version": "sha256:028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
+          "sha256": "22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
+          "asset_version": "sha256:22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
           "entity_id": null,
           "shot_ids": [
             "FILM-S01-SH001",
@@ -168,7 +168,7 @@
       "delivery_manifest": "COLOSSAL_SEG01.h3.txt.delivery.json",
       "format_contract": "COLOSSAL_SEG01.h3.txt.check.json",
       "format_receipt": "COLOSSAL_SEG01.h3.txt.acceptance.json",
-      "upload_card_sha256": "9881c68e975769dbc08122d02163dc04e8b96c93066c7176fabe7e421359cc24"
+      "upload_card_sha256": "76d49831ebbf52ec5956bc08bca03745577549d278621e29b04b6ddf32b9e37d"
     }
   ]
 }

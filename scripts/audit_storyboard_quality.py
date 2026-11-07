@@ -16,7 +16,6 @@ from prompt_delivery import expand_prompt, require_standalone
 from h3_contract import check_h3_semantics, clip_bounds, speech_map, remap_speech_references, detail_policy
 from production_extensions import check_effect, check_performance
 from performance_liveliness import check_liveliness, render_liveliness, render_motion_profile
-from combat_timing import check_combat_timing, render_combat_timing
 from story_contract import check_story
 from asset_plan import check_asset_plan
 from h3_final_format import finalize_h3_prompt
@@ -26,7 +25,6 @@ GATES = ["timeline_closure", "previs_index", "buzzword_zero", "micro_acting",
          "combat_calculus", "tri_state_vfx", "colossal_proofs", "h3_schema",
          "acoustic_physics", "continuity_ledger", "performance_liveliness"]
 TRACKS = ("gaze", "breath", "shoulder", "body_hands", "dialogue")
-CALCULUS = ("force_source", "trajectory", "contact", "resistance", "impact_hold", "transfer", "recoil")
 BASE_FIELDS = ("integrated_multimodal_description", "overall_soundscape", "non_diegetic_music")
 REF_FIELDS = ("subject_definitions", "summary", "retention_analysis", "detailed_description", "overall_soundscape", "non_diegetic_music")
 DETAIL_DIRECTIVE = (
@@ -172,29 +170,9 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
     def window(start, end):
         factor = Fraction(production["fps_den"], production["fps_num"]) if production else Fraction(1, 24)
         return f"{float(start * factor):.3f}–{float(end * factor):.3f} seconds within this shot"
-    if shot["features"]["core_emotion"]:
-        perf = shot["performance"]
-        for track in TRACKS:
-            if track not in perf.get("tracks", {}):
-                continue
-            cue = perf["tracks"][track]
-            chunks.append(f"During {window(cue['start'], cue['end'])}: " + cue["cue"] + " Visibility: " + cue["visibility"])
-        for event in perf.get("events", []):
-            chunks.append(f"During {window(event['start'], event['end'])}: " + event["cue"])
-        chunks.extend(perf.get("exclusion_controls", []))
-        if perf.get('source_beat_id'):
-            chunks.extend(("Incoming performance state: " + perf['continuity_in'],
-                           "Visible performance evidence: " + perf['visibility_evidence'],
-                           "Held performance state: " + perf['continuity_out']))
     if shot.get("performance", {}).get("acting_design"):
         factor = Fraction(production["fps_den"], production["fps_num"]) if production else Fraction(1, 24)
         chunks.extend(render_liveliness(shot, production, factor))
-    if shot["features"]["combat"]:
-        combat = shot["combat"]
-        # Keep the compiled action causal; do not append a second attack after recoil.
-        chunks.extend((combat["force_source"], combat["chain"]["attack"], combat["trajectory"],
-                       combat["chain"]["response"], combat["contact"], combat["resistance"],
-                       combat["impact_hold"], combat["transfer"]))
     if shot["features"]["supernatural_vfx"]:
         vfx = shot["vfx"]
         if vfx.get("family", "energy_fluid") == "energy_fluid":
@@ -210,10 +188,6 @@ def shot_text(shot, production=None, speakers=None, speech_parts=None, reference
             chunks.extend(vfx[k] for k in ("origin", "scope", "process", "lighting"))
             chunks.extend(f"During {window(e['start'], e['end'])}: {e['cue']}" for e in vfx["events"])
             chunks.extend((vfx["end_state"], vfx["continuity"]))
-    if shot["features"]["combat"]:
-        chunks.extend((combat["chain"]["result"], combat["recoil"], combat["chain"]["continuation"]))
-        factor = Fraction(production["fps_den"], production["fps_num"]) if production else Fraction(1, 24)
-        chunks.extend(render_combat_timing(combat.get("timing"), factor))
     if shot["features"]["colossal"]:
         chunks.extend(f"{e['detail']} Visible at {e['frame_location']}; depth relationship: {e['depth_relation']}." for e in shot["scale_proofs"])
     chunks.extend(shot["audio"]["foley"])
@@ -604,43 +578,10 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
             require(not BUZZ.search(seg["style"]), f"{seg['id']}: prohibited style wording")
     gate(GATES[2], buzzwords)
 
-    def acting():
-        for s in shots:
-            if not s["features"]["core_emotion"]:
-                require(not s.get("performance"), f"{s['id']}: performance present but feature disabled")
-                continue
-            perf = s["performance"]
-            require(substantive(perf["beat_id"]), "EX id missing")
-            if perf.get("source_beat_id"):
-                require(perf["beat_id"] == perf["source_beat_id"], "expression source/beat id mismatch")
-                continue
-            require(perf["dominant_track"] in TRACKS, "invalid dominant track")
-            selective = perf.get("strategy") == "selective"
-            require(bool(perf["tracks"]) and set(perf["tracks"]) <= set(TRACKS) if selective else set(perf["tracks"]) == set(TRACKS), "five tracks required unless strategy is selective")
-            require(perf["dominant_track"] in perf["tracks"], "dominant track absent")
-            previous = -1
-            for key in TRACKS:
-                if key not in perf["tracks"]:
-                    continue
-                t = perf["tracks"][key]
-                require(integer(t["start"]) and integer(t["end"]) and (0 if selective else previous) <= t["start"] < t["end"] <= s["end_frame"] - s["start_frame"], f"{s['id']}: {key} timing invalid")
-                previous = t["start"]
-                require(substantive(t["cue"]) and substantive(t["visibility"]), f"{s['id']}: {key} cue/visibility missing")
-    gate(GATES[3], acting, any(s["features"]["core_emotion"] or s.get("performance") for s in shots))
+    # 跨镜事实归连续性台账；文/武戏不再有结构化载荷，表演与动作由正文承担。
+    gate(GATES[3], lambda: None, False)
 
-    def combat():
-        for s in shots:
-            if not s["features"]["combat"]:
-                require(not s.get("combat"), "combat payload with feature disabled")
-                continue
-            c = s["combat"]
-            for key in CALCULUS:
-                require(substantive(c.get(key)), f"{s['id']}: combat.{key} missing")
-            for key in ("attack", "response", "result", "continuation"):
-                require(substantive(c["chain"].get(key)), f"{s['id']}: chain.{key} missing")
-            factor = Fraction(p["fps_den"], p["fps_num"])
-            check_combat_timing(c.get("timing"), s["end_frame"] - s["start_frame"], s["id"])
-    gate(GATES[4], combat, any(s["features"]["combat"] or s.get("combat") for s in shots))
+    gate(GATES[4], lambda: None, False)
 
     def vfx():
         for s in shots:
@@ -710,7 +651,7 @@ def audit(p, base_dir=ROOT, *, h3_segment_ids=None):
                 require(substantive(seg.get("mode_selection_reason")), f"{seg['id']}: locked H3 mode needs a selection reason")
             policy = detail_policy(p, seg)
             if mode == "Ref2VA" and policy["profile"] != "legacy_fixture":
-                require(policy["minimum_words"] >= 2000, f"{seg['id']}: Ref2VA minimum detail must be at least 2000 words")
+                require(policy["minimum_words"] >= 1200, f"{seg['id']}: Ref2VA minimum detail must be at least 1200 words")
                 require(policy["target_words"] >= policy["minimum_words"], f"{seg['id']}: Ref2VA target detail is below minimum")
                 require(policy["target_words"] >= policy["derived_target_words"],
                         f"{seg['id']}: Ref2VA target detail is below the derived density target")

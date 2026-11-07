@@ -23,6 +23,7 @@
       "id": "shots",
       "entry": "modules/shots/SKILL.md",
       "reads": [
+        "references/121-user-shot-preferences.md",
         "references/decisions/shots.md",
         "references/20-storyboard-compiler.md",
         "references/21-genre-camera-capacity.md",

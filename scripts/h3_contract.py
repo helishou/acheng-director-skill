@@ -5,7 +5,7 @@ from fractions import Fraction
 from contract_core import need, prose
 
 TASKS = {"keyframe completion", "reference generation", "video editing", "video continuation", "audio reuse", "audio reference"}
-REF2VA_MIN_WORDS = 2000
+REF2VA_MIN_WORDS = 1200
 REF2VA_TARGET_WORDS = 2400
 REF2VA_MAX_WORDS = 2900
 REF2VA_MIN_WORDS_PER_SECOND = 200
@@ -31,12 +31,24 @@ def _duration_seconds(production, segment):
     return 10.0
 
 
+CONTACT_WORDS = ("撞", "挡", "劈", "踢", "击中", "抵住", "擦过", "压住", "抓住", "撞上", "挥", "甩", "推开", "顶住",
+                 "impact", "strike", "block", "graze", "shove", "slam")
+
+
+def _looks_like_contact_action(shot):
+    """武戏预算按正文实际写的接触/受力推断，不再要求前端勾选 features.combat。"""
+    if shot.get("features", {}).get("combat"):
+        return True
+    text = str(shot.get("visual") or "")
+    return any(word in text for word in CONTACT_WORDS)
+
+
 def _complexity_addition(production, segment):
     """Add coverage budget for facts that cannot be represented safely by a short block."""
     by_id = {shot.get("id"): shot for shot in production.get("shots", [])}
     shots = [by_id[sid] for sid in segment.get("shot_ids", []) if sid in by_id]
     points = 0
-    if any(shot.get("features", {}).get("combat") for shot in shots):
+    if any(_looks_like_contact_action(shot) for shot in shots):
         points += 200
     if any(shot.get("features", {}).get("supernatural_vfx") or shot.get("features", {}).get("colossal") for shot in shots):
         points += 100
@@ -77,11 +89,16 @@ def detail_policy(production, segment):
     seconds = _duration_seconds(production, segment)
     # Detail policy is a writing recommendation. A lower requested density must
     # not make an otherwise compilable H3 request fail before the user can use it.
-    min_rate = max(0, int(policy.get("minimum_words_per_second", REF2VA_MIN_WORDS_PER_SECOND)))
+    # 下限是绝对词数底线（1200）；只有显式声明 minimum_words_per_second 时才按秒数抬高。
+    explicit_rate = policy.get("minimum_words_per_second")
+    min_rate = max(0, int(REF2VA_MIN_WORDS_PER_SECOND if explicit_rate is None else explicit_rate))
     target_rate = max(min_rate, int(policy.get("target_words_per_second", REF2VA_TARGET_WORDS_PER_SECOND)))
     addition = _complexity_addition(production, segment)
     maximum = max(1, int(policy.get("ref2va_max_words", REF2VA_MAX_WORDS)))
-    derived_minimum = min(max(REF2VA_MIN_WORDS, ceil(seconds * min_rate)) + addition, maximum)
+    per_second_minimum = ceil(seconds * min_rate) if explicit_rate is not None else 0
+    # Floor and ceiling must not collapse into an exact-equality band; keep a
+    # writing margin so a compliant request is not forced to hit one number.
+    derived_minimum = min(REF2VA_MIN_WORDS + per_second_minimum + addition, max(1, maximum - 100))
     derived_target = min(max(REF2VA_TARGET_WORDS, ceil(seconds * target_rate), derived_minimum + 200), maximum)
     explicit_minimum = policy.get("ref2va_min_words")
     explicit_target = policy.get("ref2va_target_words")

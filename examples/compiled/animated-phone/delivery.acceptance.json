@@ -5,9 +5,9 @@
       "joint_status": "DRAFT_VERIFIED_NOT_SUBMITTABLE",
       "segment_id": "ANIME_PHONE_SEG01",
       "input_revision": "4fa0f264d43a10c4cf11409905f576199fa0245c356d2eb89d211c4c74be2ec1",
-      "sha256": "f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0",
+      "sha256": "5baad311efbf5fe53a07e521a7b8d158ed66134674380c497ff4ae8f99239c9b",
       "binding_sha256": "bbfe17d564960bfdd0008e5994e8c380e96ecfb7a14c0bf28348c4039218356f",
-      "upload_card_sha256": "d261a6fcd319ece421ef65e1eee593879a7bb887640a21ed7a9450137bc07d43",
+      "upload_card_sha256": "98ba9d6740e5ba95151de34ebe31c9d5712264ef2ee9d6567521f1ff83fee9a5",
       "visual_status": "UNVERIFIED"
     }
   ],

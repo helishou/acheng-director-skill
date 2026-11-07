@@ -1,7 +1,7 @@
 {
   "version": "4.3.6",
   "status": "compiled-not-generated",
-  "production_sha256": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+  "production_sha256": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
   "execution_mode": "autonomous_file_batch",
   "asset_reference_contract": "1.0",
   "display_context": {
@@ -24,7 +24,7 @@
       "missing_references": [],
       "render_error": null,
       "purpose": "Create one opening keyframe before the exchange.",
-      "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+      "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
       "resolved_card_sha256": "40cf96f95ac2cac68d8456023b50279bd81fa3f2da2a0f2e9009ec9865eda7c5",
       "reference_policy": "none",
       "mode": "GENERATE",
@@ -51,10 +51,10 @@
       "speaker_map": {
         "Lu Chuan": "S1"
       },
-      "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+      "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
       "reference_labels": [],
       "format_pass": "PASSED",
-      "sha256": "1bfa4004ddb68e328ef81b2f155dcbccd823ef9bee2bbaef78e0aa1fa054731d",
+      "sha256": "c75ab444d032291f3ae531bf08f276196c8ebc5a22bfe1bfd38937836ff39ca1",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -64,13 +64,13 @@
         "schema_version": "4.3.6",
         "segment_id": "DRAMA_SEG01",
         "mode": "T2VA",
-        "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+        "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "bcb31862ae9d5cf759a3e71b2babf1c00ce86dcb5d5b115f3cb12d90cf421b96"
+        "binding_sha256": "8697dd07b3b15e16e729719cce9fb59b2f4d56263875916d2ef79ebb0fbb91d1"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -85,7 +85,7 @@
       "delivery_manifest": "DRAMA_SEG01.h3.txt.delivery.json",
       "format_contract": "DRAMA_SEG01.h3.txt.check.json",
       "format_receipt": "DRAMA_SEG01.h3.txt.acceptance.json",
-      "upload_card_sha256": "14798ff3099394ae239a45ca9c6041eb46e5c8aad50eb70b686902073472881d"
+      "upload_card_sha256": "4920b74d94ddf6a4289d1dce9a506541317336a0eafad2737e929e5524a4d1ac"
     },
     {
       "segment_id": "DRAMA_SEG02",
@@ -98,10 +98,10 @@
       "speaker_map": {
         "Cen He": "S1"
       },
-      "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+      "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
       "reference_labels": [],
       "format_pass": "PASSED",
-      "sha256": "4613f38d30de1c62b37d2a7b16b1c93e12563c6eecff831d93ebc72f4ac3995b",
+      "sha256": "dfc55b9a59b26501f0abfb90d227acc94aea6cb9e682c74855a5a4aa6cd1760c",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -111,13 +111,13 @@
         "schema_version": "4.3.6",
         "segment_id": "DRAMA_SEG02",
         "mode": "T2VA",
-        "input_revision": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+        "input_revision": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
         "references": [],
         "subjects": [],
         "requirements": [],
         "issues": [],
         "legacy_fixture": true,
-        "binding_sha256": "b7cecf72549105eca6adb6207a4a3db25aac32f862623574ba782ea14770c6f8"
+        "binding_sha256": "249b039a59a240cd82302a2a99e0ab407ab637713374958c23cbf43427c331bc"
       },
       "h3_detail_policy": {
         "profile": "legacy_fixture",
@@ -132,7 +132,7 @@
       "delivery_manifest": "DRAMA_SEG02.h3.txt.delivery.json",
       "format_contract": "DRAMA_SEG02.h3.txt.check.json",
       "format_receipt": "DRAMA_SEG02.h3.txt.acceptance.json",
-      "upload_card_sha256": "b61569676bbf4458209cbfcea6c25a3185b36efac8cabddec84bc5e8246b0fdf"
+      "upload_card_sha256": "e690834862965661bcd55d5af4f30ab97afa10508fe4eddff88207388f58861a"
     }
   ]
 }

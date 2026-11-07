@@ -16,7 +16,7 @@
     "<Subject 2>"
   ],
   "format_pass": "NOT_ACCEPTED",
-  "sha256": "f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0",
+  "sha256": "5baad311efbf5fe53a07e521a7b8d158ed66134674380c497ff4ae8f99239c9b",
   "status": "DRAFT_MISSING_REFERENCES",
   "accepted": false,
   "blockers": [
@@ -122,7 +122,7 @@
     "minimum_words": 0,
     "target_words": 0
   },
-  "detailed_description_english_words": 2877,
+  "detailed_description_english_words": 2568,
   "execution_capabilities": "UNVERIFIED: confirm actual platform mode, duration and slots",
   "visual_status": "UNVERIFIED",
   "references": [
@@ -171,5 +171,5 @@
   ],
   "upload_card": "ANIME_PHONE_SEG01.upload.md",
   "delivery_manifest": "ANIME_PHONE_SEG01.h3.draft.txt.delivery.json",
-  "upload_card_sha256": "d261a6fcd319ece421ef65e1eee593879a7bb887640a21ed7a9450137bc07d43"
+  "upload_card_sha256": "98ba9d6740e5ba95151de34ebe31c9d5712264ef2ee9d6567521f1ff83fee9a5"
 }

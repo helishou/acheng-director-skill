@@ -4,7 +4,7 @@
 
 [完整正文/草案](ANIME_PHONE_SEG01.h3.draft.txt) · [独立上传卡](ANIME_PHONE_SEG01.upload.md)
 
-绑定版本：`bbfe17d564960bfdd0008e5994e8c380e96ecfb7a14c0bf28348c4039218356f` · 正文 SHA-256：`f2a36ccc70c0d5a21bb2ca0be219f390737021460d8ac1306a0f11eb41f3d2b0`
+绑定版本：`bbfe17d564960bfdd0008e5994e8c380e96ecfb7a14c0bf28348c4039218356f` · 正文 SHA-256：`5baad311efbf5fe53a07e521a7b8d158ed66134674380c497ff4ae8f99239c9b`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 

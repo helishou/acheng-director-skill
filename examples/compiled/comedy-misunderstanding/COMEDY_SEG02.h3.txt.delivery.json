@@ -12,7 +12,7 @@
   "input_revision": "5fc49727c1045b4153e921f6e8c7aa3ca5150d51298395750db826cb4dbd447e",
   "reference_labels": [],
   "format_pass": "PASSED",
-  "sha256": "0adb6d40199b418987f6cf6c9baf4b61363073ef2c36745591a7665317a74e29",
+  "sha256": "1b061c1ad450adc3ebca30566838c008dd5d0adf23f9a0badc458a822fa6dd51",
   "status": "READY_TO_UPLOAD",
   "accepted": true,
   "blockers": [],
@@ -43,5 +43,5 @@
   "delivery_manifest": "COMEDY_SEG02.h3.txt.delivery.json",
   "format_contract": "COMEDY_SEG02.h3.txt.check.json",
   "format_receipt": "COMEDY_SEG02.h3.txt.acceptance.json",
-  "upload_card_sha256": "3843c990994af06fdad234ce825e8d9ae44ea36dc56e6f5898f2704e58790ff5"
+  "upload_card_sha256": "481217edaf2d9e09a785a59f2b6a402c112307bcd0d70926813967e6a37c17d3"
 }

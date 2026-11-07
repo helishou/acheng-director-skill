@@ -22,13 +22,13 @@
 用途：Create one opening keyframe before the exchange.
 生成模式：GENERATE
 提交状态：ready-to-submit-not-generated
-上传：图1 references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png（composition）
+上传：图1 references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png（composition）
 
 参考图上传助手：严格按下表顺序上传；文件名不能替代实际文件，说明文字不要粘进图像提示词。
 
 | 槽位 | 实际上传文件 | 用途 | 必须保留 | 禁止继承 |
 |---:|---|---|---|---|
-| 1 | [references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png](references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png) | composition | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png](references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png) | composition | only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 上传顺序：先上传槽位 1，再按 2、3……递增；上传完成后确认提示词中的 `Reference image N` 与槽位一一对应。
 提交前检查：所有文件可打开、顺序正确、只继承表中“必须保留”内容，并把姿态/构图/光线按本次正文重建。

@@ -161,8 +161,7 @@ class H3FinalFormatAcceptance(unittest.TestCase):
         segment = production["segments"][0]
         text = compile_segment(production, segment)
         self.assertIn("35 Hz", text)
-        self.assertIn("Direction facts:", text)
-        self.assertIn("Speed profile:", text)
+        self.assertNotIn("Continuity:", text)
         self.assertIn("<Picture 1>", text)
         self.assertIn("[Shot 1]", text)
 
@@ -207,7 +206,7 @@ class H3FinalFormatAcceptance(unittest.TestCase):
         production = read_data(ROOT / "examples/02-drama.production.json")
         segment = production["segments"][0]
         text = compile_segment(production, segment)
-        broken = text.replace("says", "describes", 1)
+        broken = text.replace(" says: <d>", " describes: <d>", 1)
         with self.assertRaisesRegex(H3FormatError, "locally bound"):
             finalize_h3_prompt(
                 broken,

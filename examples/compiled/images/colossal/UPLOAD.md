@@ -10,4 +10,4 @@
 
 参考图：必须上传以下全部文件，顺序与正文 Reference image 编号一致。
 
-1. [参考图 1](references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png) — composition；the confrontation between Aer and Stone Sentinel；保留：only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel；不继承：the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image
+1. [参考图 1](references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png) — composition；the confrontation between Aer and Stone Sentinel；保留：only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel；不继承：the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image

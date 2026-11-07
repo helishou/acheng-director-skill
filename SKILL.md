@@ -24,7 +24,7 @@ metadata:
 
 你是总导演及生产合同的唯一写入者。先读用户指定真值源、项目 brief 和当前场记；影视风格由项目决定。不要把历史盛唐画风、固定角色、固定 14 秒或固定无配乐带入新项目。技能调度指加载专业规范并按契约返回数据，不意味着启动额外代理或自动调用付费模型。
 
-画布执行的调度纪律（标准批次、批量读写、批量等待、单一写入负责人、生成前门禁梯、恢复顺序）以[原生 MCP 操作预算](../canvas-video-production-sop/references/native-mcp-operation-budget.md)为准；本 Skill 只维护导演源稿与域内参数，不另写一套调度规则。
+画布执行的调度纪律（标准批次、批量读写、批量等待、单一写入负责人、生成前门禁梯、恢复顺序）以同项目 `canvas-video-production-sop` 技能的原生 MCP 操作预算为准；本 Skill 只维护导演源稿与域内参数，不另写一套调度规则。
 
 ### Infinite Canvas 集成：视频制作启动确认
 
@@ -180,7 +180,7 @@ Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果
 ### H3 详细度、极限值（2200-2900词）与模式锁
 
 Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式。每个 Ref2VA Segment 必须输出完整六字段，并按 `prompt_detail_policy` 计算本段密度：
-1. **动态密度与硬性上限（2200-2900 词）**：原定动态调整规则不变，默认最低词数为 `max(2000, 时长秒数×200)`，目标词数为 `max(2400, 时长秒数×240, 最低词数+200)`（处于 2200+ 区间）；combat、VFX、对白、多角色等增加有限复杂度预算。**坚决剔除“不设上限”，增加极限值 2900 词硬性封顶！** `detailed_description` 词数严格限定在 **2200-2900 词**，坚决杜绝输出上万词导致文本爆仓、信息稀释或超长截断。
+1. **动态密度与硬性上限（2200-2900 词）**：原定动态调整规则不变，默认最低词数为 `1200`（可按 `minimum_words_per_second` 显式抬高），目标词数为 `max(2400, 时长秒数×240, 最低词数+200)`；combat、VFX、对白、多角色等增加有限复杂度预算。**坚决剔除“不设上限”，增加极限值 2900 词硬性封顶！** `detailed_description` 词数严格限定在 **2200-2900 词**，坚决杜绝输出上万词导致文本爆仓、信息稀释或超长截断。
 2. **H3 多参考图与画风继承逻辑**：
    - 视频生成 AI（MiniMax H3）无法识别图片文件名，只能识别交互上传槽位的 `@图片1`、`@图片2`。
    - **参考图不能只引用风格锚点图**！一般情况下**只需参考关键帧、人设图、场景图**即可：
@@ -238,7 +238,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 | `/script` 创意到剧本 | [10 剧本](references/10-scriptwriter-engine.md)、[11 多线与知情](references/11-story-architecture.md)、[12 人物润色](references/12-character-dialogue-revision.md) | 任意线路、伏笔、知情、关系、弧光与完整正文；场次/节拍覆盖检查 |
 
-| `/storyboard` 镜头拆解 | [20 分镜](references/20-storyboard-compiler.md)、[21 题材与容量](references/21-genre-camera-capacity.md) | ShotSpec、4–15秒装箱、001–132 Previs 绑定；闭合时间轴 |
+| `/storyboard` 镜头拆解 | [121 用户镜头偏好](references/121-user-shot-preferences.md)、[20 分镜](references/20-storyboard-compiler.md)、[21 题材与容量](references/21-genre-camera-capacity.md) | 先按用户偏好定多切镜、紧景别与浅景深，再落 ShotSpec、4–15秒装箱、001–132 Previs 绑定；闭合时间轴 |
 
 | `/deconstruct` 参考视频拉片 | [25 逆向拉片](references/25-combat-video-deconstructor.md) | 原始帧／PTS 证据、观察与推断分栏、攻防链；不声称微秒画面分辨率 |
 
@@ -278,6 +278,20 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 - H3、GPT Image 2/2.5、VFX、巨构和 132 运镜的红猴子机制已经分别内化到 `model`、`assets`、`effects`、`shots` 合同，不要再平行加载同名技能作为第二编译器。
 
 
+
+## Agent 写入镜头的结构契约（MCP 强制）
+
+人工在制作台只用一张简表；结构约束落在 agent 侧。通过 MCP `production_edit` 写镜头时：
+
+- **文戏**：必须写齐五轨 `performance.tracks`，每轨要有 `cue`
+  `gaze` / `breath` / `shoulder` / `body_hands` / `dialogue`
+- **武戏**（`features.combat = true` 或本次带 `combat`）：必须写齐七层 `combat`
+  `force_source` / `trajectory` / `contact` / `resistance` / `impact_hold` / `transfer` / `recoil`
+- 同一镜不能同时按五轨与七层写入
+
+缺项直接拒写，返回 `SHOT_STRUCTURE_CONTRACT <shotId>: SHOT_COMBAT_STRUCTURE|SHOT_PERFORMANCE_STRUCTURE …` 并列出缺的字段。
+
+**这两套结构只做数据契约，不参与正文渲染**：编译仍只用 `shot.visual` 正文，摄影写 `camera`，声音写 `audio`。
 
 ## 三层总线与权属
 

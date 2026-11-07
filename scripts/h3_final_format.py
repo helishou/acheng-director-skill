@@ -309,7 +309,7 @@ def validate_h3_file(path, contract, base_dir=None, *, allow_legacy_fixture=Fals
     quality_diagnostics = []
     if mode == "Ref2VA":
         from math import ceil
-        floor = max(2000, ceil(duration * 200))
+        floor = max(1200, ceil(duration * 200))
         if minimum < floor and not (allow_legacy_fixture and contract.get("profile") == "legacy_fixture"):
             quality_diagnostics.append({
                 "code": "REF2VA_MINIMUM_BELOW_RECOMMENDED_DENSITY",

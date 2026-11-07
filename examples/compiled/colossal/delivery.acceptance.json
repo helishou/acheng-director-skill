@@ -4,10 +4,10 @@
     {
       "joint_status": "PASSED",
       "segment_id": "COLOSSAL_SEG01",
-      "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
-      "sha256": "65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d",
-      "binding_sha256": "bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837",
-      "upload_card_sha256": "9881c68e975769dbc08122d02163dc04e8b96c93066c7176fabe7e421359cc24",
+      "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
+      "sha256": "6266affa070eea4c6b6dcd29cab3f59d00522555c5af4b331191ecd6b869bd9c",
+      "binding_sha256": "fa675c6b3d94b9700ce7260b35f511c688279d07830b49fea7a3a221cf861a83",
+      "upload_card_sha256": "76d49831ebbf52ec5956bc08bca03745577549d278621e29b04b6ddf32b9e37d",
       "visual_status": "UNVERIFIED"
     }
   ],

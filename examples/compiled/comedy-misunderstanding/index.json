@@ -54,7 +54,7 @@
       "input_revision": "5fc49727c1045b4153e921f6e8c7aa3ca5150d51298395750db826cb4dbd447e",
       "reference_labels": [],
       "format_pass": "PASSED",
-      "sha256": "7e505c63ed3fa2ca76db54632a6eee49cb5d80952a467b241c47e91d62565355",
+      "sha256": "cae2f9f58757aab3a25d634805e0fc925fcfd255d5aa4dd821b6aeb9e03bf951",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -85,7 +85,7 @@
       "delivery_manifest": "COMEDY_SEG01.h3.txt.delivery.json",
       "format_contract": "COMEDY_SEG01.h3.txt.check.json",
       "format_receipt": "COMEDY_SEG01.h3.txt.acceptance.json",
-      "upload_card_sha256": "2640a3c06d54705ba9b594e1fc650f2a29d451579fb7b1dc46e94b1a4b738e8a"
+      "upload_card_sha256": "2f88cce1aabfdbbfe081312f3a996357b2abcfd96971959e3ba5fb243b90d1d7"
     },
     {
       "segment_id": "COMEDY_SEG02",
@@ -101,7 +101,7 @@
       "input_revision": "5fc49727c1045b4153e921f6e8c7aa3ca5150d51298395750db826cb4dbd447e",
       "reference_labels": [],
       "format_pass": "PASSED",
-      "sha256": "0adb6d40199b418987f6cf6c9baf4b61363073ef2c36745591a7665317a74e29",
+      "sha256": "1b061c1ad450adc3ebca30566838c008dd5d0adf23f9a0badc458a822fa6dd51",
       "status": "READY_TO_UPLOAD",
       "accepted": true,
       "blockers": [],
@@ -132,7 +132,7 @@
       "delivery_manifest": "COMEDY_SEG02.h3.txt.delivery.json",
       "format_contract": "COMEDY_SEG02.h3.txt.check.json",
       "format_receipt": "COMEDY_SEG02.h3.txt.acceptance.json",
-      "upload_card_sha256": "3843c990994af06fdad234ce825e8d9ae44ea36dc56e6f5898f2704e58790ff5"
+      "upload_card_sha256": "481217edaf2d9e09a785a59f2b6a402c112307bcd0d70926813967e6a37c17d3"
     }
   ]
 }

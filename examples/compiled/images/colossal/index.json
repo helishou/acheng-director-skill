@@ -1,7 +1,7 @@
 {
   "asset_reference_contract": "1.0",
   "status": "ready-to-submit-not-generated",
-  "input_sha256": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
+  "input_sha256": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
   "assets": [
     {
       "asset_id": "ASSET_03_COLOSSAL",
@@ -18,12 +18,12 @@
       "references": [
         {
           "image": 1,
-          "file": "references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png",
+          "file": "references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png",
           "role": "composition",
           "subject": "the confrontation between Aer and Stone Sentinel",
           "preserve": "only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel",
           "exclude": "the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image",
-          "sha256": "028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
+          "sha256": "22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
           "source_file": "media/colossal-contact.png",
           "binding_status": "BOUND_LOCAL",
           "platform_status": "NOT_UPLOADED"
@@ -31,8 +31,8 @@
       ],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
-      "resolved_card_sha256": "d5005f895543716bc333bc0cc4c245471c32e8e35486d116e50325b5031c4924",
+      "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
+      "resolved_card_sha256": "3a9899b8bba2fca665b7c67abde2fd687c56a1fcaa0aa5b25a525129937a20e6",
       "reference_count": 1,
       "state_version": null,
       "asset_version": null,
@@ -40,7 +40,7 @@
       "upload_card": "ASSET_03_COLOSSAL.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "09e46b9fede942a6f4b552653512857af1c8d0135f9f513573c8d5a46321f814"
+      "upload_card_sha256": "a9ef1b69a833b249596bf5ce1bfa164a1f2a77f231f82edb0afe194ae73f96c3"
     }
   ],
   "asset_plan": null,

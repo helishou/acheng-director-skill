@@ -46,7 +46,7 @@
 
 | 槽位 | 实际图片/缺项 | 用途/对象 | 版本 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|
-| 1 | [028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png](<references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png>) | composition / the confrontation between Aer and Stone Sentinel | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png](<references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png>) | composition / the confrontation between Aer and Stone Sentinel | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 下一步：核对模式和本卡槽位，在实际入口上传图片并复制完整提示词；生成后记录真实文件、版本和人工批准。
 
@@ -69,13 +69,13 @@
 
 [完整正文/草案](COLOSSAL_SEG01.h3.txt) · [独立上传卡](COLOSSAL_SEG01.upload.md)
 
-绑定版本：`bb1cfe061046a4ce476d15348f8445d8091c66153492ddd1f899aaf25ae82837` · 正文 SHA-256：`65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d`
+绑定版本：`fa675c6b3d94b9700ce7260b35f511c688279d07830b49fea7a3a221cf861a83` · 正文 SHA-256：`6266affa070eea4c6b6dcd29cab3f59d00522555c5af4b331191ecd6b869bd9c`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 
 | 顺序/标签 | 实际上传文件/状态 | 资产与版本 | 内容对象/说话人 | 用途与生效范围 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|---|
-| 1 / `<Picture 1>` | [colossal-contact.png](<references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png>); BOUND_LOCAL; NOT_UPLOADED | 未绑定 / sha256:028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826 | 未绑定 | storyboard blocking and ordering only; FILM-S01-SH001 · 全局帧 0–168（末帧不含）; FILM-S01-SH002 · 全局帧 168–336（末帧不含） | <Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view. | 未绑定 |
+| 1 / `<Picture 1>` | [colossal-contact.png](<references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png>); BOUND_LOCAL; NOT_UPLOADED | 未绑定 / sha256:22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003 | 未绑定 | storyboard blocking and ordering only; FILM-S01-SH001 · 全局帧 0–168（末帧不含）; FILM-S01-SH002 · 全局帧 168–336（末帧不含） | <Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view. | 未绑定 |
 
 视频参考：未声明；不虚构 Video 标签。音频参考：未声明；不虚构 Audio 标签。
 

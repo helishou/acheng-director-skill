@@ -74,7 +74,7 @@ class ReferenceDeliveryAcceptance(unittest.TestCase):
             self.assertEqual(entry["platform_status"], "NOT_UPLOADED")
             self.assertEqual(validate_package(base / "out", p, base)["status"], "PASS")
             text = (base / "out" / entry["file"]).read_text(encoding="utf-8")
-            for detail in (EXTRA_DETAIL, "Direction facts:", "Speed profile:", "35 Hz", p["shots"][0]["state_description"]):
+            for detail in (EXTRA_DETAIL, "35 Hz", p["shots"][0]["state_description"]):
                 self.assertIn(detail, text)
             proof = base / "out" / "platform-observation.txt"
             proof.write_text("TEST RECEIPT ONLY: not an actual cloud upload", encoding="utf-8")
