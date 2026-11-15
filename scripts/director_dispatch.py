@@ -19,6 +19,7 @@ def registry(root=ROOT):
     modules = indexed(json.loads((root / "data/module-registry.json").read_text(encoding="utf-8"))["modules"], "module registry")
     owners = set()
     for module in modules.values():
+        need(type(module.get("enabled", True)) is bool, f"module {module['id']}: enabled must be boolean")
         for ref in [module["entry"], *module["reads"]]:
             need((root / ref).is_file(), f"module dependency missing: {ref}")
         for pattern in module["owns"]:
@@ -26,6 +27,10 @@ def registry(root=ROOT):
             owners.add(pattern)
         need(set(module["checks_with"]) <= set(modules), "unknown adjacent checker")
     return modules
+
+
+def module_enabled(module):
+    return module.get("enabled", True) is True
 
 
 def integration_registry(root=ROOT):
@@ -137,6 +142,9 @@ def plan_dispatch(production, request, root=ROOT, skills_root=None):
     if request["stage"] == "full" and detected & {"vfx", "colossal"}:
         selected.insert(3, "effects")
     selected = [m for m in selected if m not in completed]
+    disabled = [mid for mid in selected if not module_enabled(modules[mid])]
+    blockers = [f"Acheng module is disabled: {mid}" for mid in disabled]
+    selected = [mid for mid in selected if module_enabled(modules[mid])]
     integration_steps = select_integrations(request, selected, production, root)
     shots = {s["id"] for s in production.get("shots", [])}
     scope = request.get("shot_ids", sorted(shots))
@@ -147,10 +155,11 @@ def plan_dispatch(production, request, root=ROOT, skills_root=None):
     for mid in selected:
         module = modules[mid]
         reads += [module["entry"], *module["reads"]]
+        active_checks = [n for n in module["checks_with"] if module_enabled(modules[n])]
         steps.append({"module": mid, "entry": module["entry"], "required_reads": [module["entry"], *module["reads"]], "allowed_write_paths": module["owns"],
-                      "neighbor_checks": [{"module": n, "focus": module["check_focus"], "write_paths": [], "entry": modules[n]["entry"]} for n in module["checks_with"]]})
-        reads += [modules[n]["entry"] for n in module["checks_with"]]
-    external, blockers = [], []
+                      "neighbor_checks": [{"module": n, "focus": module["check_focus"], "write_paths": [], "entry": modules[n]["entry"]} for n in active_checks]})
+        reads += [modules[n]["entry"] for n in active_checks]
+    external = []
     if "model" in selected:
         candidates = []
         if skills_root:

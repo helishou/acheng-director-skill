@@ -3,6 +3,7 @@
   "modules": [
     {
       "id": "story",
+      "enabled": true,
       "entry": "modules/story/SKILL.md",
       "reads": [
         "references/decisions/story.md",
@@ -21,6 +22,7 @@
     },
     {
       "id": "shots",
+      "enabled": true,
       "entry": "modules/shots/SKILL.md",
       "reads": [
         "references/121-user-shot-preferences.md",
@@ -50,6 +52,7 @@
     },
     {
       "id": "performance",
+      "enabled": true,
       "entry": "modules/performance/SKILL.md",
       "reads": [
         "references/decisions/performance.md",
@@ -72,6 +75,7 @@
     },
     {
       "id": "assets",
+      "enabled": true,
       "entry": "modules/assets/SKILL.md",
       "reads": [
         "references/decisions/assets.md",
@@ -101,6 +105,7 @@
     },
     {
       "id": "effects",
+      "enabled": true,
       "entry": "modules/effects/SKILL.md",
       "reads": [
         "references/decisions/effects.md",
@@ -119,6 +124,7 @@
     },
     {
       "id": "model",
+      "enabled": true,
       "entry": "modules/model/SKILL.md",
       "reads": [
         "references/decisions/model.md",
@@ -151,6 +157,7 @@
     },
     {
       "id": "continuity",
+      "enabled": true,
       "entry": "modules/continuity/SKILL.md",
       "reads": [
         "references/decisions/continuity.md",
