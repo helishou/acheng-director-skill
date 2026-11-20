@@ -1,5 +1,9 @@
 # 40｜硬核动作：受力、应对、结果与续接
 
+
+> **字段定义以机器源为准**：`schema/production.schema.json` → 生成 `references/90-fields.generated.md`
+> （Python 元数据 `scripts/production_schema.py`、前端类型与表单 `web/src/pages/drama/production-schema.generated.ts`）。
+> 本文档只解释“为什么”，不再逐字段抄写；改字段请改 schema 后运行 `node scripts/gen-production-schema.mjs`。
 ## 输入与锁定
 
 读取确认事件顺序、双方能力、武器、身体结构、场景地图、现有伤势和本段出口。锁定“谁赢、谁受损、道具去哪、进入哪个场所”，再细化动作。没有授权时不得把格挡改成击杀、把拔刀改成先冲刺、给人物新增能力。目标是可读的影视动作，允许不同媒介的夸张，但每一次位移和受力均有世界规则支撑。

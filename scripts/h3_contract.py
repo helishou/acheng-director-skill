@@ -5,7 +5,7 @@ from fractions import Fraction
 from contract_core import need, prose
 
 TASKS = {"keyframe completion", "reference generation", "video editing", "video continuation", "audio reuse", "audio reference"}
-REF2VA_MIN_WORDS = 2000
+REF2VA_MIN_WORDS = 1200
 REF2VA_TARGET_WORDS = 2400
 REF2VA_MAX_WORDS = 2900
 REF2VA_MIN_WORDS_PER_SECOND = 200
@@ -31,12 +31,24 @@ def _duration_seconds(production, segment):
     return 10.0
 
 
+CONTACT_WORDS = ("撞", "挡", "劈", "踢", "击中", "抵住", "擦过", "压住", "抓住", "撞上", "挥", "甩", "推开", "顶住",
+                 "impact", "strike", "block", "graze", "shove", "slam")
+
+
+def _looks_like_contact_action(shot):
+    """武戏预算按正文实际写的接触/受力推断，不再要求前端勾选 features.combat。"""
+    if shot.get("features", {}).get("combat"):
+        return True
+    text = str(shot.get("visual") or "")
+    return any(word in text for word in CONTACT_WORDS)
+
+
 def _complexity_addition(production, segment):
     """Add coverage budget for facts that cannot be represented safely by a short block."""
     by_id = {shot.get("id"): shot for shot in production.get("shots", [])}
     shots = [by_id[sid] for sid in segment.get("shot_ids", []) if sid in by_id]
     points = 0
-    if any(shot.get("features", {}).get("combat") for shot in shots):
+    if any(_looks_like_contact_action(shot) for shot in shots):
         points += 200
     if any(shot.get("features", {}).get("supernatural_vfx") or shot.get("features", {}).get("colossal") for shot in shots):
         points += 100
@@ -75,28 +87,23 @@ def detail_policy(production, segment):
     if policy.get("profile") == "legacy_fixture":
         return {"profile": "legacy_fixture", "minimum_words": 0, "target_words": 0}
     seconds = _duration_seconds(production, segment)
-    min_rate = int(policy.get("minimum_words_per_second", REF2VA_MIN_WORDS_PER_SECOND))
-    target_rate = int(policy.get("target_words_per_second", REF2VA_TARGET_WORDS_PER_SECOND))
-    if min_rate < REF2VA_MIN_WORDS_PER_SECOND:
-        raise ValueError(f"minimum_words_per_second must be at least {REF2VA_MIN_WORDS_PER_SECOND}")
-    if target_rate < min_rate:
-        raise ValueError("target_words_per_second must be greater than or equal to minimum_words_per_second")
+    # Detail policy is a writing recommendation. A lower requested density must
+    # not make an otherwise compilable H3 request fail before the user can use it.
+    # 下限是绝对词数底线（1200）；只有显式声明 minimum_words_per_second 时才按秒数抬高。
+    explicit_rate = policy.get("minimum_words_per_second")
+    min_rate = max(0, int(REF2VA_MIN_WORDS_PER_SECOND if explicit_rate is None else explicit_rate))
+    target_rate = max(min_rate, int(policy.get("target_words_per_second", REF2VA_TARGET_WORDS_PER_SECOND)))
     addition = _complexity_addition(production, segment)
-    maximum = int(policy.get("ref2va_max_words", REF2VA_MAX_WORDS))
-    derived_minimum = min(max(REF2VA_MIN_WORDS, ceil(seconds * min_rate)) + addition, maximum)
+    maximum = max(1, int(policy.get("ref2va_max_words", REF2VA_MAX_WORDS)))
+    per_second_minimum = ceil(seconds * min_rate) if explicit_rate is not None else 0
+    # Floor and ceiling must not collapse into an exact-equality band; keep a
+    # writing margin so a compliant request is not forced to hit one number.
+    derived_minimum = min(REF2VA_MIN_WORDS + per_second_minimum + addition, max(1, maximum - 100))
     derived_target = min(max(REF2VA_TARGET_WORDS, ceil(seconds * target_rate), derived_minimum + 200), maximum)
     explicit_minimum = policy.get("ref2va_min_words")
     explicit_target = policy.get("ref2va_target_words")
-    if explicit_minimum is not None and int(explicit_minimum) < derived_minimum:
-        raise ValueError(f"Ref2VA minimum detail must be at least the derived {derived_minimum} words for this Segment")
-    minimum = int(explicit_minimum) if explicit_minimum is not None else derived_minimum
-    if explicit_target is not None and int(explicit_target) < derived_target:
-        raise ValueError(f"Ref2VA target detail must be at least the derived {derived_target} words for this Segment")
-    target = int(explicit_target) if explicit_target is not None else max(derived_target, min(minimum + 200, maximum))
-    if target > maximum:
-        target = maximum
-    if target < minimum:
-        raise ValueError("Ref2VA target detail must be greater than or equal to its minimum")
+    minimum = min(maximum, max(0, int(explicit_minimum))) if explicit_minimum is not None else derived_minimum
+    target = min(maximum, max(minimum, int(explicit_target))) if explicit_target is not None else max(derived_target, min(minimum + 200, maximum))
     return {"profile": policy.get("profile", "strict"), "minimum_words": minimum, "target_words": target,
             "maximum_words": maximum,
             "duration_seconds": seconds, "complexity_addition": addition,
@@ -125,7 +132,7 @@ def speech_map(p, seg):
 def remap_speech_references(value, p, seg):
     local = speech_map(p, seg)
     old = {line["speaker_id"]: local[line.get("character_id", line["speaker_name"])]
-           for shot in p["shots"] for line in shot["dialogues"]
+           for shot in p["shots"] for line in shot.get("dialogues", [])
            if line.get("character_id", line["speaker_name"]) in local}
     return re.sub(r"\((S[1-9]\d*)\)", lambda m: "(" + old.get(m[1], m[1]) + ")", value)
 

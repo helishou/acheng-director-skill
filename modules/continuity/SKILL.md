@@ -11,11 +11,13 @@ metadata:
 
 coverage 是人工专业复核证据，不是机器语义发现：每个剧本 block 都有源摘要和 evidence_kind；变化必须链接事实、requirement、event 与来源；保持须链接对应事实的已知初态；not_applicable 仅使用合同允许的窄规则并附理由与复核引用；未知标 unresolved_review。不能为通过批量填写“不变”或伪造事件。普通编辑可以保存 blocked/partial，不能将它标记为完整。
 
+当场景地图、Blocking 或相邻 Shot 显示人物跨镜改变相对位置/姿态，且会影响下一镜的左右关系、遮挡、视线、攻击路径、接触或剪辑匹配时，必须按[连续性决策 K6](../../references/decisions/continuity.md#k6跨镜位置姿态与场景锚点)判断是否登记空间状态 fact、初态、转场 event 与逐镜 hold/change requirement。单镜构图仍写入 Shot visual/camera；`subject_usages` 只说明可见性。没有证据时不得把场景侧向简化成全段不变位置，也不得猜转场帧。
+
 程序派生的 Shot 起止状态、outcome events 与报告严禁写入 ledger/source。覆盖回执、技能读取、程序重放和媒体观察分别报告；机器结构通过不声称自然语言已完整识别，也不声称实际画面通过。
 
 跨镜状态、参考版本或恢复游标有冲突时，按[局部决策指南](../../references/decisions/continuity.md)对应节定位来源；只返回具体缺口，不新增事件来强行对齐。
 
-读[114 绑定合同](../../references/114-reference-binding-delivery-v4.3.6.md)。相邻复核 model 的稳定对象身份、素材状态版本、Shot/帧窗和尾态；发现错误退给字段 owner，不自行改 H3 或素材。联合回执必须与当前 revision 一致，机器 PASS 不等于语义识图、平台上传或实际成片验收。
+读[114 绑定合同](../../references/114-reference-binding-delivery.md)。相邻复核 model 的稳定对象身份、素材状态版本、Shot/帧窗和尾态；发现错误退给字段 owner，不自行改 H3 或素材。联合回执必须与当前 revision 一致，机器 PASS 不等于语义识图、平台上传或实际成片验收。
 
 本文件是acheng-director随包专业子入口，按路径加载；主导演负责真值、版本、对象创建和最终合并。它不自动启动代理或调用模型。
 

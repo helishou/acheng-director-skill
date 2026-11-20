@@ -85,7 +85,7 @@ def finish_asset_entry(entry, card, payload, output, upload_name):
     return entry
 
 
-def validate_asset_entries(root, entries, *, production=None, source_base=None):
+def validate_asset_entries(root, entries, *, production=None, source_base=None, selected_asset_ids=None):
     root = Path(root).resolve()
     def local(name):
         path = (root / name).resolve()
@@ -94,7 +94,9 @@ def validate_asset_entries(root, entries, *, production=None, source_base=None):
     need(len({e['asset_id'] for e in entries}) == len(entries), 'duplicate asset delivery')
     cards = {c['id']: c for c in (production or {}).get('asset_cards', [])}
     if production is not None:
-        need({e['asset_id'] for e in entries} == set(cards), 'asset delivery missing or disconnected from source cards')
+        selected = set(selected_asset_ids) if selected_asset_ids is not None else set(cards)
+        need(selected <= set(cards), 'asset delivery scope references missing source cards')
+        need({e['asset_id'] for e in entries} == selected, 'asset delivery missing or disconnected from selected source cards')
         if entries and any(e['status'] in {'PROMPT_READY', 'ready-to-submit-not-generated'} for e in entries):
             from post_hooks import check_assets
             check_assets(production, source_base, allow_missing=True)
@@ -150,7 +152,8 @@ def main():
         production = json.loads(args.production.read_text(encoding='utf-8')) if args.production else None
         entries = index['assets'] if 'assets' in index else index['asset_prompts']
         result = validate_asset_entries(args.package, entries, production=production,
-                                        source_base=args.production.parent if args.production else None)
+                                        source_base=args.production.parent if args.production else None,
+                                        selected_asset_ids=index.get('selected_asset_ids'))
     except (ValueError, OSError, KeyError, TypeError) as exc:
         result = {'status': 'FAIL', 'error': str(exc)}
     print(json.dumps(result, ensure_ascii=False, indent=2))

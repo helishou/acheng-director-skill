@@ -39,7 +39,7 @@
 | 单帧光泽或损坏与时间冲突 | 当前 Shot 的单一相位、干湿/破损版本 | assets：关键帧卡和 references；continuity 核对既有 ledger | 相应 reference_requirements → model.references/subjects/state范围，不能把尾态提前到首帧 |
 | 每镜像换了媒介 | 批准 style_lock 和既有媒介 | model：segments.style；assets 守住锚点用途 | H3 style 与图像七步第2步；镜头只补当前可见事实 |
 | 需要动画节拍、拖随或冲击强调 | 当前 motion_profile、效果family、冻结时序 | performance/effects 写各自原字段；model 用既有 motion_profile/animation_term_evidence | 走 [88条动画术语](113-animation-art-terminology-library-v4.3.md)，不另建第二份动画词库 |
-| 缺的其实是具体参考图 | 素材是否已生成、批准、版本/哈希正确 | assets 提供素材；model 分配每段真实标签 | 走 [114绑定合同](114-reference-binding-delivery-v4.3.6.md)；资料库 ID 永远不是 Picture 或上传槽 |
+| 缺的其实是具体参考图 | 素材是否已生成、批准、版本/哈希正确 | assets 提供素材；model 分配每段真实标签 | 走 [114绑定合同](114-reference-binding-delivery.md)；资料库 ID 永远不是 Picture 或上传槽 |
 
 七步表和完整 prompt 必须同步；风格行与逐镜正文也必须一致。本库没有新增 production 字段。采用结果写回原 owner；跨 owner 的建议先交主导演按原回包合同合并，不能让检索脚本直接写入生产文件。
 
@@ -73,4 +73,4 @@
     python scripts/director_library.py render-guides
     python scripts/director_library.py validate
 
-生成的七份问题视图不手工维护第二套正文。包验收检查其与 JSON 一致、原文哈希、原 owner 落点、模块路由和88术语引用；这属于工程检查，不是对审美的自动打分。完整纳入/拒绝说明见 [4.3.8优化说明](../UPGRADE-4.3.8.md)。
+生成的七份问题视图不手工维护第二套正文。包验收检查其与 JSON 一致、原文哈希、原 owner 落点、模块路由和88术语引用；这属于工程检查，不是对审美的自动打分。当前活动合同以 Acheng Director 4.3.9 主入口为准；旧版升级说明不再作为操作入口。

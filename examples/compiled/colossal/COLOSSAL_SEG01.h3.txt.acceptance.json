@@ -2,23 +2,23 @@
   "format_pass": "PASSED",
   "validator": "h3_final_format/4.3.6",
   "file": "COLOSSAL_SEG01.h3.txt",
-  "sha256": "65c9ae8724e367c1bc8228c8fdfa6347919ee5ae4b414b6b600629987adeff9d",
-  "contract_sha256": "acc4498ae320aa1430408732793446d877592267453f338e87ec620205293681",
+  "sha256": "6266affa070eea4c6b6dcd29cab3f59d00522555c5af4b331191ecd6b869bd9c",
+  "contract_sha256": "c175cdd2e8a1f8281c6dc8b627cc969c7a73d7989d8a1611a86caffb05237d74",
   "mode": "Ref2VA",
   "duration_seconds": 14.0,
   "shot_count": 2,
-  "english_words": 3384,
+  "english_words": 3003,
   "minimum_words": 0,
   "dialogue_count": 0,
   "references": [
     {
       "label": "<Picture 1>",
-      "file": "references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png",
-      "sha256": "028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826",
+      "file": "references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png",
+      "sha256": "22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003",
       "role": "storyboard blocking and ordering only"
     }
   ],
-  "input_revision": "287615f19d89194ad514c2b9bc81aa70cba15400f03070489807e911bc124eaa",
+  "input_revision": "de7132888efface896f6a5c5ab33628d2c2cc041468e03d933512eb6e86783d1",
   "visual_status": "UNVERIFIED",
   "scope": "final-file structural validation; not creative, visual or audio acceptance"
 }

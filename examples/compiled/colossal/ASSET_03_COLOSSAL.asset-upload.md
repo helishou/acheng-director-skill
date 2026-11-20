@@ -12,6 +12,6 @@
 
 | 槽位 | 实际图片/缺项 | 用途/对象 | 版本 | 必须保留 | 禁止继承 |
 |---|---|---|---|---|---|
-| 1 | [028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png](<references/028eee66c71c1f4148764ce5ed3c3d9d6d48570af091ff710b53346509c68826.png>) | composition / the confrontation between Aer and Stone Sentinel | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
+| 1 | [22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png](<references/22bb29f5651c5fe13acda8114614edf7408381604d6db2df0e709d8852d37003.png>) | composition / the confrontation between Aer and Stone Sentinel | 未指定 | only Panel 01's left-right placement and ground line; the left block marked A denotes Aer, and the right block marked B denotes Stone Sentinel | the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image |
 
 下一步：核对模式和本卡槽位，在实际入口上传图片并复制完整提示词；生成后记录真实文件、版本和人工批准。

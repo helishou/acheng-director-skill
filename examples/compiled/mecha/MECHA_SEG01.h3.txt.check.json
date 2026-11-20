@@ -5,13 +5,13 @@
   "references": [
     {
       "label": "<Picture 1>",
-      "file": "references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png",
+      "file": "references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png",
       "role": "storyboard blocking and ordering only",
       "definition": "<Picture 1> is the sixteen-panel gray blocking diagram for [Shot 1] and [Shot 2], providing left-right placement and event order; its schematic figures and flat shading are not appearance or material references.",
       "retention": "<Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view.",
       "upload_order": 1,
-      "sha256": "6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2",
-      "asset_version": "sha256:6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2",
+      "sha256": "595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540",
+      "asset_version": "sha256:595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540",
       "entity_id": null,
       "shot_ids": [
         "FILM-S01-SH001",
@@ -46,7 +46,7 @@
     "subject_definitions": "<Picture 1> is the sixteen-panel gray blocking diagram for [Shot 1] and [Shot 2], providing left-right placement and event order; its schematic figures and flat shading are not appearance or material references.",
     "retention_analysis": "<Picture 1> (planning reference for [Shot 1] and [Shot 2]): weak_reference - preserve the two figures' relative sides and the ordered action beats, while replacing schematic blocks with the described original character designs in a single full-screen view."
   },
-  "input_revision": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
-  "binding_sha256": "d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd",
-  "expected_prompt_sha256": "acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c"
+  "input_revision": "1262d917f02c6528e7cfc4daaf7ea7c4cab61799d4d3c0cf45db46c57c80cb09",
+  "binding_sha256": "9ce67b1dd93c41dd94d8e7a33b42b8a18ead861e00e26e917fd00827f8a2bfb4",
+  "expected_prompt_sha256": "1fd00edf7efa57ea8151e49ca920ff6eb80a45a6faa947d9c189d58f3b3582e2"
 }

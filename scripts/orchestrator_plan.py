@@ -116,22 +116,28 @@ def plan(request,production):
         scene_design=add('scene-design','assets','scene-design',[x for x in (story,shots,style_anchor) if x],reason='scene-art contract requested; specialist remains advisory and assets owns final merge')
     if asset_generation_requested: assets=add('assets','assets','assets',[x for x in (story,shots,perf,style_anchor,scene_design) if x],reason='asset registry or scene-art handoff is requested or required')
     if (full and ('vfx' in feats or 'colossal' in feats or request.get('include_effects'))) or vfx_only: effects=add('effects','effects','effects',[x for x in (shots,perf) if x],reason='effects explicitly triggered; frozen paths remain outside production writes',frozen=request.get('frozen_paths',[]))
+    continuity=None
+    needs_continuity=full or script or assets_only or h3 or vfx_only or shots_only or performance_only or continuity_only or bool(request.get('continue'))
+    if needs_continuity:
+        continuity=add('continuity','continuity','continuity',[n['id'] for n in nodes],reason='replay and verify authored state after Shot, performance/action and effects inputs; complete before any H3 compilation')
     if full or h3 or request.get('compile_h3'):
-        deps=[x for x in (shots,perf,assets,effects) if x]; wanted=request.get('segment_ids'); wanted=[wanted] if isinstance(wanted,str) else wanted
+        deps=[x for x in (shots,perf,assets,effects,continuity) if x]; wanted=request.get('segment_ids'); wanted=[wanted] if isinstance(wanted,str) else wanted
         segs=[s for s in production.get('segments',[]) if not wanted or s.get('id') in set(wanted)]
         if wanted and (not isinstance(wanted,list) or set(wanted) - {s.get('id') for s in production.get('segments', [])}):
             raise ValueError('segment_ids contain unknown segments; discover segments before selecting them')
         if segs:
+            audit=add('shot-visibility-audit','shots','shot-visibility-audit',deps,reason='after performance/action and continuity, verify each target Shot frame, action evidence and visible continuity facts before H3 Prompt Assembly')
+            nodes[-1]['shot_ids']=list(dict.fromkeys(shot_id for segment in segs for shot_id in segment.get('shot_ids',[])))
+            compile_deps=[*deps,audit]
             for s in segs:
                 policy = detail_policy(production, s)
-                binding = add('reference-binding:'+str(s.get('id')), 'model', 'reference-binding', deps,
+                binding = add('reference-binding:'+str(s.get('id')), 'model', 'reference-binding', compile_deps,
                     reason='resolve Shot reference requirements and approved local asset versions; no asset generation or mode fallback', segment_id=s.get('id'))
                 add('model:'+str(s.get('id')), 'model', 'model', [binding],
                     reason='each Segment is an independent H3 compilation unit',
                     segment_id=s.get('id'), h3_policy=policy,
                     term_ids=terminology['term_ids'])
         else: add('model','model','model',deps,reason='H3 compilation requested; segment discovery remains a production concern')
-    if full or script or assets_only or h3 or vfx_only or shots_only or performance_only or continuity_only or request.get('continue'): add('continuity','continuity','continuity',[n['id'] for n in nodes],reason='replay and persist continuity after selected slice')
     if request.get('audit',True) or full or script or assets_only or h3 or vfx_only: add('audit','continuity','audit',[n['id'] for n in nodes],reason='single delivery-integrity and claim-honesty receipt')
     if not nodes: raise ValueError('no executable capability for intent: '+intent)
     completed=set(request.get('completed_nodes',[]))
@@ -147,6 +153,10 @@ def plan(request,production):
         if n['phase'] == 'scene-design':
             n['required_reads'] += ['modules/assets/scene-design/SKILL.md']
             n['allowed_write_paths'] = []
+        if n['phase'] == 'shot-visibility-audit':
+            n['required_reads'] += ['references/120-precompile-shot-visibility-audit.md', modules['continuity']['entry'], *modules['continuity']['reads']]
+            n['allowed_write_paths'] = []
+            n['required_artifacts'] = ['per-Shot frame visibility and continuity-fact selection audit receipt']
         if n['phase'] in {'model', 'reference-binding'}:
             n['external_required_reads'] = ['h3-prompt-writing/SKILL.md', 'h3-prompt-writing/references/ref-en.txt', 'h3-prompt-writing/references/base-en.txt']
         if n['phase'] == 'model':

@@ -38,9 +38,7 @@ def export_asset_prompt_bundle(production, source_base, output):
     cards = production.get("asset_cards", [])
     if not cards:
         return []
-    style_report = style_policy_report(production, source_base, strict=True)
-    if style_report.get("status") == "BLOCKED":
-        raise ContractError(style_report["reason"])
+    style_report = style_policy_report(production, source_base, strict=False)
     from post_hooks import check_assets
     asset_contract_error = None
     try:
@@ -64,7 +62,7 @@ def export_asset_prompt_bundle(production, source_base, output):
         render_error = asset_contract_error
         if prompt:
             try:
-                prompt = render_asset_prompt({**card, "prompt": prompt}, production.get("prompt_bindings"), production.get("style_lock"))
+                prompt = render_asset_prompt({**card, "prompt": prompt}, production.get("prompt_bindings"), style_report.get("style_lock"))
             except (ValueError, KeyError) as exc:
                 # Keep authored text for recovery, but make the failed consumer
                 # contract explicit instead of exporting a reference-free prompt.
@@ -97,18 +95,24 @@ def export_asset_prompt_bundle(production, source_base, output):
     return entries
 
 
-def compile_package(source, output, *, draft=False, execution_mode="autonomous_file_batch", segment_id=None):
+def compile_package(source, output, *, draft=False, execution_mode="autonomous_file_batch", segment_id=None, segment_ids=None):
     source, output = Path(source), Path(output)
     production = read_data(source)
-    style_report = style_policy_report(production, source.parent, strict=True)
-    if style_report.get("status") == "BLOCKED" and production.get("asset_cards"):
-        raise ContractError(style_report["reason"])
+    style_report = style_policy_report(production, source.parent, strict=False)
     revision = content_hash(production)
     if execution_mode not in {"autonomous_file_batch", "interactive_segment"}:
         raise ContractError("invalid execution_mode")
-    if execution_mode == "interactive_segment" and not segment_id:
+    requested_ids = list(dict.fromkeys([*(segment_ids or []), *([segment_id] if segment_id else [])]))
+    if execution_mode == "interactive_segment" and not requested_ids:
         raise ContractError("interactive_segment requires --segment; one complete Segment per turn")
-    selected = [s for s in production["segments"] if not segment_id or s["id"] == segment_id]
+    if execution_mode == "interactive_segment" and len(requested_ids) != 1:
+        raise ContractError("interactive_segment accepts exactly one --segment per turn")
+    available_ids = {str(segment.get("id")) for segment in production["segments"]}
+    unknown_ids = [segment_id for segment_id in requested_ids if segment_id not in available_ids]
+    if unknown_ids:
+        raise ContractError("unknown Segment: " + ", ".join(unknown_ids))
+    selected_ids = set(requested_ids)
+    selected = [s for s in production["segments"] if not selected_ids or s["id"] in selected_ids]
     if not selected:
         raise ContractError("unknown Segment")
     if output.exists():
@@ -126,29 +130,33 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
         snapshot = resolve_bindings(production, seg, source.parent)
         segment_report = audit(production, source.parent, h3_segment_ids={seg['id']}) if any(g['gate'] == 'h3_schema' for g in package_failed) else report
         failed = [g for g in segment_report['gates'] if g['status'] == 'FAIL' and not (continuity_report is not None and g.get('gate') == 'continuity_ledger')]
-        if failed and not draft and not (snapshot["issues"] and all(g["gate"] == "h3_schema" for g in failed)):
-            raise ContractError(json.dumps(report, ensure_ascii=False))
         blockers = list(snapshot["issues"])
+        quality = []
+        if style_report.get("status") == "BLOCKED": quality.append({"code": "STYLE_POLICY", "message": style_report.get("reason", "风格参考尚未准备"), "path": "style_lock", "target_id": seg["id"]})
+        quality.extend({"code": gate["gate"], "message": message, "path": gate["gate"], "target_id": seg["id"]}
+                       for gate in failed for message in gate.get("errors", []))
         if continuity_report is not None:
-            shot_ids = {str(value) for value in seg.get("shot_ids", [])}
-            blockers.extend(item["code"] + ": " + item["message"] for item in continuity_report["diagnostics"]
-                           if not item.get("affectedTargets") or seg["id"] in item.get("affectedTargets", []) or item.get("targetId") in shot_ids)
-        blockers.extend(g["gate"] + ": " + "; ".join(g["errors"]) for g in failed)
+            quality.extend({"code": item["code"], "message": item["message"], "path": "continuity", "target_id": seg["id"]}
+                           for item in continuity_report["diagnostics"]
+                           if not item.get("affectedTargets") or seg["id"] in item.get("affectedTargets", []) or item.get("targetId") in set(seg.get("shot_ids", [])))
         resolved_seg = copy.deepcopy(seg)
         resolved_seg["references"] = [copy.deepcopy(r) for r in snapshot["references"] if r["label"].startswith("<")]
         resolved_seg["subjects"] = snapshot["subjects"]
         try:
-            text = compile_segment(production, resolved_seg, draft=bool(blockers))
+            text = compile_segment(production, resolved_seg, draft=True)
         except ValueError as exc:
             if not draft:
                 raise
             blockers.append(str(exc))
-            text = compile_segment(production, resolved_seg, draft=True)
-        prepared.append((seg, resolved_seg, snapshot, text, blockers))
+            text = "DRAFT — prompt assembly failed; authored source is retained.\n"
+        prepared.append((seg, resolved_seg, snapshot, text, blockers, quality))
     output.mkdir(parents=True)
-    asset_prompts = export_asset_prompt_bundle(production, source.parent, output)
+    # A target-scoped H3 package consumes bound image references; it does not need
+    # to export every unrelated image prompt again. Full-file batches keep the
+    # historical combined delivery package unchanged.
+    asset_prompts = [] if requested_ids else export_asset_prompt_bundle(production, source.parent, output)
     index = []
-    for seg, resolved_seg, snapshot, text, blockers in prepared:
+    for seg, resolved_seg, snapshot, text, blockers, quality in prepared:
         for ref in snapshot["references"]:
             if ref.get("binding_status") != "BOUND_LOCAL":
                 continue
@@ -178,19 +186,34 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
                  "format_pass": "NOT_ACCEPTED" if blockers else "PASSED", "sha256": sha,
                  "status": "DRAFT_MISSING_REFERENCES" if snapshot["issues"] else ("DRAFT_CONTRACT_FAILED" if blockers else "READY_TO_UPLOAD"),
                  "accepted": not bool(blockers), "blockers": list(dict.fromkeys(blockers)),
+                 "quality_diagnostics": quality,
                  "platform_status": "NOT_UPLOADED", "binding_snapshot": snapshot,
                  "h3_detail_policy": policy, "detailed_description_english_words": english_word_count(body) if seg["mode"] == "Ref2VA" else None,
                  "execution_capabilities": "UNVERIFIED: confirm actual platform mode, duration and slots",
                  "visual_status": "UNVERIFIED", "references": snapshot["references"],
                  "upload_card": seg["id"] + ".upload.md", "delivery_manifest": name + ".delivery.json"}
         if not blockers:
-            contract = file_contract(production, resolved_seg, snapshot["references"])
-            contract.update(input_revision=revision, binding_sha256=snapshot["binding_sha256"], expected_prompt_sha256=sha)
-            entry["format_contract"] = name + ".check.json"
-            entry["format_receipt"] = name + ".acceptance.json"
-            write_json(output / entry["format_contract"], contract)
-            receipt = validate_h3_file(output / name, contract, output, allow_legacy_fixture=snapshot["legacy_fixture"])
-            write_json(output / entry["format_receipt"], receipt)
+            try:
+                contract = file_contract(production, resolved_seg, snapshot["references"])
+                contract.update(input_revision=revision, binding_sha256=snapshot["binding_sha256"], expected_prompt_sha256=sha)
+                format_contract = name + ".check.json"
+                format_receipt = name + ".acceptance.json"
+                write_json(output / format_contract, contract)
+                receipt = validate_h3_file(output / name, contract, output, allow_legacy_fixture=snapshot["legacy_fixture"])
+                quality.extend(receipt.get("quality_diagnostics", []))
+                entry["format_contract"] = format_contract
+                entry["format_receipt"] = format_receipt
+                write_json(output / format_receipt, receipt)
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                # A malformed target stays inspectable as a draft; it must not
+                # discard successful prompts from other Segments in this package.
+                blockers.append(str(exc))
+                draft_name = seg["id"] + ".h3.draft.txt"
+                (output / name).replace(output / draft_name)
+                entry.update({"file": draft_name, "sha256": file_hash(output / draft_name),
+                              "format_pass": "NOT_ACCEPTED", "status": "DRAFT_CONTRACT_FAILED",
+                              "accepted": False, "blockers": list(dict.fromkeys(blockers)),
+                              "delivery_manifest": draft_name + ".delivery.json"})
         (output / entry["upload_card"]).write_text(upload_card(entry), encoding="utf-8")
         entry["upload_card_sha256"] = file_hash(output / entry["upload_card"])
         write_json(output / entry["delivery_manifest"], entry)
@@ -203,6 +226,8 @@ def compile_package(source, output, *, draft=False, execution_mode="autonomous_f
                    "story_arc_scope": (production.get("story") or {}).get("arc_scope"),
                },
                "asset_prompts": asset_prompts, "segments": index}
+    if requested_ids:
+        payload["selected_segment_ids"] = [segment["id"] for segment in selected]
     write_json(output / "index.json", payload)
     write_json(output / "audit.json", report)
     if continuity_report is not None:
@@ -221,10 +246,10 @@ def main():
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--draft", action="store_true")
     parser.add_argument("--execution-mode", choices=("autonomous_file_batch", "interactive_segment"), default="autonomous_file_batch")
-    parser.add_argument("--segment")
+    parser.add_argument("--segment", action="append", help="Compile this Segment; repeat for a target-scoped batch")
     args = parser.parse_args()
     try:
-        index = compile_package(args.production, args.out, draft=args.draft, execution_mode=args.execution_mode, segment_id=args.segment)
+        index = compile_package(args.production, args.out, draft=args.draft, execution_mode=args.execution_mode, segment_ids=args.segment)
         print(f"Wrote {len(index)} Segment bundles to {args.out}; {sum(e['accepted'] for e in index)} ready to upload; no model calls made.")
         return 0 if all(e["accepted"] for e in index) else 2
     except (ValueError, OSError, KeyError, TypeError) as exc:

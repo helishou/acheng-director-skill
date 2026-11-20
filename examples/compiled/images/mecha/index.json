@@ -1,7 +1,7 @@
 {
   "asset_reference_contract": "1.0",
   "status": "ready-to-submit-not-generated",
-  "input_sha256": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
+  "input_sha256": "1262d917f02c6528e7cfc4daaf7ea7c4cab61799d4d3c0cf45db46c57c80cb09",
   "assets": [
     {
       "asset_id": "ASSET_01_MECHA",
@@ -18,12 +18,12 @@
       "references": [
         {
           "image": 1,
-          "file": "references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png",
+          "file": "references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png",
           "role": "composition",
           "subject": "the confrontation between Forge and Ward",
           "preserve": "only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward",
           "exclude": "the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image",
-          "sha256": "6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2",
+          "sha256": "595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540",
           "source_file": "media/mecha-contact.png",
           "binding_status": "BOUND_LOCAL",
           "platform_status": "NOT_UPLOADED"
@@ -31,8 +31,8 @@
       ],
       "missing_reference_details": [],
       "target": "GPT Image 2 / 2.5 natural-language prompt; select the actual available model in your entry point",
-      "input_revision": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
-      "resolved_card_sha256": "3e36d4a9e933481258153bbe7925ffc0fbb19e8d0e420a4275c1f61dc58f372b",
+      "input_revision": "1262d917f02c6528e7cfc4daaf7ea7c4cab61799d4d3c0cf45db46c57c80cb09",
+      "resolved_card_sha256": "3d3ccfd3b63f081bb039f44e14da52fd97e2db6dc2db892bb7a89e97b4d9186d",
       "reference_count": 1,
       "state_version": null,
       "asset_version": null,
@@ -40,7 +40,7 @@
       "upload_card": "ASSET_01_MECHA.upload.md",
       "platform_status": "NOT_UPLOADED",
       "visual_status": "UNVERIFIED",
-      "upload_card_sha256": "0eb3c1c31e4cdfaf1b95812d87851f1742926a25f385c4d622fe8cb5aaa870f4"
+      "upload_card_sha256": "68373d4df766f89e3146d56ba32018175090deb8d7359f969f7f6e0ab6326ef2"
     }
   ],
   "asset_plan": null,

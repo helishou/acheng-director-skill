@@ -136,7 +136,8 @@ def validate_package(root, production=None, source_base=None):
     result = {"status": "PASS" if all(x["joint_status"] == "PASSED" for x in results) else "DRAFT_NOT_SUBMITTABLE", "segments": results, "visual_status": "UNVERIFIED"}
     if index.get("asset_reference_contract") == "1.0":
         from asset_delivery import validate_asset_entries
-        result["asset_prompt_delivery"] = validate_asset_entries(root, index.get("asset_prompts", []), production=production, source_base=source_base)
+        asset_scope = [] if "selected_segment_ids" in index else None
+        result["asset_prompt_delivery"] = validate_asset_entries(root, index.get("asset_prompts", []), production=production, source_base=source_base, selected_asset_ids=asset_scope)
     return result
 
 

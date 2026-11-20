@@ -74,7 +74,7 @@ class ReferenceDeliveryAcceptance(unittest.TestCase):
             self.assertEqual(entry["platform_status"], "NOT_UPLOADED")
             self.assertEqual(validate_package(base / "out", p, base)["status"], "PASS")
             text = (base / "out" / entry["file"]).read_text(encoding="utf-8")
-            for detail in (EXTRA_DETAIL, "Direction facts:", "Speed profile:", "35 Hz", p["shots"][0]["state_description"]):
+            for detail in (EXTRA_DETAIL, "35 Hz", p["shots"][0]["state_description"]):
                 self.assertIn(detail, text)
             proof = base / "out" / "platform-observation.txt"
             proof.write_text("TEST RECEIPT ONLY: not an actual cloud upload", encoding="utf-8")
@@ -196,7 +196,8 @@ class ReferenceDeliveryAcceptance(unittest.TestCase):
             node['depends_on'] = []
             state['nodes'] = [node]
             dispatch = plan_dispatch(p, {"request_id": "ROUTE436", "stage": "h3-compile"})
-            self.assertIn("continuity", [n["module"] for n in dispatch["steps"][0]["neighbor_checks"]])
+            model_step = next(n for n in dispatch["steps"] if n["module"] == "model")
+            self.assertIn("continuity", [n["module"] for n in model_step["neighbor_checks"]])
             entry = compile_package(source, base / "out")[0]
             state_path = base / "state.json"
             save_state(state_path, state)

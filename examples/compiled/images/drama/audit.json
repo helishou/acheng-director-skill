@@ -2,7 +2,7 @@
   "status": "PASS",
   "stage": "assets",
   "assets": 1,
-  "input_sha256": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+  "input_sha256": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
   "missing_references": [],
   "asset_plan": null,
   "style_lock": null,

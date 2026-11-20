@@ -86,7 +86,6 @@ Acheng Director 采用**主导演单一真值中枢 + 七大专业业务模块**
 acheng-director/
 ├── SKILL.md                          # 技能主入口定义与生产契约核心
 ├── 使用指南.md                        # 完整详细的用户实操指南
-├── 3.5.4简便操作指南.md                # 极速上手最短路径
 ├── DELIVERY.md                       # 交付入口与核心规范导读
 ├── camera-moves-whitebox-132/        # 132 段 1080P/24fps 镜头运动白模库及接触表
 │   ├── contact-sheet.png             # 132 镜头总览接触表

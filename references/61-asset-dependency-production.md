@@ -2,7 +2,7 @@
 
 ## 从剧本建立需求
 
-H3 段内引用按[114 合同](114-reference-binding-delivery-v4.3.6.md)衔接：shots 提出确需引用的对象/状态，assets 提供批准版本，model 完成请求局部绑定，continuity 核查污染。制作所需 required_assets 不自动等于全部上传；不要强制每段带 STYLE_MOTHER。
+H3 段内引用按[114 合同](114-reference-binding-delivery.md)衔接：shots 提出确需引用的对象/状态，assets 提供批准版本，model 完成请求局部绑定，continuity 核查污染。制作所需 required_assets 不自动等于全部上传；不要强制每段带 STYLE_MOTHER。
 
 逐场盘点出场角色及身份版本、服装/发型/伤势、场景与补充视角、可操作道具、载具、特效形态和关键帧。每镜required_assets列实际需要的资产ID；required_prop_ids列关键道具。扫描文字并人工检查漏项，机器随后核对声明的角色/场景/道具覆盖；机器不声称自然语言中任何隐含资产都能自动发现。
 

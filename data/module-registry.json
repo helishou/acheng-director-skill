@@ -1,8 +1,9 @@
 {
-  "version": "4.3.8",
+  "version": "4.3.10",
   "modules": [
     {
       "id": "story",
+      "enabled": true,
       "entry": "modules/story/SKILL.md",
       "reads": [
         "references/decisions/story.md",
@@ -21,24 +22,25 @@
     },
     {
       "id": "shots",
+      "enabled": true,
       "entry": "modules/shots/SKILL.md",
       "reads": [
+        "references/121-user-shot-preferences.md",
         "references/decisions/shots.md",
         "references/20-storyboard-compiler.md",
         "references/21-genre-camera-capacity.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/22-movie-storyboard-shot-cutting.md",
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/shots/*/camera",
         "/shots/*/visual",
-        "/shots/*/characters",
-        "/shots/*/start_frame",
-        "/shots/*/end_frame",
+        "/shots/*/subject_usages",
+        "/shots/*/duration_frames",
+        "/shots/*/source_scene_id",
         "/shots/*/reference_requirements",
         "/segments/*/shot_ids",
-        "/segments/*/start_frame",
-        "/segments/*/end_frame",
-        "/segments/*/generation_clip_duration",
         "/shots/*/required_assets",
         "/shots/*/required_prop_ids"
       ],
@@ -50,13 +52,15 @@
     },
     {
       "id": "performance",
+      "enabled": true,
       "entry": "modules/performance/SKILL.md",
       "reads": [
         "references/decisions/performance.md",
         "references/30-performance-adapter.md",
         "references/40-action-choreography.md",
         "references/31-performance-handoff.md",
-        "references/32-liveliness-performance-framework.md"
+        "references/32-liveliness-performance-framework.md",
+        "references/91-module-orchestration.md"
       ],
       "owns": [
         "/shots/*/performance",
@@ -71,6 +75,7 @@
     },
     {
       "id": "assets",
+      "enabled": true,
       "entry": "modules/assets/SKILL.md",
       "reads": [
         "references/decisions/assets.md",
@@ -80,7 +85,8 @@
         "references/62-style-anchor.md",
         "references/72-standalone-prompt-delivery.md",
         "references/105-scene-design-adapter-v4.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/117-scene-density-five-layer-v4.md",
+        "references/114-reference-binding-delivery.md"
       ],
       "owns": [
         "/asset_plan",
@@ -99,6 +105,7 @@
     },
     {
       "id": "effects",
+      "enabled": true,
       "entry": "modules/effects/SKILL.md",
       "reads": [
         "references/decisions/effects.md",
@@ -117,6 +124,7 @@
     },
     {
       "id": "model",
+      "enabled": true,
       "entry": "modules/model/SKILL.md",
       "reads": [
         "references/decisions/model.md",
@@ -124,7 +132,8 @@
         "references/72-standalone-prompt-delivery.md",
         "references/32-liveliness-performance-framework.md",
         "references/113-animation-art-terminology-library-v4.3.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/segments/*/style",
@@ -132,8 +141,7 @@
         "/segments/*/mode",
         "/segments/*/mode_lock",
         "/segments/*/mode_selection_reason",
-        "/segments/*/references",
-        "/segments/*/subjects",
+        "/segments/*/audio_bindings",
         "/segments/*/summary",
         "/segments/*/overall_soundscape",
         "/segments/*/non_diegetic_music",
@@ -149,13 +157,15 @@
     },
     {
       "id": "continuity",
+      "enabled": true,
       "entry": "modules/continuity/SKILL.md",
       "reads": [
         "references/decisions/continuity.md",
         "references/80-continuity-ledger.md",
         "scripts/continuity_v2.py",
         "references/95-quality-gates.md",
-        "references/114-reference-binding-delivery-v4.3.6.md"
+        "references/114-reference-binding-delivery.md",
+        "references/120-precompile-shot-visibility-audit.md"
       ],
       "owns": [
         "/ledger/contract_version",
@@ -165,10 +175,8 @@
         "/ledger/events",
         "/ledger/requirements",
         "/ledger/coverage",
-        "/legacyContinuityProjection",
         "/shots/*/timeline_id",
         "/shots/*/story_order",
-        "/shots/*/continuity_facts",
         "/unresolved_threads"
       ],
       "checks_with": [

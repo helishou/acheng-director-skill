@@ -4,10 +4,10 @@
     {
       "joint_status": "PASSED",
       "segment_id": "MECHA_SEG01",
-      "input_revision": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
-      "sha256": "acf0e25ec2def781797c47b8a59b0bc2f5721c5b5400718911eb2bd0413de08c",
-      "binding_sha256": "d7f6d326eaf56de8816bbda85c0560bf855ffa4828c5c914867db6b4da883edd",
-      "upload_card_sha256": "4ec2c5f43a4d7fdc271507ca46cf4032de9882833b32df7955c0bf88538db379",
+      "input_revision": "1262d917f02c6528e7cfc4daaf7ea7c4cab61799d4d3c0cf45db46c57c80cb09",
+      "sha256": "1fd00edf7efa57ea8151e49ca920ff6eb80a45a6faa947d9c189d58f3b3582e2",
+      "binding_sha256": "9ce67b1dd93c41dd94d8e7a33b42b8a18ead861e00e26e917fd00827f8a2bfb4",
+      "upload_card_sha256": "0ca4a33a77fe8ba6654a736de371ae04fce5ffcc2f7302e269b65bf060e7c964",
       "visual_status": "UNVERIFIED"
     }
   ],

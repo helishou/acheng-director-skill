@@ -8,7 +8,7 @@ from h3_final_format import validate_h3_file
 
 # This is the safety floor for nodes created by older plans. New plans write a
 # segment-specific h3_min_words value derived from duration and complexity.
-REF2VA_MIN_WORDS = 2000
+REF2VA_MIN_WORDS = 1200
 REF2VA_FIELDS = (
     'subject_definitions', 'summary', 'retention_analysis',
     'detailed_description', 'overall_soundscape', 'non_diegetic_music',

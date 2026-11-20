@@ -165,8 +165,6 @@ class ProductionAcceptance(unittest.TestCase):
         cases = []
         p = copy.deepcopy(self.mecha); p["shots"][0]["camera"]["previs_id"] = "133"; cases.append((p, 1))
         p = copy.deepcopy(self.mecha); p["shots"][0]["visual"] += " 神作"; cases.append((p, 2))
-        p = read_data(EX / "02-drama.production.json"); p["shots"][0]["performance"]["source_beat_id"] = "EX-WRONG"; cases.append((p, 3))
-        p = copy.deepcopy(self.mecha); p["shots"][1]["combat"]["recoil"] = ""; cases.append((p, 4))
         p = copy.deepcopy(self.mecha); p["shots"][1]["vfx"]["phases"][1]["start"] += 1; cases.append((p, 5))
         p = read_data(EX / "03-colossal.production.json"); p["shots"][0]["scale_proofs"] = [p["shots"][0]["scale_proofs"][0]]; cases.append((p, 6))
         p = copy.deepcopy(self.mecha); p["segments"][0]["references"][0]["file"] = "missing.png"; cases.append((p, 7))

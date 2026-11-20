@@ -4,7 +4,7 @@
 
 [完整正文/草案](DRAMA_SEG02.h3.txt) · [独立上传卡](DRAMA_SEG02.upload.md)
 
-绑定版本：`b7cecf72549105eca6adb6207a4a3db25aac32f862623574ba782ea14770c6f8` · 正文 SHA-256：`4613f38d30de1c62b37d2a7b16b1c93e12563c6eecff831d93ebc72f4ac3995b`
+绑定版本：`249b039a59a240cd82302a2a99e0ab407ab637713374958c23cbf43427c331bc` · 正文 SHA-256：`dfc55b9a59b26501f0abfb90d227acc94aea6cb9e682c74855a5a4aa6cd1760c`
 
 参考图上传助手：本段无需上传参考图；已明确选择 T2VA。跨段身份效果仍需生成后检查。
 

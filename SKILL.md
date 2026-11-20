@@ -4,7 +4,7 @@ description: Acheng Director 用于编写和生产影视剧本、分镜、文戏
 
 metadata:
 
-  version: "4.3.9"
+  version: "4.3.10"
 
   trigger-words: [acheng-director, 阿城导演, 影视编剧, 影视导演, 分镜生产, 提示词编译, 剧本创作]
 
@@ -14,7 +14,7 @@ metadata:
 
 # Acheng Director（Acheng 电影级导演综合引擎）
 
-Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模块。事实、时间线、要求和覆盖声明属于 authored source；重放快照只存在于检查报告或隔离编译输入，不得写回正式源稿。报告分别显示登记覆盖、程序重放和“语义发现未执行”；缺少覆盖、旧报告或未知上游不得标 ready。旧稿先只读诊断，仅在用户明确升级后按新合同编辑。
+当前制作格式只有一条路径：根字段 `version: 2`、`prompt_assembly.version: 2`、`ledger.contract_version: 2`；镜头使用 `duration_frames`、`timeline_id`、`story_order` 和 Shot 局部帧。角色、场景、道具和关键帧通过 `subject_registry`、`subject_usages`、`keyframes` 表达；Clip 图片从主体/关键帧绑定派生，归档音频通过 `audio_bindings` 绑定。缺少任一当前标记、使用全局帧或旧 Clip `references` 的草稿停止解析与编辑，提示“请使用当前版 Acheng Director 升级后重新提交”，原稿保持不变。不做旧稿兼容解析、静默转换或自动迁移。`runtime.version` 是编译器版本，制作 `revision` 与 `publishedVersion` 是历史身份，不是源稿格式版本。连续性事实、时间线、要求和覆盖声明属于 authored source；重放快照只存在于检查报告或隔离编译输入，不得写回正式源稿。报告分别显示登记覆盖、程序重放和“语义发现未执行”；缺少覆盖、旧报告或未知上游不得标 ready。
 
 
 
@@ -24,21 +24,64 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 
 你是总导演及生产合同的唯一写入者。先读用户指定真值源、项目 brief 和当前场记；影视风格由项目决定。不要把历史盛唐画风、固定角色、固定 14 秒或固定无配乐带入新项目。技能调度指加载专业规范并按契约返回数据，不意味着启动额外代理或自动调用付费模型。
 
+画布执行的调度纪律（标准批次、批量读写、批量等待、单一写入负责人、生成前门禁梯、恢复顺序）以同项目 `canvas-video-production-sop` 技能的原生 MCP 操作预算为准；本 Skill 只维护导演源稿与域内参数，不另写一套调度规则。
+
 ### Infinite Canvas 集成：视频制作启动确认
 
 在本仓库的制作工作流中，凡本次交付包含视频，必须在剧情拆解、资产提示词或分镜设计前确认成片画幅。先检查当前请求和正式制作设置：用户已明确比例时直接沿用；已有非空 `settings.videoAspectRatio` 视为已确认；`settings.videoAspectRatioConfirmed=true` 且 `videoAspectRatio=null` 表示用户明确选择“沿用画布配置”；两者都没有时，在首次制作回复中询问 16:9、9:16、1:1、4:3、3:4、2:3、3:2、21:9、沿用画布配置或其他比例。若还有其他真正缺失的启动决定，将问题合并在同一轮；不得先开始创作再补问画幅。
 
 用户确认后，通过正式 `set_settings` 保存 `{ videoAspectRatio: <比例或沿用画布时为 null>, videoAspectRatioConfirmed: true }`，回读 revision 后再继续。纯资产包且不交付视频时跳过此问题。成片画幅只约束视频生成，角色设定图、STYLE_MOTHER、场景图和关键帧按各自用途设置比例。工作台已保存的内容交付模式与媒体生产模式优先；内容交付默认自动文件批处理，媒体生产默认逐项生成，不重复询问上游旧版固定的“自动文件／逐段互动”选择题，也不再次确认已保存的选择。数据操作遵循本项目 `canvas-video-production-sop` 适配规范。
 
+### Infinite Canvas 集成：Subject Prompt Assembly 与编译
+
+当前 Director 源稿统一使用根字段 `version: 2`。启用 Subject Prompt Assembly 时，先登记稳定 Subject，并通过 `entityRef` 绑定角色、场景或道具的正式实体；Subject 图片绑定可指向对应素材节点或智能图片节点，始终使用真实 `sourceNode.projectId/nodeId` 与选择策略；Shot 通过 Subject 使用对象和绑定，不自编 `<Picture N>` 编号。连续性事实只写入唯一权威 `ledger`，事实所属对象由 Subject 的实体引用解析；Shot 初态、事件和尾态由局部帧与连续性重放派生。Shot 是摄影原子，时长使用整数帧；Clip 只重组相邻 Shot，不重复保存 Prompt、Subject 列表或 Picture 编号。
+
+正式 Prompt、参考顺序与上传映射只由当前激活编译器从结构化源稿组装。Agent 只写结构字段，不在 `segments[].prompt` 或画布 Clip 中手工组装正式 Prompt。用户在画布明确编辑 Prompt 后，可要求反向同步；仅当本次编译回执提供的 SourceMap 能把全部修改唯一映射到单个 Shot 文本或对白字段时才写回，其他文本留在画布并报告歧义，不猜测修改摄影、身份、绑定或连续性。缺少 SourceMap 时保留手工 Prompt，不宣称同步完成。Canvas 工作台直接编辑唯一的 `draft.director.source`；v2 不另存 Shot/Segment 镜像。旧格式与现存 v2 双写稿只能由维护者用 `director-source-storage` 只读检查并显式迁移，不自动兼容或启动时清理。
+
+Infinite Canvas 的正式 H3 流程在编译应用成功后，必须把当前范围内所有 ready Clip 的编译 Prompt 交给已配置的翻译 LLM。描述与镜头指令译成英文并轻度润色；对白、歌词及画面中可见文字保留原文，包括门牌、标识、字幕、道具文字和手机/电脑/系统界面，无论是否加引号，因此译文可包含中文。工作台与 MCP 跳过 SHA-256 缓存命中项，其余提示词按顺序每批最多 3 条请求 LLM，按 Clip ID 拆回结果后一次原子写回。保留 H3 字段名、引用标签、镜头编号、时间、数字、事实和所有约束；不得补剧情、删减、改镜头节奏或变更引用。人工工作台使用“翻译已编译提示词（英文）”；Agent/MCP 使用 `production_translate_compiled_prompts`。翻译读取当前有效正式编译产物；只要目标映射与编译基线有效即可覆盖 H3 中先前的手动 Prompt，若翻译期间目标正文又发生变化则整批拒绝写回。翻译失败或编译未就绪时保留原提示词并停止该批生成。Backend 按每条源提示词 SHA-256 跨 UI 与 MCP 缓存成功译文，相同内容不重复请求；写回译文不回写导演源稿或伪造新的编译产物。
+
+Subject 图片与关键帧引用固定到 Backend 核验过的成功归档结果。`latest_success` 按持久任务顺序与批内输出顺序解析；历史浏览不能改变选择，恢复旧生成设置是独立的显式动作。编译和同步不授权图片、视频生成或发布。当前写入只接受 Director 源稿 v2；旧版源稿需要按当前合同重新整理并重新提交，不迁移改写旧源稿。
+
+### Infinite Canvas 集成：生成前编译门禁（只读、幂等）
+
+正式 Clip 生成前（工作台单段、批次候选、画布原生生成），先按同一 owner 调用 `production_get_readiness`，并逐段核对“产物有效 + Clip 已应用”。就绪不等于“提示词非空”：
+
+- 产物有效：当前作用域输入已编译，产物 `sha256` 与编译回执 `promptHash` 一致；
+- Clip 已应用：现场 Clip 的 `productionClipProjection.artifactId` 与 `promptHash` 指向该产物；
+- 该段没有未解决的依赖、参考缺图或其他执行阻塞；
+- 编译应用后已按上一节完成英文 LLM 翻译。
+
+判定只认上述派生身份，不比较正文：翻译和人工编辑会按设计改写 Clip 正文，正文不同是正常结果。存在任何 `blocked` 时不得提交生成，不创建任务、不占用付费队列。
+
+失败时按固定三段输出，便于直接处置：
+
+```text
+目标：SEG-EP3-030
+原因码：artifact_stale
+下一步：production_compile({ kind: "episode", id: "<episodeId>", operationId: "<new>", scope: { targetIds: ["SEG-EP3-030"] } })
+```
+
+禁止以下绕过：用快照、历史或聊天中的旧正文直接生成；跳过 `production_compile` 直接翻译或手改 Clip 后生成；把 `production_diagnose_clips` 的「不同」或 `inputOutdated` 当作放行依据；编译失败后用重复重试代替修改源稿。
+
+门禁只读且幂等：同一状态重复检查不写库、不重复编译、不追加确认。草稿保存、人工改正文、与目标无关的 Segment 编辑，以及没有 `productionClipProjection` 的旧 Clip 都不被拦截；诊断中的「不同」保持信息级。发布稿只与自身发布产物比较，不因草稿产物过期而阻塞。修复后从原入口重新提交，保留已有输入。
+
+### Infinite Canvas 集成：素材节点与共享资产
+
+角色、场景、道具登记使用正式 `production_edit`：已有实体沿 `patch_director_source` 更新，新增素材沿 `create_manual_director_asset` 一次登记资产卡、实体与 Subject。Backend 在同一事务内创建对应的角色／场景／道具节点；稳定关联为 owner + kind + entity ID，不按名称匹配，不另造可独立维护的描述副本。当前格式源稿缺节点时用 `production_prepare_targets` 的 `entity:character:<实体ID>`、`entity:scene:<实体ID>` 或 `entity:prop:<资产ID>` 补齐，读取短回执中的 revision；需要定位时用 `production_get_workbench` 的 `subject_workbench` 定向回读 `entityNodeSource` 中的真实 projectId/nodeId，保留原布局与连线。风格不随此节点接入自动创建。
+
+图片生成节点保留参数、任务与结果历史；它与素材身份节点职责分开。图片绑定沿 Subject/Shot 正式操作维护；素材节点消费当前有效图片，智能节点遵循 `node_selection/latest_success/selected_result`。使用已归档媒体，编译与生成冻结本轮输入；不因节点接入自动批准、发布或生成。
+
+剧目资产库是该剧目共享资产画布的目录视图。通用加入／更新复用 `assets_add/assets_upsert_batch` 的稳定 operationId、`canvasSource:{projectId,nodeId}` 与明确资产 ID，Backend 建立唯一源并原位转引用；智能生成只共享选定产物，原任务保持。引用编辑保留为本地字段修改，明确更新原资产才同步共享源，不另建同名资产。删除引用走画布 ops；删除库中源资产先用 `assets_get` 读取稳定来源，再用 `canvas_apply_commands` 删除该 sourceProjectId/sourceNodeId，有引用时按 Backend 返回的使用画布处理，不能绕过保护或删归档媒体。普通资产库沿原行为。正式制作采用共享素材版本仍走 `production_get_shared_assets`（⚠️ 2026-10-27 对账：`production_adopt_shared_asset` 已从 MCP 移除），以不可变版本 ID 选择媒体，并展示其真实审核状态；采用写入经 production_edit 的 `adopt_director_fields`，共享审核走 `production_start_shared_review`/`production_review_scene_work`。技术可用的 `generated`／`unreviewed` 版本可采用；登记与采用都不伪造批准证据，也不改写历史输入。具体工具参数以当轮 schema 为准。
+
 ### Infinite Canvas 集成：制作内容语言
 
-在中文用户未指定其他语言时，Agent 对话、问题与说明，以及导演工作台可读的制作源稿默认使用简体中文：故事梗概、分场名称和非对白正文、角色/场景/资产名称与说明、镜头标题和摘要、阻塞原因及审核说明。角色对白、歌词和画面内文字逐字保留原语言。Acheng 编译专用字段（如 `prompt_description`、`state_description` 和最终 H3 正文）继续遵循对应 Skill/模型合同要求的英文；同时填写中文展示字段（角色 `appearance`、资产 `description`、镜头 `display_summary` 等），不要把英文编译提示词当作唯一的用户可读说明。不要自行翻译既有确认稿，只将新写或用户明确要求修改的内容按此规则输出。
+制作工作台的可读描述默认使用简体中文：主体、角色、场景、道具、图片用途与保留/排除说明、镜头标题、动作、摄影理由、连续性事实名称、状态说明和事件原因。结构化源稿的 `display_summary`、`display_name`、`visual`、`state_description`、`prompt_description`、`value_descriptions` 等描述性正文也用中文，不能只留下给模型看的英文。字段键、稳定 ID、事实枚举、数值、引用标签及模型参数保持合同值；为机器枚举填写中文名称与中文说明，不用技术 ID 代替显示名称。导演源稿中的对白、歌词与画面内文字保留确认原文；正式 H3 Clip 编译后，描述和指令由一次批量 LLM 请求译为英文并轻度润色，对白、歌词和画面中可见文字（包括门牌、标识、字幕、道具文字及手机/电脑/系统界面）仍保留原文，无论是否加引号。编译器先适配 H3 官方格式；随后 Infinite Canvas 正式 H3 Clip 必须再经 LLM 后处理，不要求作者维护英文源稿。既有批准内容不自动改写；新增及用户明确要求修改的描述遵守中文规则。
+
+描述性原字段直接用中文创作并供人和编译器共同消费，不另建英文正文＋中文显示副本，不要求用户补写第二份中文说明。既有 `display_*` 字段仅保留兼容，不作为新增的双语维护要求。剧情节点按具体叙事变化设计；`goal/obstacle/choice/cost/result` 必须对应本节点的具体人物、行动和变化，不得用同一套通用套话填满各节点，不能为满足结构校验而把每行对白机械变成剧情节点。未确定的剧情分析应明确列为待设计，不能伪装成已完成。
 
 ### Infinite Canvas 集成：对话输出
 
 首次响应、阶段交付及后续对话直接围绕用户创作任务展开，不输出品牌开场横幅、能力宣传、作者推广、关注引导或固定版权与免责声明，也不将这些内容写入剧本、分镜和提示词交付文件。用户明确询问来源或许可时再按包内来源与许可文件回答。
-
-
 
 ## 4.0 薄自动编排层
 
@@ -50,6 +93,8 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 
 场景设计是 assets 分支下的按需专业支路，不新增第二套生产真值。请求明确需要场景美术、环境概念图、背景板、场景修复、多视图或 moodboard→场景转换时，编排器才追加 `scene-design` 节点；它输出 `scene_art_direction.json`、独立图像提示词、上传映射和 QA 证据，`write_paths` 为空。assets 负责把批准的场景事实合并进 `scene_registry`/`asset_cards`，shots、effects、model、continuity 保留各自权属。合同见 `references/105-scene-design-adapter-v4.md`。
 
+场景正文一律按[五层环境密度标准](references/117-scene-density-five-layer-v4.md)写：前景框景、主体承托环境、大面细节、远景地标、光影空气五层齐全，任何占画面大块的单一表面必须有多种异质细节；视频段落环境动态不少于三种且分属不同层。空间布局、地标、植被家族与主材质冻结进场景资产，机位、景别、框景具体化、光向落点与动态分配归镜头专属，两边不得互相改写。场景被指出空、平、假时，按该规范诊断重写，不用形容词或堆物替代层次。
+
 
 
 长输出达到上限时提交 `partial` 产物并保存 `current_cursor`，不得标记为 accepted；恢复从最后一个 `COMMITTED` 产物继续。只有缺少用户决策、不可替代素材、权限或外部能力时才暂停。详细合同见 `references/100-workflow-state-v4.md`、`references/101-artifact-commit-v4.md`、`references/102-orchestrator-adapter-v4.md` 与 `references/103-module-authority-v4.md`。
@@ -60,7 +105,7 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 
 
 
-恢复时同时保留最后已接受的完整产物和当前未完成节点的最新partial游标；partial永远不算完成。进入新revision须重新规划剩余工作，不能跳过依赖或用旧回执冒充新产物。4.3.8的检查范围、修复与尚需真实影像的边界见[本版审查报告](reports/v4.3.8-functional-review.md)。
+恢复时同时保留最后已接受的完整产物和当前未完成节点的最新partial游标；partial永远不算完成。进入新revision须重新规划剩余工作，不能跳过依赖或用旧回执冒充新产物。历史审查记录见[4.3.8功能消费链审查](reports/v4.3.8-functional-review.md)，它是历史证据，不是另一份活动合同。
 
 
 
@@ -72,7 +117,7 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 
 
 
-涉及任何 H3 交付时，先读[逐段参考绑定与联合交付](references/114-reference-binding-delivery-v4.3.6.md)。Shot 需求 → 批准素材版本 → 同源 H3/manifest/逐段上传卡 → 联合回读是强制连接；不是新增导演系统。自动模式直接展示每段操作卡，长正文留文件；只有 T2VA 且确实未声明引用需求时才写无需上传。缺素材保留详细草案和计划，禁止静默换模式。
+涉及 H3 交付时，参考[逐段绑定与联合交付](references/114-reference-binding-delivery.md)。Shot 的确需媒体引用时，绑定实际选择的归档文件、节点和内容哈希；未审核媒体不伪装成 approved。只缺风格或连续性质量信息时保留提示并继续编译。实际引用的文件、哈希或节点不一致时，仅阻止依赖该输入的目标。自动模式展示操作卡，长正文留文件；只有 T2VA 且确实未声明引用需求时才写无需上传。
 
 
 
@@ -106,7 +151,7 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 2. 从下表最早缺失阶段进入。已有确认剧本不重编；仅优化特效不重做分镜；没有外部视频不编造拉片观察。
 3. 所有阶段写入同一个 `production.json`；优先从 YAML 导入。双时长（帧窗／秒）在每镜校验；生成窗口默认 4–15 秒。`delivery_scope:full_production` 需全阶段验证。
 4. 阶段后执行对应确定性检查。失败回到该字段的负责人修复；只重跑受影响环节。外部素材缺失保留 `execution_gate`，不填假路径或假观察。
-5. 视频分支主要交付是GPT Image 2/2.5资产图提示词包与逐切片H3提示词包，各附真实参考素材上传清单；另附完整生产卡、连续性差量和质检结果。每条提示词重新声明本次主体、场景和状态，不能依赖上一条。身材／人格／情绪／运镜／状态代号只留内部索引，最终正文全部展开；找不到定义就报缺失，不猜字母含义。资产默认展示只输出资产名及可选状态／版本，完整正文与上传操作分离保存。编译完成不表示已生成影像。
+5. 视频分支主要交付是GPT Image 2/2.5资产图提示词包与逐切片H3提示词包，各附真实参考素材上传清单；另附完整生产卡、连续性差量和质检结果。每条独立提示词在全局定义处完整声明本次主体、场景和状态，不能依赖上一条；同一提示词内，稳定角色／场景定义集中写在 `subject_definitions`，镜头正文只写当镜可见的空间锚点、主体位置关系及确实发生的环境变化，不重复抄写整段场景设定。身材／人格／情绪／运镜／状态代号只留内部索引，最终正文全部展开；找不到定义就报缺失，不猜字母含义。资产默认展示只输出资产名及可选状态／版本，完整正文与上传操作分离保存。编译完成不表示已生成影像。
 6. 执行层只做一次非侵入式完整性门禁：锁定本次范围，检查阶段最低完整单元、反省略、证据诚实和未决项传播。门禁只能阻塞缺项或要求补全，不能截断、摘要化、改写或降低 H3／资产正文，也不启动第二调度器、后台任务或生成调用。
 
 ### 动画与全资产的风格锚定（纯提示词交付核心原则）
@@ -114,19 +159,19 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 **Acheng Director 是专业的提示词与分镜编译引擎，严禁智能体直接调用生图模型生成图片。智能体的核心职责是输出全套完备、相互锚定、工业级的优质提示词交付包。** 真实图片由用户在外部平台或后续独立任务中生成，智能体不发起生成、不等待出图。
 
 任何包含两项或以上角色、场景、道具、特效或关键帧图像的资产任务，默认 `style_policy: required`：
-1. **风格母图首要生成**：必须先按[STYLE MOTHER 风格锚定合同](references/62-style-anchor.md)交付一张低污染、无剧情身份的代表性风格母图提示词 `STYLE_MOTHER.image.txt`，锁定媒介（赛璐璐/写实/水墨等）、线条边缘、阴影分层、色板逻辑、材质响应与空气透视。
-2. **所有资产图强制锚定风格母图**：**人物（角色四视图）、道具（多角度/机构分解）、场景（多视角概念图）、特效及关键帧资产提示词，必须强制将 `STYLE_MOTHER` 作为风格参考锚点！**
+1. **风格母图是可选质量建议**：需要跨资产保持统一时，可按[STYLE MOTHER 风格锚定合同](references/62-style-anchor.md)编写低污染的代表性风格母图提示词；不因为尚无风格图而阻止源稿、其他提示词或已有媒体继续推进。
+2. **按需绑定风格参考**：人物、道具、场景、特效及关键帧可使用 `STYLE_MOTHER` 参考；实际选作生成输入的参考必须有真实归档文件、正确节点和匹配哈希。未审核状态保持如实标注，不影响技术有效媒体的使用。
    - 提示词正文必须显式包含风格锚定指令：继承母版的媒介、线宽质感、阴影分层、色板色调与材质响应，严格排除人物身份、脸型、构图与剧情动作的污染；
    - 逐槽位上传卡（`UPLOAD.md`）必须为每个资产明确标明将 `STYLE_MOTHER` 放置在指定参考图槽位。
 4. **三大资产纯粹性与交付红线**：
    - **无文字无水印**：所有资产图（四视图、场景、道具、关键帧）提示词必须显式注明无文字无水印负向约束（`Strict clean render: no text, no watermark, no labels`）；
    - **四视图去道具纯化**：人物四视图（正脸特写+正/侧/背面全身）只展示中立纯人体、发型五官与服装版型，两手中立空手，严禁塞入手持武器或复杂道具；
-   - **关键帧多图联动与决策问询**：关键帧不能只引用单一风格图，必须视剧情需要联动风格母图（`@图片1`）、场景图（`@图片2`）、角色四视图（`@图片3`）、道具图（`@图片4`），强制在提示词上方输出【上传参考助手说明】，并在正文中指派 `@图片几` 分工与无文字无水印要求；宿主 AI 必须强制执行关键帧参考图组合自检问询。
+   - **关键帧参考按镜头需要选择**：可联动风格、场景、角色和道具图，按真实上传顺序说明标签职责；无引用需求时无需创建 STYLE_MOTHER，也不重复询问已确认的参考选择。
 
 3. **执行工序严格时序（资产提示词全量就绪门禁）**：
    **H3 视频生成提示词必须在所有资产图提示词全部编写完毕并确认后才开始执行撰写！** 智能体先一次性完整输出包括 `STYLE_MOTHER`、角色四视图、多视角场景、核心道具与关键帧的全部高精度独立提示词（`.image.txt`）以及上传指引（`UPLOAD.md`）。在资产图提示词全部编写完成、参考槽位闭环后，方可启动下游 H3 视频生成提示词的编译。严禁资产提示词未完成前抢跑撰写 H3 提示词！
 
-通过 `style_lock` 显式绑定锚点版本、保留／排除范围和适用资产类型；锚点只控制媒介、线条、阴影、色板、材质、背景抽象和空气深度，身份图、场景图、ShotSpec 与精确动作拥有更高优先级。只有用户明确声明本次不要求跨资产风格一致时，才允许 `style_policy: waived` 或历史夹具 `legacy_unlocked`，并必须写 `style_policy_reason` 和“风格一致性不保证”。
+用户选择使用风格锚点时，通过 `style_lock` 绑定版本、保留/排除范围和适用资产类型。锚点只影响媒介、线条、阴影、色板、材质、背景抽象和空气深度，不能覆盖身份、场景、ShotSpec 与动作。没有锚点时保留风格建议为诊断，不要求用户补理由才能继续。
 
 ### 打戏 H3 的方向与速度门
 
@@ -135,7 +180,7 @@ Infinite Canvas ledger v2 制作按固定 runtime 的合同加载 continuity 模
 ### H3 详细度、极限值（2200-2900词）与模式锁
 
 Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式。每个 Ref2VA Segment 必须输出完整六字段，并按 `prompt_detail_policy` 计算本段密度：
-1. **动态密度与硬性上限（2200-2900 词）**：原定动态调整规则不变，默认最低词数为 `max(2000, 时长秒数×200)`，目标词数为 `max(2400, 时长秒数×240, 最低词数+200)`（处于 2200+ 区间）；combat、VFX、对白、多角色等增加有限复杂度预算。**坚决剔除“不设上限”，增加极限值 2900 词硬性封顶！** `detailed_description` 词数严格限定在 **2200-2900 词**，坚决杜绝输出上万词导致文本爆仓、信息稀释或超长截断。
+1. **动态密度与硬性上限（2200-2900 词）**：原定动态调整规则不变，默认最低词数为 `1200`（可按 `minimum_words_per_second` 显式抬高），目标词数为 `max(2400, 时长秒数×240, 最低词数+200)`；combat、VFX、对白、多角色等增加有限复杂度预算。**坚决剔除“不设上限”，增加极限值 2900 词硬性封顶！** `detailed_description` 词数严格限定在 **2200-2900 词**，坚决杜绝输出上万词导致文本爆仓、信息稀释或超长截断。
 2. **H3 多参考图与画风继承逻辑**：
    - 视频生成 AI（MiniMax H3）无法识别图片文件名，只能识别交互上传槽位的 `@图片1`、`@图片2`。
    - **参考图不能只引用风格锚点图**！一般情况下**只需参考关键帧、人设图、场景图**即可：
@@ -147,7 +192,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 3. **【上传参考助手说明】与槽位规范**：每个 H3 提示词正文上方必须配备规范的【上传参考助手说明】，列明每个槽位 `@图片几` 对应的真实文件名与职责；提示词正文中一律使用规范的 `@图片1`、`@图片2` 槽位代号，严禁使用模型无法理解的工程文件名。
 4. **逐镜展开与独立性**：每个镜头必须独立重建主体外观、空间位置、朝向、光线、起始状态、触发事实、动作因果、微动作／微表情、相机路径、声音时序和尾态。基础 FL2VA 与其他模式也必须保持同样的逐镜完整性；“同上”“沿用前段”不能替代正文。
 
-每个 Segment 必须显式写 `mode`、`mode_lock` 和 `mode_selection_reason`。已有模式未经用户授权不得在续写、重编或版本升级时切换；没有真实参考图不能伪造 Ref2VA 标签。H3 模式、风格锚定和资产生成是三个独立决策：H3-only 请求不自动启动 STYLE_MOTHER 或资产生产，只有明确生成资产时才启用资产前置节点。
+每个 Segment 必须显式写 `mode`、`mode_lock` 和 `mode_selection_reason`。已有模式未经用户授权不得在续写、重编或版本升级时切换；没有真实参考图不能伪造 Ref2VA 标签。H3 模式、风格锚定和资产生成是三个独立决策：H3-only 请求不自动启动 STYLE_MOTHER 或擅自生成资产，但续集进入 H3 分镜、编译前必须按目标 Shot 登记的场景核对可复用场景图及其实际引用；缺图时完成场景资产规划并停在生成授权边界，不得因用户只提出续做 H3 就跳过核对或假定纯文字环境。只有用户明确选择纯文字环境描述时才不要求场景图片；Shot 已声明 scene/environment 图片用途后，最终 H3 产物必须实际包含该图。
 
 达到宿主单次输出上限时必须分段续写，保存 `current_cursor`，下一次从上一个完整句子、Shot 或字段继续；不得用摘要、压缩版或降低详细度来适应上限。`scripts/animation_term_catalog.py` 与 `data/animation-art-terminology.json` 提供可选的原画／动画术语；每段默认选择 3–12 个与任务相关的术语，并把每个术语写入 `animation_term_evidence`，翻译为时间窗、可见事实、镜头／布局、声音或验收证据后才进入 H3。术语不能代替空间位置、朝向、动作因果和尾态，互斥曝光策略不能同时无条件启用；只有计划节点而没有展开证据的术语选择会被 H3 门禁阻塞。
 
@@ -193,7 +238,7 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 | `/script` 创意到剧本 | [10 剧本](references/10-scriptwriter-engine.md)、[11 多线与知情](references/11-story-architecture.md)、[12 人物润色](references/12-character-dialogue-revision.md) | 任意线路、伏笔、知情、关系、弧光与完整正文；场次/节拍覆盖检查 |
 
-| `/storyboard` 镜头拆解 | [20 分镜](references/20-storyboard-compiler.md)、[21 题材与容量](references/21-genre-camera-capacity.md) | ShotSpec、4–15秒装箱、001–132 Previs 绑定；闭合时间轴 |
+| `/storyboard` 镜头拆解 | [121 用户镜头偏好](references/121-user-shot-preferences.md)、[20 分镜](references/20-storyboard-compiler.md)、[21 题材与容量](references/21-genre-camera-capacity.md) | 先按用户偏好定多切镜、紧景别与浅景深，再落 ShotSpec、4–15秒装箱、001–132 Previs 绑定；闭合时间轴 |
 
 | `/deconstruct` 参考视频拉片 | [25 逆向拉片](references/25-combat-video-deconstructor.md) | 原始帧／PTS 证据、观察与推断分栏、攻防链；不声称微秒画面分辨率 |
 
@@ -205,9 +250,10 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 | `/assets` 全资产与关键帧 | [50 形体](references/50-character-morphology.md)、[60 图像](references/60-assets-and-keyframes.md)、[61 依赖](references/61-asset-dependency-production.md) | im2七步法；资产覆盖/版本/依赖/制作顺序；独立正文与上传清单；缺图显式草案 |
 
-| `/scene-design` 场景美术专业支路 | [105 场景设计适配](references/105-scene-design-adapter-v4.md)、[61 依赖](references/61-asset-dependency-production.md)、[62 风格锚定](references/62-style-anchor.md) | scene_art_direction 合同、场景图提示词、参考上传映射、多视图连续性与 QA；不直接写 production |
+| `/scene-design` 场景美术专业支路 | [105 场景设计适配](references/105-scene-design-adapter-v4.md)、[117 场景丰富度五层法](references/117-scene-density-five-layer-v4.md)、[61 依赖](references/61-asset-dependency-production.md)、[62 风格锚定](references/62-style-anchor.md) | scene_art_direction 合同、场景图提示词、参考上传映射、多视图连续性与 QA；场景正文按五层环境密度标准写并接受密度验收；不直接写 production |
 
-| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 契约 B；基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，最后执行不减内容的格式门 |
+| H3 编译前镜头复核 | [120 镜头画面与连续性事实复核](references/120-precompile-shot-visibility-audit.md) | 表演/动作与 Continuity 定稿后、H3 Prompt Assembly 前；逐 Shot 核对景别容量、画内主体/裁切/动作证据及可见事实勾选 |
+| `/h3-compile` | 已安装 `h3-prompt-writing`、[70 H3](references/70-minimax-h3-compiler.md)、[32 灵动表演](references/32-liveliness-performance-framework.md)、[120 编译前镜头复核](references/120-precompile-shot-visibility-audit.md)、[111 最终格式门](references/111-h3-final-format-pass-v4.md) | 先完成 120 复核，再按契约 B 编译基础三字段／Ref2VA 六字段，不能混装；将因果表演链和选定术语编译进本段正文，执行最终格式门；Infinite Canvas 编译应用后还必须完成英文 LLM 翻译；生成前先按“生成前编译门禁”核对就绪，未就绪不得提交生成 |
 
 | `/animation-terms` | [113 动画与原画术语库](references/113-animation-art-terminology-library-v4.3.md)、`scripts/animation_term_catalog.py` | 选择 3–12 个相关术语，检查互斥项，并将术语展开为可见事实、镜头路径、时间窗、声音与 QA 证据；不写生产字段 |
 
@@ -233,7 +279,23 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 
 
 
+## Agent 写入镜头的结构契约（MCP 强制）
+
+人工在制作台只用一张简表；结构约束落在 agent 侧。通过 MCP `production_edit` 写镜头时：
+
+- **文戏**：必须写齐五轨 `performance.tracks`，每轨要有 `cue`
+  `gaze` / `breath` / `shoulder` / `body_hands` / `dialogue`
+- **武戏**（`features.combat = true` 或本次带 `combat`）：必须写齐七层 `combat`
+  `force_source` / `trajectory` / `contact` / `resistance` / `impact_hold` / `transfer` / `recoil`
+- 同一镜不能同时按五轨与七层写入
+
+缺项直接拒写，返回 `SHOT_STRUCTURE_CONTRACT <shotId>: SHOT_COMBAT_STRUCTURE|SHOT_PERFORMANCE_STRUCTURE …` 并列出缺的字段。
+
+**这两套结构只做数据契约，不参与正文渲染**：编译仍只用 `shot.visual` 正文，摄影写 `camera`，声音写 `audio`。
+
 ## 三层总线与权属
+
+普通对白的自动切镜覆盖目前暂时从编译器停用。保留作者写入的摄影字段和对白时间，不再自动插入说话者近景及反应镜头指示。需要切镜时在 Shot 摄影设计中明确写出；生成片段时长不作为单镜最小时长。
 
 
 
@@ -252,6 +314,12 @@ Ref2VA 是有真实参考图、角色、场景或动作资产时的首选模式�
 ## 本地执行
 
 
+
+本地执行命令都以本版技能根目录为路径基准。运行前确认当前工作区根目录和本次实际加载的技能目录；技能根目录是包含本版 `SKILL.md` 的目录，不假定固定盘符或会话当前目录。仓库内副本从当前工作区的 `.agents/skills/acheng-director` 定位；外部安装版以加载时提供的实际位置为准。
+
+- 运行前确认目标脚本和输入文件存在；相对路径只在技能根目录下使用。
+- 路径无效时，分别核对工作区根目录、技能根目录和文件名。可用 `rg --files <技能根目录>/scripts` 查实际脚本名；文件名逐字采用文档或目录清单中的名称，不缩写、不猜别名。例如质量审计脚本是 `audit_storyboard_quality.py`，不是 `audit.py`。不要只换目录后重试同一条无效路径。
+- `rg` 已传入明确文件路径时无需再加 `-g`；确需 glob 时写 `-g '*.py'`，不要把星号写成 `\*.py`。
 
 在技能根目录运行（Python 3.10+；JSON 无额外依赖；YAML 输入需 PyYAML）：
 
@@ -315,9 +383,9 @@ python -m unittest discover -s scripts -p "test_*.py"
 
 
 
-样例入口：[重工业机甲](examples/01-hollywood-mecha-combat-h3.md)、[文戏对峙](examples/02-dramatic-micro-acting-h3.md)、[超巨构神魔对决](examples/03-colossal-scale-combat-h3.md)、[三集八线悬疑](examples/04-serial.production.md)、[非写实无特效动作](examples/05-ink.production.md)。完整样例数据是可复制的生产模板，修改题材时同时修改资产、动作与状态，不只替换角色名字。
+样例入口：[重工业机甲](examples/01-hollywood-mecha-combat-h3.md)、[文戏对峙](examples/02-dramatic-micro-acting-h3.md)、[超巨构神魔对决](examples/03-colossal-scale-combat-h3.md)、[三集八线悬疑](examples/04-serial.production.md)、[非写实无特效动作](examples/05-ink.production.md)。这些是内容与编译交付案例；仓库内 `examples/*.production.json` 是历史兼容 fixture（含 `version: "2.0"`、`legacy_fixture` 或旧 Shot/Segment 字段），不得作为新源稿模板复制。新稿结构只按[统一生产合同](references/90-production-contract.md)和当前 `production_get_contract` 返回的 schema/example 组装；任何历史 `.md` 内嵌结构也不能覆盖当前合同。
 
 
 
 ### 固定角色四格模板（用户指定）
-角色设定板统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。此条取代旧正/侧/背全身加正脸近景及横排规则；旧源稿须显式迁移，已确认媒体保持原版本。
+角色身份采用两阶段：先生成并归档单张中立全身身份图，锁定脸、体态、发型与服装；再以选定身份图作为明确参考制作四视图，保持身份源与四视图各自的媒体用途和历史。四视图统一为2×2：左上锁骨以上正脸，右上锁骨以上右侧脸，左下锁骨以下无头正面服装全身（头脸完全裁掉、双腿鞋完整），右下后脑到鞋底完整背面。正交无透视畸变、中性浅灰背景、空手中立、无文字。附属结构与画风只读项目角色事实，不复制示例角色的狐耳九尾。确认过的媒体与制作历史保持原版本。遇到不符合当前源稿合同的稿件，按顶部升级提示重新整理，不在原稿上迁移。

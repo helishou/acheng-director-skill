@@ -27,7 +27,7 @@
 
 ## 确定性入口
 
-H3 引用缺项现在直接阻塞“正式交付”，不能被默认 unresolved 披露伪装为可提交。草案仍可保存完整正文、计划及卡片。最终 H3 包还必须运行[114 联合门](114-reference-binding-delivery-v4.3.6.md)核对实际正文、逐段卡、manifest 和聊天视图；production 审核不能代替最终文件检查。
+H3 引用缺项现在直接阻塞“正式交付”，不能被默认 unresolved 披露伪装为可提交。草案仍可保存完整正文、计划及卡片。最终 H3 包还必须运行[114 联合门](114-reference-binding-delivery.md)核对实际正文、逐段卡、manifest 和聊天视图；production 审核不能代替最终文件检查。
 
 `scripts/delivery_integrity.py <stage> <production.json>` 是本门的只读执行入口。`stage` 使用 `script`、`storyboard`、`perform`、`action`、`vfx`、`assets`、`h3-compile`、`continue`、`audit` 或 `full`；它只读取生产数据和已登记参考文件，输出上述回执，不写回输入。`full` 必须声明 `delivery_scope: full_production`；`--require-ready` 才会把未解决参考图或未验证媒体升级为阻塞，默认仍把这些事实保留在 `unresolved`。模型正文中的“同上／如上／沿用前段”等省略 shorthand 会直接阻塞，用户对白原文不扫描。
 

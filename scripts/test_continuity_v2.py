@@ -1,7 +1,7 @@
 """Contract tests for registered-state replay, not semantic fact discovery."""
 import unittest
 
-from continuity_v2 import audit, digest
+from continuity_v2 import audit, coverage_digest, legacy_coverage_digest
 
 
 def production():
@@ -20,7 +20,7 @@ def production():
             "events": [],
             "requirements": [{"id": "R_HOLD", "timeline_id": "main", "shot_id": "SH01", "fact_id": "F_COAT", "kind": "hold", "value": "blue"}],
             "coverage": [{"id": "C_B01", "timeline_id": "main", "source_anchor": {"block_id": "B01"},
-                          "source_digest": digest({"scene_id": "ROOM", "block": scene["blocks"][0]}),
+                          "source_digest": coverage_digest(scene, scene["blocks"][0]),
                           "evidence_kind": "explicit_hold", "fact_ids": ["F_COAT"], "event_ids": [], "shot_ids": ["SH01"]}],
         },
     }
@@ -44,7 +44,20 @@ class ContinuityV2Tests(unittest.TestCase):
         value = production()
         value["script_scenes"][0]["blocks"][0]["text"] = "A changes to the red coat."
         result = audit(value)
-        self.assertIn("CONTINUITY_COVERAGE_STALE", {item["code"] for item in result["diagnostics"]})
+        diagnostic = next(item for item in result["diagnostics"] if item["code"] == "CONTINUITY_COVERAGE_STALE")
+        self.assertEqual(diagnostic["coverageRowId"], "C_B01")
+        self.assertEqual(diagnostic["blockId"], "B01")
+        self.assertEqual(diagnostic["evidenceKind"], "explicit_hold")
+
+    def test_multiple_stale_rows_for_one_block_are_individually_addressable(self):
+        value = production()
+        source = value["ledger"]["coverage"][0]
+        value["ledger"]["coverage"].append({**source, "id": "C_B01_INHERITED", "evidence_kind": "inherited_fact", "fact_ids": ["F_COAT"]})
+        value["script_scenes"][0]["blocks"][0]["text"] = "A changes to the red coat."
+        result = audit(value)
+        stale = [item for item in result["diagnostics"] if item["code"] == "CONTINUITY_COVERAGE_STALE"]
+        self.assertEqual({item["coverageRowId"] for item in stale}, {"C_B01", "C_B01_INHERITED"})
+        self.assertTrue(all(item["blockId"] == "B01" for item in stale))
 
     def test_bad_before_state_blocks_the_consumer_segment(self):
         value = production()
@@ -72,6 +85,37 @@ class ContinuityV2Tests(unittest.TestCase):
         value["segments"].append({"id": "SEG02", "shot_ids": ["SH02"]})
         result = audit(value, ["SEG01"])
         self.assertFalse(any(item.get("affectedTargets") == ["SEG02"] for item in result["diagnostics"]))
+
+    def test_replays_are_idempotent(self):
+        value = production()
+        self.assertEqual(audit(value), audit(value))
+
+    def test_display_fields_and_line_endings_do_not_stale_coverage(self):
+        value = production()
+        scene = value["script_scenes"][0]
+        block = scene["blocks"][0]
+        edited = {**block, "display_summary": "readable copy", "note": "layout scratch",
+                  "text": "\r\nA remains in the blue coat.  \r\n"}
+        self.assertEqual(coverage_digest(scene, edited), coverage_digest(scene, block))
+        self.assertNotEqual(legacy_coverage_digest(scene, edited), legacy_coverage_digest(scene, block))
+        scene["blocks"][0] = edited
+        self.assertEqual(audit(value)["status"], "passed")
+
+    def test_legacy_digest_keeps_existing_coverage_valid(self):
+        value = production()
+        scene = value["script_scenes"][0]
+        value["ledger"]["coverage"][0]["source_digest"] = legacy_coverage_digest(scene, scene["blocks"][0])
+        self.assertEqual(audit(value)["status"], "passed")
+
+    def test_requirement_edit_keeps_coverage_digests_and_scope(self):
+        value = production()
+        scene = value["script_scenes"][0]
+        before = [coverage_digest(scene, scene["blocks"][0])]
+        value["ledger"]["requirements"][0]["value"] = "red"
+        result = audit(value, ["SEG01"])
+        self.assertEqual(before, [coverage_digest(scene, scene["blocks"][0])])
+        self.assertTrue(any(item["code"] == "CONTINUITY_HOLD_MISMATCH" for item in result["diagnostics"]))
+        self.assertTrue(all(item.get("affectedTargets", []) in ([], ["SEG01"]) for item in result["diagnostics"]))
 
 
 if __name__ == "__main__":

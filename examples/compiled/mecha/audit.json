@@ -2,9 +2,9 @@
   "project_id": "EXAMPLE_MECHA",
   "status": "PASS",
   "score": 100.0,
-  "applicable_gates": 8,
+  "applicable_gates": 7,
   "scope": "structural-contract-only",
-  "production_sha256": "10d2529be4d849e0485b2214651fd70565ba70cabfb3b525afe417ccb08e6e36",
+  "production_sha256": "1262d917f02c6528e7cfc4daaf7ea7c4cab61799d4d3c0cf45db46c57c80cb09",
   "gates": [
     {
       "gate": "timeline_closure",
@@ -33,9 +33,10 @@
     },
     {
       "gate": "combat_calculus",
-      "status": "PASS",
-      "score": 10,
-      "errors": []
+      "status": "N/A",
+      "score": null,
+      "errors": [],
+      "reason": "No applicable shots"
     },
     {
       "gate": "tri_state_vfx",

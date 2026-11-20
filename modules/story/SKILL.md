@@ -15,6 +15,6 @@ metadata:
 
 确认稿和终局先锁；仅从缺失的创作阶段进入。先建立任意数量剧情线、知情事件与伏笔，再写完整分场正文。每拍的选择与代价必须落在场上行动，禁改对白逐字保留。
 
-返回story与script_scenes；引用已登记角色和场景，新增对象交主导演登记。运行post_hooks.py script；内容复核因果、人物声音、误导公平及未兑现项目。
+返回正式源稿的story与script_scenes字段 patch；它们不是 `director.story` API 包装字段。引用已登记角色和场景，新增对象交主导演登记。运行post_hooks.py script；内容复核因果、人物声音、误导公平及未兑现项目。
 
 字段写入白名单取[模块登记](../../data/module-registry.json)。回包包含request_id/input_revision/module/status/attempt/patch/evidence/unresolved；最多初次加一次有证据的修正。只改允许路径，不能把其他模块的建议直接写成已确认事实。

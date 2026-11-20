@@ -1,6 +1,6 @@
 # 模型输出：把实际参考消费到正文和上传步骤
 
-执行方式见 [115](../115-directed-decisions.md)。先读已安装 h3-prompt-writing 的对应指南；本指南不更改字段、模式、详细度或最终格式门。生产引用依据 [114](../114-reference-binding-delivery-v4.3.6.md)。
+执行方式见 [115](../115-directed-decisions.md)。先读已安装 h3-prompt-writing 的对应指南；本指南不更改字段、模式、详细度或最终格式门。生产引用依据 [114](../114-reference-binding-delivery.md)。
 
 ## M0｜工序前置与资产就绪自检门禁（Sequence & Asset Readiness Gate）
 

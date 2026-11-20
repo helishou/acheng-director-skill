@@ -10,4 +10,4 @@
 
 参考图：必须上传以下全部文件，顺序与正文 Reference image 编号一致。
 
-1. [参考图 1](references/6cb5eee882c10bd974b970f53d456ffed1c03c8fa82f964ba6210b841d88d4f2.png) — composition；the confrontation between Forge and Ward；保留：only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward；不继承：the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image
+1. [参考图 1](references/595ea375ed8f7c725fcb314630156ca1ee42814567f2d4e4f828aceda5d9e540.png) — composition；the confrontation between Forge and Ward；保留：only Panel 01's left-right placement and ground line; the left block marked A denotes Forge, and the right block marked B denotes Ward；不继承：the grid, letters, panel numbers, gray block anatomy and flat diagram shading; produce one full-frame image

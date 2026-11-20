@@ -1,8 +1,8 @@
 {
   "project_id": "EXAMPLE_SUSPENSE_WHISPER",
   "status": "FAIL",
-  "score": 87.5,
-  "applicable_gates": 8,
+  "score": 85.71,
+  "applicable_gates": 7,
   "scope": "structural-contract-only",
   "production_sha256": "b0d0f896cd1e4c304229987a50f443eecad42fe965c77d6e270a9f135fa0ad58",
   "gates": [
@@ -26,9 +26,10 @@
     },
     {
       "gate": "micro_acting",
-      "status": "PASS",
-      "score": 10,
-      "errors": []
+      "status": "N/A",
+      "score": null,
+      "errors": [],
+      "reason": "No applicable shots"
     },
     {
       "gate": "combat_calculus",

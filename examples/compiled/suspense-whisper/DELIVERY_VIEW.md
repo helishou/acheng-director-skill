@@ -62,7 +62,7 @@ Create a low-key live-action suspense keyframe in an abandoned archive. Ning Yue
 
 [完整正文/草案](SUSPENSE_SEG01.h3.draft.txt) · [独立上传卡](SUSPENSE_SEG01.upload.md)
 
-绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`0b651a3906a76e6faafbadfb871518486bdc45a81078597d2620fed3c460e586`
+绑定版本：`0de2bb927100f76588be86b209cea898be3fac307510be12ab16a089ebbf73d7` · 正文 SHA-256：`a54ceeaea78db3a329b107b503940d368adb27ea830aa489e4bfb9378dd7f5fa`
 
 参考图上传助手：每段是独立请求；按顺序上传实际媒体，不上传 `.image.txt` 或本卡。
 
@@ -73,7 +73,6 @@ Create a low-key live-action suspense keyframe in an abandoned archive. Ning Yue
 视频参考：未声明；不虚构 Video 标签。音频参考：未声明；不虚构 Audio 标签。
 
 - 阻塞：<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png
-- 阻塞：h3_schema: missing reference file: media/PENDING-suspense-archive-approved.png
 
 下一步：补齐上述素材、版本或合同缺项后重新编译到新目录；保留创作全文，不改名冒充正式稿，不切换 T2VA。
 平台上传：当前卡不证明云端已有素材。上传确认必须另附绑定本段、正文与素材哈希的入口回执。
@@ -95,7 +94,6 @@ Create a low-key live-action suspense keyframe in an abandoned archive. Ning Yue
 
 当前阻塞：
 - SUSPENSE_SEG01：<Picture 1>: missing or empty reference media: PENDING-suspense-archive-approved.png
-- SUSPENSE_SEG01：h3_schema: missing reference file: media/PENDING-suspense-archive-approved.png
 - SUSPENSE_SEG01：<Picture 1> 待真实素材绑定
 
 自动文件模式：长 H3 正文留在独立文件；本页保留创作摘要、资产提示词、分段地图和每段上传助手，不能用总清单链接代替操作卡。

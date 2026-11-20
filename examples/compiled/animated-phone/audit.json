@@ -1,8 +1,8 @@
 {
   "project_id": "EXAMPLE_ANIMATED_PHONE",
   "status": "FAIL",
-  "score": 87.5,
-  "applicable_gates": 8,
+  "score": 85.71,
+  "applicable_gates": 7,
   "scope": "structural-contract-only",
   "production_sha256": "4fa0f264d43a10c4cf11409905f576199fa0245c356d2eb89d211c4c74be2ec1",
   "gates": [
@@ -26,9 +26,10 @@
     },
     {
       "gate": "micro_acting",
-      "status": "PASS",
-      "score": 10,
-      "errors": []
+      "status": "N/A",
+      "score": null,
+      "errors": [],
+      "reason": "No applicable shots"
     },
     {
       "gate": "combat_calculus",

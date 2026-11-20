@@ -2,9 +2,9 @@
   "project_id": "EXAMPLE_DRAMA",
   "status": "PASS",
   "score": 100.0,
-  "applicable_gates": 8,
+  "applicable_gates": 6,
   "scope": "structural-contract-only",
-  "production_sha256": "f9dfddefe7973e00ab3a88617a3ebc72a6e3d8ebd92b3af52fd56b15edb5d33f",
+  "production_sha256": "6e57d53db5f41eb5757c631ac1080ca4aa6fcd78b0c89a89cef94eb0e8071e8e",
   "gates": [
     {
       "gate": "timeline_closure",
@@ -26,9 +26,10 @@
     },
     {
       "gate": "micro_acting",
-      "status": "PASS",
-      "score": 10,
-      "errors": []
+      "status": "N/A",
+      "score": null,
+      "errors": [],
+      "reason": "No applicable shots"
     },
     {
       "gate": "combat_calculus",
@@ -92,9 +93,10 @@
     },
     {
       "gate": "performance_liveliness",
-      "status": "PASS",
-      "score": 10,
-      "errors": []
+      "status": "N/A",
+      "score": null,
+      "errors": [],
+      "reason": "No applicable shots"
     }
   ],
   "visual_status": "UNVERIFIED",

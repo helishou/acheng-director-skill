@@ -44,6 +44,41 @@ def bundle_digests(directory):
 
 
 class CompiledExampleFreshness(unittest.TestCase):
+    def test_offline_compilers_accept_target_scoped_batches(self):
+        video_source = EXAMPLES / "04-serial.production.json"
+        production = read_data(video_source)
+        segment_ids = [segment["id"] for segment in production["segments"][:2]]
+        self.assertEqual(len(segment_ids), 2)
+        with tempfile.TemporaryDirectory() as temporary:
+            video_out = Path(temporary) / "video"
+            compile_package(video_source, video_out, segment_ids=segment_ids)
+            video_index = json.loads((video_out / "index.json").read_text(encoding="utf-8"))
+            self.assertEqual([item["segment_id"] for item in video_index["segments"]], segment_ids)
+            self.assertEqual(video_index["selected_segment_ids"], segment_ids)
+            self.assertEqual(video_index["asset_prompts"], [], "a scoped H3 package must not re-export unrelated image prompts")
+
+            unknown_video_out = Path(temporary) / "unknown-video"
+            with self.assertRaisesRegex(ValueError, "unknown Segment"):
+                compile_package(video_source, unknown_video_out, segment_ids=[*segment_ids, "missing-segment"])
+            self.assertFalse(unknown_video_out.exists())
+
+    def test_asset_compiler_accepts_target_scoped_batches(self):
+        source = EXAMPLES / "04-serial.production.json"
+        production = read_data(source)
+        asset_ids = [asset["id"] for asset in production["asset_cards"][:2]]
+        self.assertEqual(len(asset_ids), 2)
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "assets"
+            compile_assets(source, output, allow_missing=bool(production.get("asset_plan")), asset_ids=asset_ids)
+            index = json.loads((output / "index.json").read_text(encoding="utf-8"))
+            self.assertEqual([item["asset_id"] for item in index["assets"]], asset_ids)
+            self.assertEqual(index["selected_asset_ids"], asset_ids)
+
+            unknown_output = Path(temporary) / "unknown-assets"
+            with self.assertRaisesRegex(ValueError, "unknown Asset"):
+                compile_assets(source, unknown_output, allow_missing=True, asset_ids=[*asset_ids, "missing-asset"])
+            self.assertFalse(unknown_output.exists())
+
     def test_every_example_recompiles_to_its_committed_bundle(self):
         sources = sorted(EXAMPLES.glob("*.production.json"))
         self.assertTrue(sources, "No example production files found")

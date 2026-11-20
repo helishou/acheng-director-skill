@@ -21,6 +21,8 @@
 
 每事件有唯一 ID、发生 frame、source_shot、kind、target、before、after、reason。弹药 `after = before + delta`，不允许负数；增弹需要 reload/resupply 理由及相应资源来源，不能凭“下一镜”增弹。道具转移 before.owner 必须为当前持有者，after.owner 只能是已登记角色或场所；落地也要位置。伤势、破坏或所有权的镜头结果必须通过 `outcome_events` 连接到事件。
 
+事件发生在 Shot 的第 0 帧时，`before` 仍用于账本重放核验，但编译后的可见开场状态直接采用 `after`；不能把变化前状态写成该镜头的开场状态。
+
 机器审查从 initial 逐事件重放，核对 before、frame 所属镜头及最终 snapshot；每个镜头的 `state_in/state_out` 必须与重放结果对应，跨 Segment 同样检查。任一“上镜掉枪、下镜又持枪”要么补真实拾取事件，要么修镜头。
 
 ## 冷热数据分工
